@@ -31,22 +31,27 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
   );
 
   return (
-    <div id="expertise" className="mt-16 scroll-mt-28 sm:mt-28">
-      <div className="gallery-section-intro">
-        <p className="gallery-label mb-4 sm:mb-6">Expertise</p>
+    <div id="expertise" className="mt-12 scroll-mt-28 sm:mt-20 lg:mt-28">
+      <div className="max-w-2xl">
+        <p className="gallery-label mb-3 sm:mb-4">Expertise</p>
         <h2 className="gallery-subheading">Skills & Expertise</h2>
       </div>
 
-      <div className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-10">
+      <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-6">
         {categories.map((category) => (
-          <div key={category} className="gallery-card-muted">
-            <h3 className="gallery-footer-heading capitalize">{category}</h3>
-            <ul className="mt-4 divide-y divide-border/50 sm:mt-0 sm:divide-none sm:space-y-3">
+          <div
+            key={category}
+            className="rounded-sm border border-border/50 bg-stone-light/30 p-4 sm:p-5"
+          >
+            <h3 className="font-serif text-base capitalize tracking-[0.04em] text-foreground sm:text-sm sm:font-sans sm:font-medium sm:uppercase sm:tracking-[0.2em] sm:text-muted-foreground">
+              {category}
+            </h3>
+            <ul className="mt-3 flex flex-wrap gap-2">
               {skills[category].map((skill, index) => (
                 <li
                   key={skill}
                   className={cn(
-                    "gallery-list-item",
+                    "rounded-sm border border-border/60 bg-background px-3 py-1.5 font-sans text-xs tracking-wide text-foreground/80 sm:text-sm",
                     !showAll && index >= MOBILE_LIST_LIMIT && "max-md:hidden"
                   )}
                 >
@@ -59,7 +64,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
       </div>
 
       {!showAll && hasHiddenSkills && (
-        <div className="mt-6 md:hidden">
+        <div className="mt-5 md:hidden">
           <Link href="#expertise" className="gallery-link">
             View all skills
             <ArrowRight className="h-3.5 w-3.5" />

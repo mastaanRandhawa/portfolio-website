@@ -1,6 +1,5 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { ContactForm } from "@/components/sections/contact-form";
-import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { fetchSiteConfig } from "@/lib/api";
 import { buildMetadata } from "@/lib/seo";
 
@@ -21,51 +20,49 @@ export default async function ContactPage() {
         title="Contact Us"
         description="Tell us about your project and we'll get back to you within 24 hours."
       />
-      <section className="gallery-section pt-0">
+      <section className="pb-16 pt-6 sm:pb-24 sm:pt-8 lg:pb-32">
         <div className="gallery-container">
-          <div className="grid gap-16 sm:gap-20 lg:grid-cols-12 lg:gap-32">
-            <ScrollReveal className="lg:col-span-7">
-              <p className="gallery-label mb-4 sm:mb-6">Inquiry</p>
+          <div className="grid gap-10 sm:gap-14 lg:grid-cols-12 lg:gap-20">
+            <div className="lg:col-span-7">
+              <p className="gallery-label mb-3">Inquiry</p>
               <p className="gallery-prose max-w-xl">
                 Share a few details about your project. We review every message personally and respond within one business day.
               </p>
-              <div className="mt-10 sm:mt-16">
+              <div className="mt-8 sm:mt-10">
                 <ContactForm contactEmail={site.contact.email} />
               </div>
-            </ScrollReveal>
+            </div>
 
-            <aside className="lg:col-span-5 lg:pt-2">
-              <ScrollReveal delay={0.08}>
-                <p className="gallery-label mb-8 sm:mb-12">Details</p>
-                <ul className="space-y-8 sm:space-y-12">
-                  <li>
-                    <p className="gallery-label mb-3">Email</p>
-                    <a
-                      href={`mailto:${site.contact.email}`}
-                      className="font-serif text-xl tracking-[0.02em] text-foreground/85 transition-opacity hover:opacity-60"
-                    >
-                      {site.contact.email}
-                    </a>
-                  </li>
-                  <li>
-                    <p className="gallery-label mb-3">Phone</p>
-                    <a
-                      href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
-                      className="font-serif text-xl tracking-[0.02em] text-foreground/85 transition-opacity hover:opacity-60"
-                    >
-                      {site.contact.phone}
-                    </a>
-                  </li>
-                  <li>
-                    <p className="gallery-label mb-3">Location</p>
-                    <p className="gallery-prose">{site.contact.location}</p>
-                  </li>
-                  <li>
-                    <p className="gallery-label mb-3">Hours</p>
-                    <p className="gallery-prose">{site.contact.businessHours}</p>
-                  </li>
-                </ul>
-              </ScrollReveal>
+            <aside className="lg:col-span-5 lg:pt-1">
+              <p className="gallery-label mb-6 sm:mb-8">Details</p>
+              <ul className="space-y-6 sm:space-y-8">
+                <li>
+                  <p className="gallery-label mb-2">Email</p>
+                  <a
+                    href={`mailto:${site.contact.email}`}
+                    className="font-serif text-lg tracking-[0.02em] text-foreground/85 transition-opacity hover:opacity-60 sm:text-xl"
+                  >
+                    {site.contact.email}
+                  </a>
+                </li>
+                <li>
+                  <p className="gallery-label mb-2">Phone</p>
+                  <a
+                    href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
+                    className="font-serif text-lg tracking-[0.02em] text-foreground/85 transition-opacity hover:opacity-60 sm:text-xl"
+                  >
+                    {site.contact.phone}
+                  </a>
+                </li>
+                <li>
+                  <p className="gallery-label mb-2">Location</p>
+                  <p className="gallery-prose">{site.contact.location}</p>
+                </li>
+                <li>
+                  <p className="gallery-label mb-2">Hours</p>
+                  <p className="gallery-prose">{site.contact.businessHours}</p>
+                </li>
+              </ul>
             </aside>
           </div>
         </div>

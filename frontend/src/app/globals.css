@@ -194,7 +194,7 @@
   }
 
   .gallery-section {
-    @apply py-24 sm:py-32 lg:py-40;
+    @apply py-16 sm:py-24 lg:py-40;
   }
 
   .gallery-grid {
@@ -230,7 +230,7 @@
   }
 
   .gallery-section-intro {
-    @apply mb-10 max-w-2xl sm:mb-16;
+    @apply mb-0 max-w-2xl;
   }
 
   .gallery-item-title {

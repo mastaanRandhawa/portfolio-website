@@ -14,7 +14,7 @@ export function ServiceCard({
   animate?: boolean;
 }) {
   const card = (
-      <article className="gallery-card group flex h-full flex-col gap-4 sm:gap-5">
+      <article className="group flex h-full flex-col gap-3 rounded-sm border border-border/50 bg-stone-light/35 p-4 sm:gap-4 sm:border-border/60 sm:bg-stone-light/50 sm:p-5 lg:border-0 lg:bg-transparent lg:p-0">
         <GalleryGlyph
           name={service.icon}
           className="h-7 w-7 text-foreground/40 sm:h-8 sm:w-8"
