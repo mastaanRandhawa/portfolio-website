@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ContactSubmission {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  budget      String
+  projectType String   @map("project_type")
+  message     String
+  ipAddress   String?  @map("ip_address")
+  emailSent   Boolean  @default(false) @map("email_sent")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([email])
+  @@index([createdAt])
+  @@map("contact_submissions")
+}
+
+model RateLimitEntry {
+  id        String   @id @default(cuid())
+  ip        String   @unique
+  count     Int      @default(1)
+  resetTime DateTime @map("reset_time")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("rate_limit_entries")
+}

@@ -20,6 +20,10 @@
 # backend
 /backend/dist/
 
+# prisma
+**/prisma/*.db
+**/prisma/*.db-journal
+
 # production
 /build
 

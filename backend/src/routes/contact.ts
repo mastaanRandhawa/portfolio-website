@@ -3,6 +3,10 @@ import { z } from "zod";
 import { Resend } from "resend";
 import { getSiteConfig } from "../lib/content.js";
 import { checkRateLimit } from "../lib/rate-limit.js";
+import {
+  createContactSubmission,
+  markContactEmailSent,
+} from "../lib/contact-repository.js";
 import type { Env } from "../config/env.js";
 
 const contactSchema = z.object({
@@ -24,7 +28,7 @@ export function createContactRoutes(env: Env) {
       c.req.header("x-forwarded-for")?.split(",")[0]?.trim() ??
       c.req.header("x-real-ip") ??
       "unknown";
-    const rateLimitResult = checkRateLimit(ip);
+    const rateLimitResult = await checkRateLimit(ip);
 
     if (!rateLimitResult.success) {
       return c.json({ error: "Too many requests. Please try again later." }, 429);
@@ -37,6 +41,17 @@ export function createContactRoutes(env: Env) {
       if (data.website) {
         return c.json({ success: true });
       }
+
+      const submission = await createContactSubmission({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        company: data.company,
+        budget: data.budget,
+        projectType: data.projectType,
+        message: data.message,
+        ipAddress: ip,
+      });
 
       const site = getSiteConfig();
 
@@ -58,6 +73,7 @@ export function createContactRoutes(env: Env) {
             <p>${data.message}</p>
           `,
         });
+        await markContactEmailSent(submission.id);
       } else {
         console.log("Contact form submission (no RESEND_API_KEY):", data);
       }

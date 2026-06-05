@@ -5,13 +5,24 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "prisma generate && tsc",
+    "prestart": "prisma migrate deploy",
     "start": "node dist/index.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.14.4",
     "@portfolio/shared": "*",
+    "@prisma/client": "^6.9.0",
     "gray-matter": "^4.0.3",
     "hono": "^4.7.11",
     "resend": "^6.12.4",
@@ -19,6 +30,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "prisma": "^6.9.0",
     "tsx": "^4.19.4",
     "typescript": "^5"
   }

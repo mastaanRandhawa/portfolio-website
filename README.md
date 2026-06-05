@@ -15,8 +15,9 @@ portfolio-website/
 ## Tech Stack
 
 - **Frontend:** Next.js 16, TypeScript, Tailwind CSS v4, shadcn/ui
-- **Backend:** Hono, Node 20, Zod, Resend (optional)
+- **Backend:** Hono, Node 20, Prisma, PostgreSQL, Zod, Resend (optional)
 - **Content:** JSON + Markdown files in `backend/content/`
+- **Database:** Contact submissions and rate limits via Prisma (PostgreSQL)
 - **Deployment:** GitHub Pages (frontend) + Render/Railway (backend)
 
 ## Getting Started
@@ -38,9 +39,18 @@ npm install
 
 ```env
 PORT=4000
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/portfolio?schema=public
 CORS_ORIGINS=http://localhost:3000,https://mastaanrandhawa.github.io
 RESEND_API_KEY=          # optional — logs to console if unset
 RESEND_FROM_EMAIL=
+```
+
+**Database setup (local):**
+
+Use a PostgreSQL database — e.g. [Neon](https://neon.tech), [Supabase](https://supabase.com), or Render Postgres. Set `DATABASE_URL` in `backend/.env`, then run migrations:
+
+```bash
+npm run db:migrate -w backend
 ```
 
 **Frontend** — copy `frontend/.env.example` to `frontend/.env.local`:
@@ -104,7 +114,7 @@ After editing content locally, restart is not required — the backend reads fil
 | GET | `/api/process` | Process steps |
 | GET | `/api/projects` | All projects (`?featured=true` for featured only) |
 | GET | `/api/projects/:slug` | Single project |
-| POST | `/api/contact` | Contact form submission |
+| POST | `/api/contact` | Contact form submission (saved to database) |
 
 ## Scripts
 
@@ -113,26 +123,31 @@ After editing content locally, restart is not required — the backend reads fil
 | `npm run dev` | Start backend + frontend concurrently |
 | `npm run build` | Build backend and frontend |
 | `npm run lint` | Lint both workspaces |
+| `npm run db:migrate -w backend` | Run Prisma migrations (local) |
+| `npm run db:studio -w backend` | Open Prisma Studio |
 
 ## Deployment
 
 ### Backend (Render)
 
 1. Create a **Web Service** on [Render](https://render.com)
-2. Connect this repo; set **Root Directory** to repo root
-3. Use **Docker** with `backend/Dockerfile` (or use `backend/render.yaml` Blueprint)
-4. Set environment variables:
+2. Connect this repo; set **Root Directory** to repo root (or use `backend/render.yaml` Blueprint)
+3. **Runtime:** Node — build: `npm ci && npm run build -w backend`, start: `npm run start -w backend`
+4. Add a **PostgreSQL** database (Render Postgres or external provider)
+5. Set environment variables:
+   - `DATABASE_URL` (from your Postgres instance)
    - `RESEND_API_KEY`, `RESEND_FROM_EMAIL`
    - `CORS_ORIGINS=https://mastaanrandhawa.github.io,http://localhost:3000`
-5. Health check path: `/health`
-6. Note the service URL (e.g. `https://doxa-api.onrender.com`)
+6. Health check path: `/health`
+7. Note the service URL (e.g. `https://doxa-api.onrender.com`)
 
 ### Backend (Railway)
 
-1. Create a new project from this repo
-2. Set the service root to `backend/` or use the Dockerfile at `backend/Dockerfile` with context `.`
-3. Add the same env vars as above
-4. Expose port `4000`
+1. Create a new project from this repo (monorepo root)
+2. **Build command:** `npm ci && npm run build -w backend`
+3. **Start command:** `npm run start -w backend`
+4. Add PostgreSQL and the same env vars as Render
+5. Railway sets `PORT` automatically — the backend reads it from the environment
 
 ### Frontend (GitHub Pages)
 
@@ -162,6 +177,8 @@ npm run build -w frontend
 - [ ] Backend deployed and `/health` returns OK
 - [ ] `API_URL` GitHub secret set to production backend URL
 - [ ] `CORS_ORIGINS` includes `https://mastaanrandhawa.github.io`
+- [ ] `DATABASE_URL` set on backend (PostgreSQL)
+- [ ] Prisma migrations applied (`prestart` runs `prisma migrate deploy` on deploy)
 - [ ] `RESEND_API_KEY` set on backend for contact emails
 - [ ] GitHub Pages workflow succeeds
 - [ ] Contact form submits from live site

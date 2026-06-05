@@ -2,6 +2,7 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { loadEnv } from "./config/env.js";
 import { corsHeaders } from "./middleware/cors.js";
+import { prisma } from "./lib/prisma.js";
 import { healthRoutes } from "./routes/health.js";
 import { contentRoutes } from "./routes/content.js";
 import { createContactRoutes } from "./routes/contact.js";
@@ -40,6 +41,14 @@ app.onError((err, c) => {
 });
 
 const port = env.PORT;
+
+async function shutdown() {
+  await prisma.$disconnect();
+  process.exit(0);
+}
+
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);
 
 console.log(`Backend server running on http://localhost:${port}`);
 

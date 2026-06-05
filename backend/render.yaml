@@ -1,18 +1,19 @@
 services:
   - type: web
     name: doxa-studios-api
-    runtime: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: .
+    runtime: node
+    rootDir: .
+    buildCommand: npm ci && npm run build -w backend
+    startCommand: npm run start -w backend
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 4000
       - key: CORS_ORIGINS
         value: https://mastaanrandhawa.github.io,http://localhost:3000
       - key: RESEND_API_KEY
         sync: false
       - key: RESEND_FROM_EMAIL
+        sync: false
+      - key: DATABASE_URL
         sync: false
