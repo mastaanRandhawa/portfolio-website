@@ -22,9 +22,10 @@ interface DesignTestimonialProps {
 export function DesignTestimonial({
   testimonials,
   className,
-  autoAdvanceMs = 6000,
+  autoAdvanceMs = 12000,
 }: DesignTestimonialProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const mouseX = useMotionValue(0);
@@ -56,10 +57,32 @@ export function DesignTestimonial({
   }, [testimonials.length]);
 
   useEffect(() => {
-    if (testimonials.length <= 1) return;
+    if (testimonials.length <= 1 || isPaused) return;
     const timer = setInterval(goNext, autoAdvanceMs);
     return () => clearInterval(timer);
-  }, [goNext, autoAdvanceMs, testimonials.length]);
+  }, [goNext, autoAdvanceMs, testimonials.length, isPaused]);
+
+  const isLeavingContainer = (relatedTarget: EventTarget | null) => {
+    if (!containerRef.current) return true;
+    if (!(relatedTarget instanceof Node)) return true;
+    return !containerRef.current.contains(relatedTarget);
+  };
+
+  const handlePointerEnter = () => setIsPaused(true);
+
+  const handlePointerLeave = (e: React.PointerEvent) => {
+    if (isLeavingContainer(e.relatedTarget)) {
+      setIsPaused(false);
+    }
+  };
+
+  const handleFocusCapture = () => setIsPaused(true);
+
+  const handleBlurCapture = (e: React.FocusEvent) => {
+    if (isLeavingContainer(e.relatedTarget)) {
+      setIsPaused(false);
+    }
+  };
 
   useEffect(() => {
     setActiveIndex(0);
@@ -77,8 +100,12 @@ export function DesignTestimonial({
   return (
     <div
       ref={containerRef}
-      className={cn("relative w-full overflow-hidden", className)}
+      className={cn("relative w-full overflow-hidden pb-16 lg:pb-20", className)}
       onMouseMove={handleMouseMove}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
+      onFocusCapture={handleFocusCapture}
+      onBlurCapture={handleBlurCapture}
       aria-live="polite"
       aria-atomic="true"
     >
@@ -122,100 +149,106 @@ export function DesignTestimonial({
         </div>
 
         <div className="flex-1 lg:pl-12 xl:pl-16">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.4 }}
-              className="mb-8"
-            >
-              <span className="gallery-label inline-flex items-center gap-3 border border-border px-4 py-2">
-                <span className="h-1.5 w-1.5 bg-foreground" aria-hidden="true" />
-                {current.company}
-              </span>
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="relative mb-12 min-h-[120px] sm:min-h-[140px]">
-            <AnimatePresence mode="wait">
-              <motion.blockquote
-                key={activeIndex}
-                className="font-serif text-3xl font-normal leading-[1.2] tracking-[0.02em] text-foreground sm:text-4xl lg:text-5xl"
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-              >
-                &ldquo;
-                {current.review.split(" ").map((word, i) => (
-                  <motion.span
-                    key={`${activeIndex}-${i}`}
-                    className="mr-[0.3em] inline-block"
-                    variants={{
-                      hidden: { opacity: 0, y: 20, rotateX: 90 },
-                      visible: {
-                        opacity: 1,
-                        y: 0,
-                        rotateX: 0,
-                        transition: {
-                          duration: 0.5,
-                          delay: i * 0.05,
-                          ease: [0.22, 1, 0.36, 1],
-                        },
-                      },
-                      exit: {
-                        opacity: 0,
-                        y: -10,
-                        transition: { duration: 0.2, delay: i * 0.02 },
-                      },
-                    }}
-                  >
-                    {word}
-                  </motion.span>
-                ))}
-                &rdquo;
-              </motion.blockquote>
-            </AnimatePresence>
-          </div>
-
-          <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                className="flex items-center gap-4"
-              >
+          <div className="relative flex min-h-[32rem] flex-col sm:min-h-[30rem] lg:min-h-[28rem]">
+            <div className="relative mb-8 h-11 shrink-0">
+              <AnimatePresence mode="wait">
                 <motion.div
-                  className="h-px w-8 origin-left bg-foreground"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                />
-                <div>
-                  <p className="font-serif text-lg tracking-[0.02em] text-foreground">
-                    {current.name}
-                  </p>
-                  <p className="gallery-label mt-2 normal-case tracking-[0.12em]">
-                    {current.role}
-                  </p>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                  key={activeIndex}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute left-0 top-0"
+                >
+                  <span className="gallery-label inline-flex items-center gap-3 border border-border px-4 py-2">
+                    <span className="h-1.5 w-1.5 bg-foreground" aria-hidden="true" />
+                    {current.company}
+                  </span>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-            {testimonials.length > 1 && (
-              <div className="flex items-center gap-4">
-                <NavButton onClick={goPrev} label="Previous testimonial">
-                  <ChevronLeft className="h-4 w-4" />
-                </NavButton>
-                <NavButton onClick={goNext} label="Next testimonial">
-                  <ChevronRight className="h-4 w-4" />
-                </NavButton>
+            <div className="relative mb-14 h-[14rem] shrink-0 sm:mb-16 sm:h-[16rem] lg:mb-20 lg:h-[18rem] xl:h-[20rem]">
+              <AnimatePresence mode="wait">
+                <motion.blockquote
+                  key={activeIndex}
+                  className="absolute inset-x-0 top-0 w-full font-serif text-3xl font-normal leading-[1.2] tracking-[0.02em] text-foreground sm:text-4xl lg:text-5xl"
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                >
+                  &ldquo;
+                  {current.review.split(" ").map((word, i) => (
+                    <motion.span
+                      key={`${activeIndex}-${i}`}
+                      className="mr-[0.3em] inline-block"
+                      variants={{
+                        hidden: { opacity: 0, y: 20, rotateX: 90 },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          rotateX: 0,
+                          transition: {
+                            duration: 0.5,
+                            delay: i * 0.05,
+                            ease: [0.22, 1, 0.36, 1],
+                          },
+                        },
+                        exit: {
+                          opacity: 0,
+                          y: -10,
+                          transition: { duration: 0.2, delay: i * 0.02 },
+                        },
+                      }}
+                    >
+                      {word}
+                    </motion.span>
+                  ))}
+                  &rdquo;
+                </motion.blockquote>
+              </AnimatePresence>
+            </div>
+
+            <div className="relative mt-auto flex min-h-[3.5rem] shrink-0 flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+              <div className="relative h-14 min-w-[12rem]">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                    className="absolute left-0 top-0 flex items-center gap-4"
+                  >
+                    <motion.div
+                      className="h-px w-8 origin-left bg-foreground"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                    />
+                    <div>
+                      <p className="font-serif text-lg tracking-[0.02em] text-foreground">
+                        {current.name}
+                      </p>
+                      <p className="gallery-label mt-2 normal-case tracking-[0.12em]">
+                        {current.role}
+                      </p>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
-            )}
+
+              {testimonials.length > 1 && (
+                <div className="flex shrink-0 items-center gap-4">
+                  <NavButton onClick={goPrev} label="Previous testimonial">
+                    <ChevronLeft className="h-4 w-4" />
+                  </NavButton>
+                  <NavButton onClick={goNext} label="Next testimonial">
+                    <ChevronRight className="h-4 w-4" />
+                  </NavButton>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
