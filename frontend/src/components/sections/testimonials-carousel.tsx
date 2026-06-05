@@ -5,12 +5,12 @@ export function TestimonialsCarousel({ testimonials }: { testimonials: Testimoni
   return (
     <section className="gallery-section" aria-labelledby="testimonials-heading">
       <div className="gallery-container">
-        <div className="max-w-2xl">
-          <p className="gallery-label mb-6">Testimonials</p>
+        <div className="gallery-section-intro">
+          <p className="gallery-label mb-4 sm:mb-6">Testimonials</p>
           <h2 id="testimonials-heading" className="gallery-heading">
             What Our Clients Say
           </h2>
-          <p className="gallery-prose mt-8">
+          <p className="gallery-prose mt-6 sm:mt-8">
             Don&apos;t just take our word for it — hear from businesses we&apos;ve helped grow.
           </p>
         </div>

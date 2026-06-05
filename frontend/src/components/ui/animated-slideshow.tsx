@@ -100,7 +100,7 @@ export const TextStaggerHover = React.forwardRef<
             }}
           >
             <motion.span
-              className="inline-block opacity-20"
+              className="inline-block opacity-50 sm:opacity-20"
               initial={{ y: "0%" }}
               animate={isActive ? { y: "-110%" } : { y: "0%" }}
             >

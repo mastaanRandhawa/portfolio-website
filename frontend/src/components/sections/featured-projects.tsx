@@ -8,12 +8,12 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
     <section className="gallery-section" aria-labelledby="featured-projects-heading">
       <div className="gallery-container">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end sm:gap-10">
-          <div className="max-w-2xl">
-            <p className="gallery-label mb-6">Selected Work</p>
+          <div className="gallery-section-intro">
+            <p className="gallery-label mb-4 sm:mb-6">Selected Work</p>
             <h2 id="featured-projects-heading" className="gallery-heading">
               Featured Projects
             </h2>
-            <p className="gallery-prose mt-8">
+            <p className="gallery-prose mt-6 sm:mt-8">
               Explore our latest work across industries — each project crafted for performance and conversions.
             </p>
           </div>
