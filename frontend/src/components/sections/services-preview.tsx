@@ -1,11 +1,16 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { MOBILE_LIST_LIMIT } from "@/components/ui/mobile-truncated-list";
 import { ServiceCard } from "./service-card";
 import type { Service } from "@/lib/types";
 
+const DESKTOP_PREVIEW_LIMIT = 8;
+
 export function ServicesPreview({ services }: { services: Service[] }) {
-  const previewServices = services.slice(0, 8);
+  const mobileServices = services.slice(0, MOBILE_LIST_LIMIT);
+  const desktopServices = services.slice(0, DESKTOP_PREVIEW_LIMIT);
+  const hasMoreServices = services.length > MOBILE_LIST_LIMIT;
 
   return (
     <section className="gallery-section" aria-labelledby="services-heading">
@@ -22,18 +27,26 @@ export function ServicesPreview({ services }: { services: Service[] }) {
           </div>
         </ScrollReveal>
 
-        <div className="grid gap-4 sm:mt-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
-          {previewServices.map((service, index) => (
+        <div className="grid gap-4 md:hidden">
+          {mobileServices.map((service, index) => (
             <ServiceCard key={service.id} service={service} index={index} />
           ))}
         </div>
 
-        <ScrollReveal className="mt-10 sm:mt-20">
-          <Link href="/services" className="gallery-link">
-            View All Services
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </ScrollReveal>
+        <div className="mt-4 hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          {desktopServices.map((service, index) => (
+            <ServiceCard key={service.id} service={service} index={index} />
+          ))}
+        </div>
+
+        {hasMoreServices && (
+          <ScrollReveal className="mt-8 md:mt-20">
+            <Link href="/services" className="gallery-link">
+              View all services
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </ScrollReveal>
+        )}
       </div>
     </section>
   );

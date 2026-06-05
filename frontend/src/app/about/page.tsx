@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/layout/page-header";
+import { SkillsSection } from "@/components/sections/skills-section";
 import { fetchAboutContent } from "@/lib/api";
 import { buildMetadata } from "@/lib/seo";
 
@@ -45,26 +46,7 @@ export default async function AboutPage() {
             ))}
           </div>
 
-          <div className="mt-16 sm:mt-28">
-            <div className="gallery-section-intro">
-              <p className="gallery-label mb-4 sm:mb-6">Expertise</p>
-              <h2 className="gallery-subheading">Skills & Expertise</h2>
-            </div>
-            <div className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-10">
-              {(["frontend", "backend", "design"] as const).map((category) => (
-                <div key={category} className="gallery-card-muted">
-                  <h3 className="gallery-footer-heading capitalize">{category}</h3>
-                  <ul className="divide-y divide-border/50 sm:divide-none sm:space-y-3">
-                    {about.skills[category].map((skill) => (
-                      <li key={skill} className="gallery-list-item">
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
+          <SkillsSection skills={about.skills} />
         </div>
       </section>
     </>

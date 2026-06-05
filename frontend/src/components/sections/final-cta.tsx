@@ -18,10 +18,10 @@ export function FinalCta({ site }: { site: SiteConfig }) {
           <p className="mx-auto mt-6 max-w-xl text-sm leading-[1.8] tracking-[0.02em] text-off-white/70 sm:mt-8 sm:text-base">
             Let&apos;s discuss your project and create a website that drives real business results.
           </p>
-          <div className="mt-10 flex w-full max-w-xs flex-col items-stretch justify-center gap-4 sm:mx-auto sm:mt-14 sm:max-w-none sm:flex-row sm:items-center sm:gap-12">
+          <div className="mx-auto mt-10 flex w-full max-w-xs flex-col items-center justify-center gap-4 sm:mt-14 sm:max-w-none sm:flex-row sm:gap-12">
             <Link
               href={site.finalCta.primaryCta.href}
-              className="inline-flex min-h-11 items-center justify-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-off-white underline-offset-[6px] transition-[color,opacity] duration-300 ease-out hover:text-off-white/70 sm:justify-start"
+              className="inline-flex min-h-11 items-center justify-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-off-white underline-offset-[6px] transition-[color,opacity] duration-300 ease-out hover:text-off-white/70"
             >
               {site.finalCta.primaryCta.label}
               <ArrowRight className="h-3.5 w-3.5" />
@@ -30,7 +30,7 @@ export function FinalCta({ site }: { site: SiteConfig }) {
               href={site.finalCta.secondaryCta.href}
               variant="outline"
               size="lg"
-              className="w-full border-off-white/30 text-off-white hover:border-off-white hover:bg-off-white hover:text-charcoal sm:w-auto"
+              className="w-full max-w-[16rem] border-off-white/30 text-off-white hover:border-off-white hover:bg-off-white hover:text-charcoal sm:w-auto sm:max-w-none"
             >
               {site.finalCta.secondaryCta.label}
             </LinkButton>
