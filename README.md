@@ -1,3 +1,3 @@
-# Doxa Studios — Portfolio Website
+# Doxa Studios
 
 A monorepo with a **Next.js static frontend** (GitHub Pages) and a **Node API backend** (Render/Railway) serving content and contact form submissions.
