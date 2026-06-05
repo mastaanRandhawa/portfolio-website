@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import { Open_Sans, Urbanist } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Analytics } from "@/components/layout/analytics";
@@ -9,14 +9,14 @@ import { buildMetadata } from "@/lib/seo";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import "./globals.css";
 
-const outfit = Outfit({
+const openSans = Open_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-const cormorant = Cormorant_Garamond({
+const urbanist = Urbanist({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-serif",
 });
 
@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${cormorant.variable} h-full`}
+      className={`${openSans.variable} ${urbanist.variable} h-full`}
       data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>

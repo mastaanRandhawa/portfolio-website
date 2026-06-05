@@ -5,9 +5,9 @@ import type { SiteConfig } from "@/lib/types";
 
 export function FinalCta({ site }: { site: SiteConfig }) {
   return (
-    <section className="gallery-section" aria-labelledby="final-cta-heading">
-      <div className="gallery-container">
-        <div className="bg-charcoal px-8 py-24 text-center sm:px-16 sm:py-32">
+    <section className="pt-32 pb-0 sm:pt-40" aria-labelledby="final-cta-heading">
+      <div className="w-full bg-charcoal px-8 py-24 text-center sm:px-16 sm:py-32">
+        <div className="mx-auto max-w-4xl">
           <p className="gallery-label mb-8 text-off-white/60">Get Started</p>
           <h2
             id="final-cta-heading"

@@ -4,7 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { MorphingSpinner } from "@/components/ui/morphing-spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -230,7 +231,7 @@ export function ContactForm() {
         <Button type="submit" size="lg" disabled={status === "loading"}>
           {status === "loading" ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <MorphingSpinner size="xs" className="mr-2" />
               Sending
             </>
           ) : (

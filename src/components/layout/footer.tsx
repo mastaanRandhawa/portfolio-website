@@ -22,7 +22,7 @@ const footerLinks = {
 
 export function Footer({ site }: { site: SiteConfig }) {
   return (
-    <footer className="mt-24">
+    <footer>
       <div className="gallery-hairline" />
       <div className="gallery-container py-24">
         <div className="grid gap-20 md:grid-cols-2 lg:grid-cols-4">

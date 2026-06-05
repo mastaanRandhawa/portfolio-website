@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PortfolioMasonryGrid } from "./portfolio-masonry-grid";
+import { ProjectsHoverSlider } from "./projects-hover-slider";
 import {
   Select,
   SelectContent,
@@ -81,7 +81,7 @@ export function PortfolioFilters({
 
       {filtered.length > 0 ? (
         <div className="mt-16">
-          <PortfolioMasonryGrid projects={filtered} showVisitButton />
+          <ProjectsHoverSlider projects={filtered} showVisitButton />
         </div>
       ) : (
         <p className="gallery-prose mt-20 text-center">

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { PortfolioMasonryGrid } from "./portfolio-masonry-grid";
+import { ProjectsHoverSlider } from "./projects-hover-slider";
 import type { Project } from "@/lib/types";
 
 export function FeaturedProjects({ projects }: { projects: Project[] }) {
@@ -24,7 +24,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
         </div>
 
         <div className="mt-20">
-          <PortfolioMasonryGrid projects={projects.slice(0, 6)} />
+          <ProjectsHoverSlider projects={projects.slice(0, 6)} />
         </div>
       </div>
     </section>
