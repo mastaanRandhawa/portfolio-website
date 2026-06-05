@@ -55,12 +55,12 @@ export function PortfolioFilters({ projects }: PortfolioFiltersProps) {
         </div>
       </div>
 
-      <p className="gallery-label mt-12">
+      <p className="gallery-label mt-8 sm:mt-12">
         {filtered.length} of {projects.length} projects
       </p>
 
       {filtered.length > 0 ? (
-        <div className="mt-16">
+        <div className="mt-10 sm:mt-16">
           <ProjectsHoverSlider projects={filtered} showVisitButton />
         </div>
       ) : (

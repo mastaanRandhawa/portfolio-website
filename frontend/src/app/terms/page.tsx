@@ -16,8 +16,8 @@ export default async function TermsPage() {
   return (
     <>
       <PageHeader title="Terms of Service" />
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 lg:py-24">
+        <div className="gallery-container max-w-3xl">
           <p className="text-muted-foreground">Last updated: June 2026</p>
           <div className="mt-8 space-y-6 text-muted-foreground leading-relaxed">
             <p>

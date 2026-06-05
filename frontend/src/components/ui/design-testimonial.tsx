@@ -100,7 +100,7 @@ export function DesignTestimonial({
   return (
     <div
       ref={containerRef}
-      className={cn("relative w-full overflow-hidden pb-16 lg:pb-20", className)}
+      className={cn("relative w-full min-w-0 overflow-hidden pb-12 sm:pb-16 lg:pb-20", className)}
       onMouseMove={handleMouseMove}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
@@ -129,7 +129,7 @@ export function DesignTestimonial({
       </motion.div>
 
       <div className="relative flex flex-col lg:flex-row">
-        <div className="mb-10 flex items-center gap-8 border-b border-border pb-8 lg:mb-0 lg:flex-col lg:items-center lg:justify-center lg:border-b-0 lg:border-r lg:pb-0 lg:pr-12 xl:pr-16">
+        <div className="mb-8 flex items-center gap-6 border-b border-border pb-6 sm:mb-10 sm:gap-8 sm:pb-8 lg:mb-0 lg:flex-col lg:items-center lg:justify-center lg:border-b-0 lg:border-r lg:pb-0 lg:pr-12 xl:pr-16">
           <motion.span
             className="gallery-label shrink-0 lg:[writing-mode:vertical-rl]"
             initial={{ opacity: 0 }}
@@ -148,9 +148,9 @@ export function DesignTestimonial({
           </div>
         </div>
 
-        <div className="flex-1 lg:pl-12 xl:pl-16">
-          <div className="relative flex min-h-[32rem] flex-col sm:min-h-[30rem] lg:min-h-[28rem]">
-            <div className="relative mb-8 h-11 shrink-0">
+        <div className="min-w-0 flex-1 lg:pl-12 xl:pl-16">
+          <div className="relative flex flex-col">
+            <div className="relative mb-6 h-11 shrink-0 sm:mb-8">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIndex}
@@ -160,7 +160,7 @@ export function DesignTestimonial({
                   transition={{ duration: 0.4 }}
                   className="absolute left-0 top-0"
                 >
-                  <span className="gallery-label inline-flex items-center gap-3 border border-border px-4 py-2">
+                  <span className="gallery-label inline-flex max-w-full items-center gap-3 border border-border px-3 py-2 sm:px-4">
                     <span className="h-1.5 w-1.5 bg-foreground" aria-hidden="true" />
                     {current.company}
                   </span>
@@ -168,11 +168,11 @@ export function DesignTestimonial({
               </AnimatePresence>
             </div>
 
-            <div className="relative mb-14 h-[14rem] shrink-0 sm:mb-16 sm:h-[16rem] lg:mb-20 lg:h-[18rem] xl:h-[20rem]">
+            <div className="relative mb-10 min-h-[9rem] sm:mb-14 sm:min-h-[12rem] lg:mb-20 lg:min-h-[16rem] xl:min-h-[18rem]">
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex}
-                  className="absolute inset-x-0 top-0 w-full font-serif text-3xl font-normal leading-[1.2] tracking-[0.02em] text-foreground sm:text-4xl lg:text-5xl"
+                  className="absolute inset-x-0 top-0 w-full font-serif text-2xl font-normal leading-[1.25] tracking-[0.02em] text-foreground min-[375px]:text-[1.625rem] sm:text-3xl md:text-4xl lg:text-5xl"
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -209,8 +209,8 @@ export function DesignTestimonial({
               </AnimatePresence>
             </div>
 
-            <div className="relative mt-auto flex min-h-[3.5rem] shrink-0 flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-              <div className="relative h-14 min-w-[12rem]">
+            <div className="relative mt-6 flex shrink-0 flex-col gap-6 sm:mt-auto sm:min-h-[3.5rem] sm:flex-row sm:items-end sm:justify-between sm:gap-8">
+              <div className="relative min-h-14 min-w-0 sm:min-w-[12rem]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeIndex}
@@ -253,7 +253,7 @@ export function DesignTestimonial({
         </div>
       </div>
 
-      <div className="pointer-events-none absolute -bottom-16 left-0 right-0 overflow-hidden opacity-[0.06] lg:-bottom-20">
+      <div className="pointer-events-none absolute -bottom-12 left-0 right-0 hidden overflow-hidden opacity-[0.06] sm:block lg:-bottom-20">
         <motion.div
           className="flex whitespace-nowrap font-serif text-4xl font-normal tracking-tight text-foreground lg:text-6xl"
           animate={{ x: [0, -1000] }}

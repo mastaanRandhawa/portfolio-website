@@ -5,12 +5,12 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, description }: PageHeaderProps) {
   return (
-    <section className="gallery-section pb-16 pt-28 sm:pb-20 sm:pt-32">
+    <section className="gallery-section pb-12 pt-24 sm:pb-16 sm:pt-28 md:pt-32">
       <div className="gallery-container">
-        <p className="gallery-label mb-6">Overview</p>
-        <h1 className="gallery-heading max-w-4xl">{title}</h1>
+        <p className="gallery-label mb-4 sm:mb-6">Overview</p>
+        <h1 className="gallery-heading max-w-4xl text-balance">{title}</h1>
         {description && (
-          <p className="gallery-prose mt-8 max-w-2xl text-lg">{description}</p>
+          <p className="gallery-prose mt-6 max-w-2xl text-base sm:mt-8 sm:text-lg">{description}</p>
         )}
       </div>
     </section>

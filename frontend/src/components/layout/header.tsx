@@ -75,10 +75,10 @@ export function Header({ siteName }: { siteName: string }) {
           : "border-b border-transparent bg-transparent"
       )}
     >
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-8 px-8 py-4 sm:px-12 sm:py-5 lg:px-16 xl:px-20">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:gap-8 sm:px-8 sm:py-4 lg:px-16 lg:py-5">
         <Link
           href="/"
-          className="shrink-0 font-serif text-xl tracking-[0.06em] text-foreground transition-colors duration-300 ease-out hover:text-foreground/75"
+          className="shrink-0 font-serif text-lg tracking-[0.06em] text-foreground transition-colors duration-300 ease-out hover:text-foreground/75 sm:text-xl"
           aria-current={pathname === "/" ? "page" : undefined}
         >
           {siteName}
@@ -105,7 +105,7 @@ export function Header({ siteName }: { siteName: string }) {
               render={
                 <Button
                   variant="ghost"
-                  size="icon"
+                  size="icon-lg"
                   className="md:hidden"
                   aria-label="Open menu"
                 />
@@ -113,11 +113,11 @@ export function Header({ siteName }: { siteName: string }) {
             >
               <Menu className="h-5 w-5" />
             </SheetTrigger>
-            <SheetContent side="right" className="w-full max-w-sm border-l border-border/60">
-              <SheetHeader>
+            <SheetContent side="right" className="w-full max-w-sm border-l border-border/60 p-6 sm:p-8">
+              <SheetHeader className="p-0">
                 <SheetTitle className="font-serif text-2xl tracking-wide">{siteName}</SheetTitle>
               </SheetHeader>
-              <nav className="mt-12 flex flex-col gap-8" aria-label="Mobile navigation">
+              <nav className="mt-10 flex flex-col gap-2" aria-label="Mobile navigation">
                 {mainNavLinks.map((link) => (
                   <NavLink
                     key={link.href}
@@ -125,7 +125,7 @@ export function Header({ siteName }: { siteName: string }) {
                     label={link.label}
                     pathname={pathname}
                     onNavigate={closeMenu}
-                    className="text-sm"
+                    className="py-3 text-sm"
                   />
                 ))}
                 <LinkButton

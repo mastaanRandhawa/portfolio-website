@@ -23,8 +23,8 @@ export function Footer({ site }: { site: SiteConfig }) {
   return (
     <footer>
       <div className="gallery-hairline" />
-      <div className="gallery-container py-24">
-        <div className="grid gap-20 md:grid-cols-2 lg:grid-cols-4">
+      <div className="gallery-container py-16 sm:py-24">
+        <div className="grid gap-12 sm:gap-16 md:grid-cols-2 lg:grid-cols-4 lg:gap-20">
           <div className="lg:col-span-1">
             <Link href="/" className="font-serif text-2xl tracking-[0.06em]">
               {site.name}
@@ -79,13 +79,13 @@ export function Footer({ site }: { site: SiteConfig }) {
           </div>
         </div>
 
-        <Separator className="my-16 bg-border/60" />
+        <Separator className="my-10 bg-border/60 sm:my-16" />
 
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <p className="gallery-prose text-sm">
             &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}
           </p>
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-x-8 gap-y-3">
             {footerLinks.legal.map((link) => (
               <Link key={link.href} href={link.href} className="gallery-link">
                 {link.label}

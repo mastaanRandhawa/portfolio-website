@@ -72,17 +72,20 @@ export const TextStaggerHover = React.forwardRef<
   const { activeSlide, changeSlide } = useHoverSliderContext();
   const { characters } = splitText(text);
   const isActive = activeSlide === index;
-  const handleMouse = () => changeSlide(index);
+  const handleActivate = () => changeSlide(index);
 
   return (
     <span
       className={cn(
-        "relative inline-block origin-bottom overflow-hidden",
+        "relative inline-block max-w-full origin-bottom overflow-hidden break-words",
         className
       )}
       {...props}
       ref={ref as React.Ref<HTMLSpanElement>}
-      onMouseEnter={handleMouse}
+      onMouseEnter={handleActivate}
+      onFocus={handleActivate}
+      onClick={handleActivate}
+      role="presentation"
     >
       {characters.map((char, charIndex) => (
         <span

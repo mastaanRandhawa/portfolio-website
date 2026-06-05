@@ -14,7 +14,7 @@ export function WhyChooseUs({ items }: { items: WhyChooseUsItem[] }) {
             We combine design excellence with technical expertise to deliver websites that perform.
           </p>
         </div>
-        <div className="mt-20 grid gap-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-20">
+        <div className="mt-12 grid gap-10 sm:mt-20 sm:grid-cols-2 sm:gap-16 lg:grid-cols-4 lg:gap-20">
           {items.map((item) => (
             <div key={item.title} className="flex flex-col gap-5">
               <DynamicIcon name={item.icon} className="h-5 w-5 text-foreground/70" />

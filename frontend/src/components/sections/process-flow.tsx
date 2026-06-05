@@ -10,12 +10,12 @@ export function ProcessFlow({ steps }: { steps: ProcessStep[] }) {
         aria-hidden="true"
       />
 
-      <div className="space-y-28 sm:space-y-36">
+      <div className="space-y-16 sm:space-y-28 lg:space-y-36">
         {steps.map((step, index) => (
           <ScrollReveal key={step.step} delay={index * 0.05}>
-            <article className="relative grid gap-10 sm:grid-cols-[5rem_1fr] sm:gap-16 lg:grid-cols-[7rem_1fr] lg:gap-24">
-              <div className="flex items-start gap-6 sm:flex-col sm:gap-8">
-                <p className="font-serif text-5xl tracking-[0.06em] text-foreground/20 sm:text-6xl">
+            <article className="relative grid gap-6 sm:grid-cols-[5rem_1fr] sm:gap-10 lg:grid-cols-[7rem_1fr] lg:gap-24">
+              <div className="flex items-start gap-4 sm:flex-col sm:gap-8">
+                <p className="font-serif text-4xl tracking-[0.06em] text-foreground/20 sm:text-5xl lg:text-6xl">
                   {String(step.step).padStart(2, "0")}
                 </p>
                 <GalleryGlyph
@@ -25,10 +25,10 @@ export function ProcessFlow({ steps }: { steps: ProcessStep[] }) {
               </div>
 
               <div className="max-w-2xl">
-                <h2 className="font-serif text-3xl tracking-[0.04em] leading-tight sm:text-4xl">
+                <h2 className="font-serif text-2xl tracking-[0.04em] leading-tight min-[375px]:text-3xl sm:text-4xl">
                   {step.title}
                 </h2>
-                <p className="gallery-prose mt-8 text-base leading-[1.9] sm:text-lg">
+                <p className="gallery-prose mt-5 text-base leading-[1.9] sm:mt-8 sm:text-lg">
                   {step.description}
                 </p>
               </div>

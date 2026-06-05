@@ -17,13 +17,13 @@ export function CalendlyEmbed() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0 overflow-hidden">
       <iframe
         src={calendlyUrl}
         title="Book a consultation"
         width="100%"
         height="700"
-        className="border-0"
+        className="min-h-[520px] w-full border-0 sm:min-h-[600px] lg:min-h-[700px]"
         loading="lazy"
       />
     </div>

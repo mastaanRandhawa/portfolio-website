@@ -22,7 +22,7 @@ export default function Error({
         <p className="gallery-prose mt-8 max-w-md mx-auto">
           We couldn&apos;t load this page. Please try again.
         </p>
-        <Button className="mt-12" onClick={reset}>
+        <Button className="mt-10 w-full sm:mt-12 sm:w-auto" onClick={reset}>
           Try Again
         </Button>
       </div>

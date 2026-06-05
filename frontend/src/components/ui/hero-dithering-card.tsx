@@ -30,12 +30,12 @@ export function HeroDitheringCard({
 
   return (
     <section
-      className="pb-16 sm:pb-24"
+      className="pb-12 sm:pb-24"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="gallery-container">
-        <div className="relative grid min-h-screen place-items-center py-12">
+        <div className="relative grid min-h-[calc(100dvh-4.5rem)] place-items-center py-10 sm:min-h-screen sm:py-12">
           <Suspense fallback={null}>
             <div className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-multiply">
               <Dithering
@@ -50,28 +50,28 @@ export function HeroDitheringCard({
             </div>
           </Suspense>
 
-          <div className="relative z-10 flex w-full max-w-4xl flex-col items-center justify-center text-center">
-            <p className="gallery-label mb-10">{badge}</p>
+          <div className="relative z-10 flex w-full max-w-4xl flex-col items-center justify-center px-1 text-center">
+            <p className="gallery-label mb-6 sm:mb-10">{badge}</p>
 
-            <h1 className="gallery-heading mb-10 text-center text-balance">
+            <h1 className="gallery-heading mb-6 text-center text-balance sm:mb-10">
               {headline} <br />
               <span className="text-foreground/70">{headlineAccent}</span>
             </h1>
 
-            <p className="gallery-prose mb-14 max-w-2xl text-center text-balance text-lg md:text-xl">
+            <p className="gallery-prose mb-10 max-w-2xl text-center text-balance text-base sm:mb-14 sm:text-lg md:text-xl">
               {description}
             </p>
 
-            <div className="flex flex-col items-center justify-center gap-6 sm:flex-row sm:gap-10">
+            <div className="flex w-full max-w-xs flex-col items-stretch justify-center gap-4 sm:max-w-none sm:flex-row sm:items-center sm:gap-10">
               <Link
                 href={primaryCta.href}
-                className="gallery-link text-sm hover:underline"
+                className="gallery-link justify-center text-sm hover:underline sm:justify-start"
               >
                 {primaryCta.label}
                 <ArrowRight className="h-4 w-4" />
               </Link>
               {secondaryCta && (
-                <LinkButton href={secondaryCta.href} variant="outline" size="lg">
+                <LinkButton href={secondaryCta.href} variant="outline" size="lg" className="w-full sm:w-auto">
                   {secondaryCta.label}
                 </LinkButton>
               )}

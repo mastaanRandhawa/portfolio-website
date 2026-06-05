@@ -23,21 +23,21 @@ export default async function ContactPage() {
       />
       <section className="gallery-section pt-0">
         <div className="gallery-container">
-          <div className="grid gap-24 lg:grid-cols-12 lg:gap-32">
+          <div className="grid gap-16 sm:gap-20 lg:grid-cols-12 lg:gap-32">
             <ScrollReveal className="lg:col-span-7">
-              <p className="gallery-label mb-6">Inquiry</p>
+              <p className="gallery-label mb-4 sm:mb-6">Inquiry</p>
               <p className="gallery-prose max-w-xl">
                 Share a few details about your project. We review every message personally and respond within one business day.
               </p>
-              <div className="mt-16">
+              <div className="mt-10 sm:mt-16">
                 <ContactForm contactEmail={site.contact.email} />
               </div>
             </ScrollReveal>
 
             <aside className="lg:col-span-5 lg:pt-2">
               <ScrollReveal delay={0.08}>
-                <p className="gallery-label mb-12">Details</p>
-                <ul className="space-y-12">
+                <p className="gallery-label mb-8 sm:mb-12">Details</p>
+                <ul className="space-y-8 sm:space-y-12">
                   <li>
                     <p className="gallery-label mb-3">Email</p>
                     <a

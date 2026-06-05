@@ -22,13 +22,13 @@ export function ServicesPreview({ services }: { services: Service[] }) {
           </div>
         </ScrollReveal>
 
-        <div className="mt-20 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
+        <div className="mt-12 grid gap-x-4 gap-y-10 sm:mt-20 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-14 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
           {previewServices.map((service, index) => (
             <ServiceCard key={service.id} service={service} index={index} />
           ))}
         </div>
 
-        <ScrollReveal className="mt-24">
+        <ScrollReveal className="mt-12 sm:mt-24">
           <Link href="/services" className="gallery-link">
             View All Services
             <ArrowRight className="h-3.5 w-3.5" />

@@ -7,7 +7,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
   return (
     <section className="gallery-section" aria-labelledby="featured-projects-heading">
       <div className="gallery-container">
-        <div className="flex flex-col items-start justify-between gap-10 sm:flex-row sm:items-end">
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end sm:gap-10">
           <div className="max-w-2xl">
             <p className="gallery-label mb-6">Selected Work</p>
             <h2 id="featured-projects-heading" className="gallery-heading">
@@ -23,7 +23,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
           </Link>
         </div>
 
-        <div className="mt-20">
+        <div className="mt-12 sm:mt-20">
           <ProjectsHoverSlider projects={projects.slice(0, 6)} />
         </div>
       </div>

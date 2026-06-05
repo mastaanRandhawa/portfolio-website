@@ -46,7 +46,7 @@ export default async function RootLayout({
           Skip to content
         </a>
         <Header siteName={site.name} />
-        <main id="main-content" className="flex-1">
+        <main id="main-content" className="flex-1 min-w-0 overflow-x-hidden">
           {children}
         </main>
         <Footer site={site} />

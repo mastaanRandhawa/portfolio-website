@@ -41,23 +41,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <>
       <JsonLd data={projectSchema(project, site)} />
 
-      <section className="gallery-section pb-16 pt-28 sm:pt-32">
+      <section className="gallery-section pb-12 pt-24 sm:pb-16 sm:pt-28 md:pt-32">
         <div className="gallery-container">
-          <Link href="/portfolio" className="gallery-link mb-12">
+          <Link href="/portfolio" className="gallery-link mb-8 sm:mb-12">
             <ArrowLeft className="h-3.5 w-3.5" />
             Back to Portfolio
           </Link>
-          <div className="flex flex-wrap gap-8 mb-8">
+          <div className="mb-6 flex flex-wrap gap-4 sm:mb-8 sm:gap-8">
             <span className="gallery-label">{project.industry}</span>
             <span className="gallery-label">{project.projectType}</span>
           </div>
           <h1 className="gallery-heading max-w-4xl">{project.title}</h1>
-          <p className="gallery-prose mt-8 max-w-3xl text-lg">{project.shortDescription}</p>
+          <p className="gallery-prose mt-6 max-w-3xl text-base sm:mt-8 sm:text-lg">{project.shortDescription}</p>
           <a
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="gallery-link mt-12"
+            className="gallery-link mt-8 sm:mt-12"
           >
             Visit Live Site
             <ExternalLink className="h-3.5 w-3.5" />
@@ -65,7 +65,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <section className="pb-24">
+      <section className="pb-16 sm:pb-24">
         <div className="gallery-container">
           <div className="relative aspect-[16/9] overflow-hidden bg-stone-light">
             <Image
@@ -83,12 +83,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <section className="gallery-section pt-0">
         <div className="gallery-container">
           <p className="gallery-label mb-8">Gallery</p>
-          <div className="space-y-20">
+          <div className="space-y-12 sm:space-y-20">
             {(["desktop", "tablet", "mobile"] as const).map((device) => (
               project.gallery[device].length > 0 && (
                 <div key={device}>
-                  <h2 className="gallery-label mb-10 capitalize">{device}</h2>
-                  <div className="grid gap-12 sm:grid-cols-2">
+                  <h2 className="gallery-label mb-6 capitalize sm:mb-10">{device}</h2>
+                  <div className="grid gap-8 sm:grid-cols-2 sm:gap-12">
                     {project.gallery[device].map((img, i) => (
                       <div key={i} className="relative aspect-[16/10] overflow-hidden bg-stone-light">
                         <Image
@@ -110,7 +110,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <section className="gallery-section">
         <div className="gallery-container">
-          <div className="grid gap-20 lg:grid-cols-2 lg:gap-32">
+          <div className="grid gap-12 sm:gap-16 lg:grid-cols-2 lg:gap-32">
             <div>
               <p className="gallery-label mb-6">Challenge</p>
               <p className="gallery-prose">{project.challenge}</p>
@@ -133,10 +133,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <section className="gallery-section pt-0">
         <div className="gallery-container">
           <p className="gallery-label mb-12">Results</p>
-          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-8 sm:gap-12 lg:grid-cols-4">
             {project.results.map((result) => (
-              <div key={result.label} className="flex flex-col gap-3">
-                <p className="font-serif text-4xl tracking-[0.04em]">{result.value}</p>
+              <div key={result.label} className="flex flex-col gap-2 sm:gap-3">
+                <p className="font-serif text-3xl tracking-[0.04em] min-[375px]:text-4xl">{result.value}</p>
                 <p className="gallery-label">{result.label}</p>
               </div>
             ))}

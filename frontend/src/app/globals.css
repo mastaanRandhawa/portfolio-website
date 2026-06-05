@@ -163,11 +163,11 @@
   }
 
   html {
-    @apply scroll-smooth font-sans antialiased;
+    @apply scroll-smooth font-sans antialiased overflow-x-hidden;
   }
 
   body {
-    @apply bg-background text-foreground text-base leading-relaxed tracking-wide;
+    @apply bg-background text-foreground text-base leading-relaxed tracking-wide overflow-x-hidden;
   }
 
   h1,
@@ -186,27 +186,27 @@
 
 @layer utilities {
   .section-padding {
-    @apply py-32 sm:py-40;
+    @apply py-20 sm:py-32 lg:py-40;
   }
 
   .gallery-container {
-    @apply mx-auto w-full max-w-7xl px-6 sm:px-10 lg:px-16;
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-16;
   }
 
   .gallery-section {
-    @apply py-32 sm:py-40;
+    @apply py-20 sm:py-32 lg:py-40;
   }
 
   .gallery-grid {
-    @apply grid gap-16 sm:gap-20 lg:gap-28;
+    @apply grid gap-12 sm:gap-20 lg:gap-28;
   }
 
   .gallery-heading {
-    @apply font-serif text-4xl font-normal tracking-[0.04em] leading-[1.1] sm:text-5xl lg:text-6xl;
+    @apply font-serif text-[1.625rem] font-normal tracking-[0.04em] leading-[1.12] min-[375px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl;
   }
 
   .gallery-subheading {
-    @apply font-serif text-2xl font-normal tracking-[0.03em] leading-snug sm:text-3xl;
+    @apply font-serif text-xl font-normal tracking-[0.03em] leading-snug sm:text-2xl md:text-3xl;
   }
 
   .gallery-label {
@@ -218,7 +218,7 @@
   }
 
   .gallery-link {
-    @apply inline-flex items-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-foreground underline-offset-[6px] transition-[color,opacity] duration-300 ease-out hover:text-foreground/65;
+    @apply inline-flex min-h-11 items-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-foreground underline-offset-[6px] transition-[color,opacity] duration-300 ease-out hover:text-foreground/65;
   }
 
   .gallery-hairline {

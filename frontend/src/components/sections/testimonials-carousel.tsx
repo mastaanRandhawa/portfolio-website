@@ -15,7 +15,7 @@ export function TestimonialsCarousel({ testimonials }: { testimonials: Testimoni
           </p>
         </div>
 
-        <div className="mt-20">
+        <div className="mt-12 sm:mt-20">
           <DesignTestimonial testimonials={testimonials} />
         </div>
       </div>

@@ -107,13 +107,13 @@ export function ContactForm({ contactEmail }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-14 sm:space-y-16" noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-10 sm:space-y-14 lg:space-y-16" noValidate>
       <div className="absolute -left-[9999px]" aria-hidden="true">
         <Label htmlFor="website">Website</Label>
         <Input id="website" tabIndex={-1} autoComplete="off" className={fieldClass} {...register("website")} />
       </div>
 
-      <div className="grid gap-14 sm:grid-cols-2 sm:gap-16">
+      <div className="grid gap-10 sm:grid-cols-2 sm:gap-14 lg:gap-16">
         <div className="gallery-form-group">
           <Label htmlFor="name" className="gallery-label">
             Name *
@@ -143,7 +143,7 @@ export function ContactForm({ contactEmail }: ContactFormProps) {
         </div>
       </div>
 
-      <div className="grid gap-14 sm:grid-cols-2 sm:gap-16">
+      <div className="grid gap-10 sm:grid-cols-2 sm:gap-14 lg:gap-16">
         <div className="gallery-form-group">
           <Label htmlFor="phone" className="gallery-label">
             Phone
@@ -169,7 +169,7 @@ export function ContactForm({ contactEmail }: ContactFormProps) {
         </div>
       </div>
 
-      <div className="grid gap-14 sm:grid-cols-2 sm:gap-16">
+      <div className="grid gap-10 sm:grid-cols-2 sm:gap-14 lg:gap-16">
         <div className="gallery-form-group">
           <Label htmlFor="budget" className="gallery-label">
             Budget *
@@ -223,8 +223,8 @@ export function ContactForm({ contactEmail }: ContactFormProps) {
         <FieldError message={errors.message?.message} />
       </div>
 
-      <div className="pt-4">
-        <Button type="submit" size="lg">
+      <div className="pt-2 sm:pt-4">
+        <Button type="submit" size="lg" className="w-full sm:w-auto">
           Send Message
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>

@@ -17,8 +17,8 @@ export default function BookConsultationPage() {
         title="Book a Consultation"
         description="Pick a time that works for you. We'll discuss your project goals and how we can help."
       />
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 lg:py-24">
+        <div className="gallery-container max-w-4xl">
           <CalendlyEmbed />
         </div>
       </section>
