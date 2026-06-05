@@ -6,62 +6,50 @@ import type {
   SiteConfig,
   Testimonial,
 } from "@portfolio/shared";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
-
-async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, {
-    ...init,
-    next: { revalidate: false },
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to fetch ${path}: ${res.status}`);
-  }
-  return res.json() as Promise<T>;
-}
-
-export function getApiUrl(): string {
-  return API_URL;
-}
+import {
+  getAboutContent,
+  getAllProjects,
+  getFeaturedProjects,
+  getProcessSteps,
+  getProjectBySlug,
+  getProjectSlugs,
+  getServices,
+  getSiteConfig,
+  getTestimonials,
+} from "./content";
 
 export async function fetchSiteConfig(): Promise<SiteConfig> {
-  return apiFetch<SiteConfig>("/api/site");
+  return getSiteConfig();
 }
 
 export async function fetchServices(): Promise<Service[]> {
-  return apiFetch<Service[]>("/api/services");
+  return getServices();
 }
 
 export async function fetchTestimonials(): Promise<Testimonial[]> {
-  return apiFetch<Testimonial[]>("/api/testimonials");
+  return getTestimonials();
 }
 
 export async function fetchProcessSteps(): Promise<ProcessStep[]> {
-  return apiFetch<ProcessStep[]>("/api/process");
+  return getProcessSteps();
 }
 
 export async function fetchAboutContent(): Promise<AboutContent> {
-  return apiFetch<AboutContent>("/api/about");
+  return getAboutContent();
 }
 
 export async function fetchAllProjects(): Promise<Project[]> {
-  return apiFetch<Project[]>("/api/projects");
+  return getAllProjects();
 }
 
 export async function fetchFeaturedProjects(): Promise<Project[]> {
-  return apiFetch<Project[]>("/api/projects?featured=true");
+  return getFeaturedProjects();
 }
 
 export async function fetchProjectBySlug(slug: string): Promise<Project | undefined> {
-  const res = await fetch(`${API_URL}/api/projects/${slug}`, {
-    next: { revalidate: false },
-  });
-  if (res.status === 404) return undefined;
-  if (!res.ok) throw new Error(`Failed to fetch project ${slug}: ${res.status}`);
-  return res.json() as Promise<Project>;
+  return getProjectBySlug(slug);
 }
 
 export async function fetchProjectSlugs(): Promise<string[]> {
-  const projects = await fetchAllProjects();
-  return projects.map((p) => p.slug);
+  return getProjectSlugs();
 }

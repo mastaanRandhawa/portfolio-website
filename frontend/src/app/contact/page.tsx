@@ -30,7 +30,7 @@ export default async function ContactPage() {
                 Share a few details about your project. We review every message personally and respond within one business day.
               </p>
               <div className="mt-16">
-                <ContactForm />
+                <ContactForm contactEmail={site.contact.email} />
               </div>
             </ScrollReveal>
 

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ArrowRight } from "lucide-react";
-import { MorphingSpinner } from "@/components/ui/morphing-spinner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,7 +17,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { getApiUrl } from "@/lib/api";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -50,9 +48,12 @@ function FieldError({ message }: { message?: string }) {
   );
 }
 
-export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+interface ContactFormProps {
+  contactEmail: string;
+}
+
+export function ContactForm({ contactEmail }: ContactFormProps) {
+  const [status, setStatus] = useState<"idle" | "success">("idle");
 
   const {
     register,
@@ -65,29 +66,24 @@ export function ContactForm() {
     defaultValues: { website: "" },
   });
 
-  const onSubmit = async (data: ContactFormData) => {
-    setStatus("loading");
-    setErrorMessage("");
+  const onSubmit = (data: ContactFormData) => {
+    const subject = encodeURIComponent(`Project inquiry from ${data.name}`);
+    const body = encodeURIComponent(
+      [
+        `Name: ${data.name}`,
+        `Email: ${data.email}`,
+        `Phone: ${data.phone || "N/A"}`,
+        `Company: ${data.company || "N/A"}`,
+        `Budget: ${data.budget}`,
+        `Project Type: ${data.projectType}`,
+        "",
+        data.message,
+      ].join("\n"),
+    );
 
-    try {
-      const res = await fetch(`${getApiUrl()}/api/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const result = await res.json();
-
-      if (!res.ok) {
-        throw new Error(result.error || "Something went wrong");
-      }
-
-      setStatus("success");
-      reset();
-    } catch (err) {
-      setStatus("error");
-      setErrorMessage(err instanceof Error ? err.message : "Something went wrong");
-    }
+    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+    setStatus("success");
+    reset();
   };
 
   if (status === "success") {
@@ -96,7 +92,12 @@ export function ContactForm() {
         <p className="gallery-label">Received</p>
         <h3 className="gallery-subheading mt-6">Thank you</h3>
         <p className="gallery-prose mt-8 max-w-md">
-          We&apos;ve received your message and will get back to you within 24 hours.
+          Your email client should open with your message ready to send. If it didn&apos;t open,
+          email us directly at{" "}
+          <a href={`mailto:${contactEmail}`} className="underline underline-offset-4">
+            {contactEmail}
+          </a>
+          .
         </p>
         <Button className="mt-14" variant="outline" onClick={() => setStatus("idle")}>
           Send Another Message
@@ -222,25 +223,10 @@ export function ContactForm() {
         <FieldError message={errors.message?.message} />
       </div>
 
-      {status === "error" && (
-        <p className="text-[0.6875rem] uppercase tracking-[0.18em] text-destructive" role="alert">
-          {errorMessage}
-        </p>
-      )}
-
       <div className="pt-4">
-        <Button type="submit" size="lg" disabled={status === "loading"}>
-          {status === "loading" ? (
-            <>
-              <MorphingSpinner size="xs" className="mr-2" />
-              Sending
-            </>
-          ) : (
-            <>
-              Send Message
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </>
-          )}
+        <Button type="submit" size="lg">
+          Send Message
+          <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </div>
     </form>

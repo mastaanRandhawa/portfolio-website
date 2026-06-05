@@ -62,7 +62,7 @@ const nextConfig: NextConfig = {
                     "style-src 'self' 'unsafe-inline'",
                     "img-src 'self' data: https://images.unsplash.com https://framerusercontent.com",
                     "font-src 'self'",
-                    `connect-src 'self' ${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000"} https://www.google-analytics.com https://www.clarity.ms`,
+                    "connect-src 'self' https://www.google-analytics.com https://www.clarity.ms",
                     "frame-src 'self' https://calendly.com https://www.youtube.com",
                   ].join("; "),
                 },
