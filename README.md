@@ -1,4 +1,4 @@
-# Studio North — Portfolio Website
+# Doxa Studios — Portfolio Website
 
 A modern, premium portfolio and lead-generation website built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui.
 

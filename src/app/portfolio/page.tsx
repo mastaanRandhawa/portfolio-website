@@ -1,6 +1,6 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { PortfolioFilters } from "@/components/sections/portfolio-filters";
-import { getAllProjects, getFilterOptions } from "@/lib/content";
+import { getAllProjects } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -11,7 +11,6 @@ export const metadata = buildMetadata({
 
 export default function PortfolioPage() {
   const projects = getAllProjects();
-  const { industries, projectTypes, technologies } = getFilterOptions();
 
   return (
     <>
@@ -21,12 +20,7 @@ export default function PortfolioPage() {
       />
       <section className="gallery-section pt-0">
         <div className="gallery-container">
-          <PortfolioFilters
-            projects={projects}
-            industries={industries}
-            projectTypes={projectTypes}
-            technologies={technologies}
-          />
+          <PortfolioFilters projects={projects} />
         </div>
       </section>
     </>

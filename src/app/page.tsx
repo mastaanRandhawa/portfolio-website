@@ -25,8 +25,8 @@ export default function HomePage() {
       <JsonLd data={[aggregateRatingSchema(), ...testimonials.map(reviewSchema)]} />
       <Hero site={site} />
       <TrustBar stats={site.trustStats} />
-      <FeaturedProjects projects={projects} />
       <ServicesPreview services={services} />
+      <FeaturedProjects projects={projects} />
       <WhyChooseUs items={site.whyChooseUs} />
       <TestimonialsCarousel testimonials={testimonials} />
       <FinalCta site={site} />

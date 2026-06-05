@@ -22,7 +22,7 @@ export function ServicesPreview({ services }: { services: Service[] }) {
           </div>
         </ScrollReveal>
 
-        <div className="mt-24 grid gap-20 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-16 lg:gap-y-24">
+        <div className="mt-20 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
           {previewServices.map((service, index) => (
             <ServiceCard key={service.id} service={service} index={index} />
           ))}

@@ -4,7 +4,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "About",
-  description: "Learn about our mission, experience, and the team behind Studio North.",
+  description: "Learn about our mission, experience, and the team behind Doxa Studios.",
   path: "/about",
 });
 
