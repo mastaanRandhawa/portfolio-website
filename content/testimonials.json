@@ -1,0 +1,63 @@
+[
+  {
+    "id": "sarah-mitchell",
+    "name": "Sarah Mitchell",
+    "company": "Apex Automotive Group",
+    "role": "Marketing Director",
+    "review": "Studio North transformed our online presence completely. Our lead generation increased by 40% within the first three months. The team was professional, responsive, and delivered beyond our expectations.",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face",
+    "featured": true
+  },
+  {
+    "id": "james-chen",
+    "name": "James Chen",
+    "company": "Wellness First Clinic",
+    "role": "Founder & CEO",
+    "review": "The website they built for our clinic is beautiful and incredibly easy for patients to use. Appointment bookings are up 60% and we've received countless compliments on the design.",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face",
+    "featured": true
+  },
+  {
+    "id": "maria-rodriguez",
+    "name": "Maria Rodriguez",
+    "company": "BuildRight Construction",
+    "role": "Operations Manager",
+    "review": "We needed a site that showcased our portfolio and generated quote requests. Studio North delivered exactly that — and our quote requests have doubled since launch.",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face",
+    "featured": true
+  },
+  {
+    "id": "david-park",
+    "name": "David Park",
+    "company": "CloudMetrics SaaS",
+    "role": "Head of Growth",
+    "review": "Their technical expertise is outstanding. They built our marketing site and product landing pages with perfect Lighthouse scores and a conversion rate that exceeded our targets.",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=face",
+    "featured": false,
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": "emily-thompson",
+    "name": "Emily Thompson",
+    "company": "Luxe Beauty Studio",
+    "role": "Owner",
+    "review": "The e-commerce store they built is gorgeous and so easy to manage. Online sales now account for 35% of our revenue. I couldn't be happier with the results.",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
+    "featured": false
+  },
+  {
+    "id": "robert-kim",
+    "name": "Robert Kim",
+    "company": "Harbor Real Estate",
+    "role": "Broker",
+    "review": "Our property listings site loads instantly and looks stunning on mobile. Clients constantly mention how professional our online presence is compared to competitors.",
+    "rating": 5,
+    "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
+    "featured": false
+  }
+]

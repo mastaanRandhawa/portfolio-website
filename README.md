@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Studio North — Portfolio Website
+
+A modern, premium portfolio and lead-generation website built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui.
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4 + shadcn/ui
+- **Animation:** framer-motion (hero background)
+- **Content:** Markdown + JSON files
+- **Forms:** react-hook-form + Zod
+- **Email:** Resend (optional)
+- **Deployment:** Vercel
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and fill in values as needed. All integrations are optional — the site works without them.
 
-## Learn More
+## Editing Content
 
-To learn more about Next.js, take a look at the following resources:
+Content lives in the `content/` directory and can be updated without touching code.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Site-wide settings
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Edit `content/site.json` for company name, hero copy, trust stats, contact info, and social links.
 
-## Deploy on Vercel
+### Projects
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Add or edit Markdown files in `content/projects/`. Each file uses YAML frontmatter:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```yaml
+---
+slug: my-project
+title: My Project
+industry: Healthcare
+projectType: Business Website
+technologies: [React, Next.js, TypeScript, Tailwind]
+featured: true
+liveUrl: https://example.com
+thumbnail: https://images.unsplash.com/photo-...
+shortDescription: Brief description
+gallery:
+  desktop: [...]
+  tablet: [...]
+  mobile: [...]
+results:
+  - label: Lead increase
+    value: 40%
+---
+```
+
+The Markdown body should include `## Overview`, `## Challenge`, and `## Solution` sections.
+
+### Services, Testimonials, Process, About
+
+- `content/services.json` — service listings
+- `content/testimonials.json` — client reviews
+- `content/process.json` — process steps
+- `content/about.json` — about page content
+
+## Project Structure
+
+```
+content/           # Markdown + JSON content
+src/
+  app/             # Next.js pages and API routes
+  components/
+    layout/        # Header, Footer, PageHeader
+    sections/      # Page section components
+    ui/            # shadcn/ui + etheral-shadow
+  lib/             # Content parsers, SEO, schema, utilities
+```
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+
+## Deployment
+
+Deploy to [Vercel](https://vercel.com) with zero configuration. Set environment variables in the Vercel dashboard.
+
+## Integrations
+
+| Service | Env Variable | Required |
+|---------|-------------|----------|
+| Resend (email) | `RESEND_API_KEY`, `RESEND_FROM_EMAIL` | No |
+| Calendly | `NEXT_PUBLIC_CALENDLY_URL` | No |
+| Google Analytics | `NEXT_PUBLIC_GA_ID` | No |
+| Microsoft Clarity | `NEXT_PUBLIC_CLARITY_ID` | No |

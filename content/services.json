@@ -1,0 +1,112 @@
+[
+  {
+    "id": "website-design",
+    "title": "Website Design",
+    "shortDescription": "Beautiful, conversion-focused designs that capture your brand and engage visitors.",
+    "description": "We craft visually stunning websites that reflect your brand identity and guide visitors toward action. Every pixel is intentional.",
+    "benefits": ["Custom brand-aligned designs", "Mobile-first responsive layouts", "Conversion-optimized user flows", "Accessible WCAG-compliant UI"],
+    "deliverables": ["Wireframes & mockups", "Design system", "Responsive page designs", "Asset library"],
+    "process": ["Discovery workshop", "Mood boards & concepts", "Design iterations", "Final handoff"],
+    "pricingFrom": "$3,500",
+    "icon": "Palette"
+  },
+  {
+    "id": "website-development",
+    "title": "Website Development",
+    "shortDescription": "High-performance websites built with modern frameworks and clean, maintainable code.",
+    "description": "We build fast, scalable websites using React, Next.js, and TypeScript — engineered for performance and long-term maintainability.",
+    "benefits": ["Blazing-fast page loads", "SEO-friendly architecture", "Clean, documented code", "Future-proof tech stack"],
+    "deliverables": ["Fully functional website", "CMS integration", "Performance optimization", "Deployment setup"],
+    "process": ["Technical planning", "Component development", "Integration & testing", "Launch & monitoring"],
+    "pricingFrom": "$5,000",
+    "icon": "Code"
+  },
+  {
+    "id": "ecommerce-development",
+    "title": "E-Commerce Development",
+    "shortDescription": "Online stores that convert browsers into buyers with seamless checkout experiences.",
+    "description": "From product catalogs to secure checkout flows, we build e-commerce experiences that drive revenue and build customer loyalty.",
+    "benefits": ["Optimized checkout flows", "Inventory management", "Payment gateway integration", "Analytics & tracking"],
+    "deliverables": ["Product catalog setup", "Payment integration", "Order management", "Sales analytics"],
+    "process": ["Store architecture", "Product setup", "Payment & shipping", "Launch & optimization"],
+    "pricingFrom": "$8,000",
+    "icon": "ShoppingCart"
+  },
+  {
+    "id": "seo-optimization",
+    "title": "SEO Optimization",
+    "shortDescription": "Technical and on-page SEO to improve rankings and drive organic traffic.",
+    "description": "We optimize your site structure, content, and performance to help search engines find and rank your pages higher.",
+    "benefits": ["Higher search rankings", "Increased organic traffic", "Technical SEO audit", "Content strategy guidance"],
+    "deliverables": ["SEO audit report", "On-page optimization", "Schema markup", "Performance improvements"],
+    "process": ["Site audit", "Keyword research", "Implementation", "Monitoring & reporting"],
+    "pricingFrom": "$1,500",
+    "icon": "Search"
+  },
+  {
+    "id": "branding",
+    "title": "Branding",
+    "shortDescription": "Cohesive brand identities that differentiate you in competitive markets.",
+    "description": "We develop visual identities — logos, color palettes, typography — that communicate your values and resonate with your audience.",
+    "benefits": ["Distinctive brand identity", "Consistent visual language", "Brand guidelines document", "Market differentiation"],
+    "deliverables": ["Logo design", "Color & typography system", "Brand guidelines", "Social media assets"],
+    "process": ["Brand discovery", "Concept exploration", "Refinement", "Guidelines delivery"],
+    "pricingFrom": "$2,500",
+    "icon": "Sparkles"
+  },
+  {
+    "id": "ui-ux-design",
+    "title": "UI/UX Design",
+    "shortDescription": "User-centered interfaces backed by research and tested for usability.",
+    "description": "We research your users, map their journeys, and design interfaces that are intuitive, accessible, and delightful to use.",
+    "benefits": ["User research insights", "Reduced bounce rates", "Improved engagement", "Accessibility compliance"],
+    "deliverables": ["User personas", "Journey maps", "Wireframes & prototypes", "Usability test reports"],
+    "process": ["User research", "Information architecture", "Prototyping", "Usability testing"],
+    "pricingFrom": "$3,000",
+    "icon": "Layout"
+  },
+  {
+    "id": "website-redesign",
+    "title": "Website Redesign",
+    "shortDescription": "Transform outdated websites into modern, high-performing digital experiences.",
+    "description": "We audit your current site, identify improvement opportunities, and deliver a refreshed design that meets today's standards.",
+    "benefits": ["Modern visual refresh", "Improved performance", "Better conversion rates", "Updated content structure"],
+    "deliverables": ["Current site audit", "Redesign mockups", "Migration plan", "New site launch"],
+    "process": ["Audit & analysis", "Strategy & design", "Development", "Migration & launch"],
+    "pricingFrom": "$4,500",
+    "icon": "RefreshCw"
+  },
+  {
+    "id": "website-maintenance",
+    "title": "Website Maintenance",
+    "shortDescription": "Ongoing support to keep your website secure, updated, and running smoothly.",
+    "description": "We handle updates, security patches, backups, and performance monitoring so you can focus on your business.",
+    "benefits": ["24/7 uptime monitoring", "Security updates", "Regular backups", "Priority support"],
+    "deliverables": ["Monthly maintenance reports", "Security patches", "Content updates", "Performance monitoring"],
+    "process": ["Onboarding audit", "Maintenance schedule", "Monthly updates", "Quarterly reviews"],
+    "pricingFrom": "$500/mo",
+    "icon": "Wrench"
+  },
+  {
+    "id": "hosting-setup",
+    "title": "Hosting Setup",
+    "shortDescription": "Reliable, fast hosting configured for optimal performance and security.",
+    "description": "We set up and configure production-grade hosting on platforms like Vercel, AWS, or your preferred provider.",
+    "benefits": ["Global CDN delivery", "SSL certificates", "Auto-scaling", "99.9% uptime SLA"],
+    "deliverables": ["Hosting configuration", "DNS setup", "SSL installation", "Monitoring dashboard"],
+    "process": ["Provider selection", "Environment setup", "DNS & SSL", "Go-live verification"],
+    "pricingFrom": "$500",
+    "icon": "Server"
+  },
+  {
+    "id": "analytics-setup",
+    "title": "Analytics Setup",
+    "shortDescription": "Track what matters with properly configured analytics and conversion tracking.",
+    "description": "We implement Google Analytics, Search Console, and conversion tracking so you can measure ROI and optimize campaigns.",
+    "benefits": ["Data-driven decisions", "Conversion tracking", "Audience insights", "Campaign attribution"],
+    "deliverables": ["GA4 configuration", "Search Console setup", "Conversion events", "Custom dashboards"],
+    "process": ["Tracking plan", "Implementation", "Verification", "Reporting setup"],
+    "pricingFrom": "$750",
+    "icon": "BarChart"
+  }
+]
