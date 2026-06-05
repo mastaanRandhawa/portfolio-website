@@ -2,8 +2,9 @@
 
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useState, Suspense, lazy } from "react";
+import { useEffect, useState, Suspense, lazy } from "react";
 import { LinkButton } from "@/components/ui/link-button";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const Dithering = lazy(() =>
   import("@paper-design/shaders-react").then((mod) => ({ default: mod.Dithering }))
@@ -26,7 +27,18 @@ export function HeroDitheringCard({
   primaryCta,
   secondaryCta,
 }: HeroDitheringCardProps) {
+  const reducedMotion = useReducedMotion();
+  const [enableShader, setEnableShader] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)");
+    const update = () => setEnableShader(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
 
   return (
     <section
@@ -36,19 +48,21 @@ export function HeroDitheringCard({
     >
       <div className="gallery-container">
         <div className="relative grid min-h-[calc(100dvh-4.5rem)] place-items-center py-10 sm:min-h-screen sm:py-12">
-          <Suspense fallback={null}>
-            <div className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-multiply">
-              <Dithering
-                colorBack="#00000000"
-                colorFront="#1a1a1a"
-                shape="warp"
-                type="4x4"
-                speed={isHovered ? 0.5 : 0.15}
-                className="size-full"
-                minPixelRatio={1}
-              />
-            </div>
-          </Suspense>
+          {enableShader && !reducedMotion && (
+            <Suspense fallback={null}>
+              <div className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-multiply">
+                <Dithering
+                  colorBack="#00000000"
+                  colorFront="#1a1a1a"
+                  shape="warp"
+                  type="4x4"
+                  speed={isHovered ? 0.35 : 0.1}
+                  className="size-full"
+                  minPixelRatio={1}
+                />
+              </div>
+            </Suspense>
+          )}
 
           <div className="relative z-10 flex w-full max-w-4xl flex-col items-center justify-center px-1 text-center">
             <p className="gallery-label mb-6 sm:mb-10">{badge}</p>

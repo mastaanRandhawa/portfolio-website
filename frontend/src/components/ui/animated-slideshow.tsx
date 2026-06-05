@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { HTMLMotionProps, MotionConfig, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface TextStaggerHoverProps {
@@ -19,16 +18,6 @@ interface HoverSliderProps {}
 interface HoverSliderContextValue {
   activeSlide: number;
   changeSlide: (index: number) => void;
-}
-
-function splitText(text: string) {
-  const words = text.split(" ").map((word) => word.concat(" "));
-  const characters = words.map((word) => word.split("")).flat(1);
-
-  return {
-    words,
-    characters,
-  };
 }
 
 const HoverSliderContext = React.createContext<
@@ -70,14 +59,14 @@ export const TextStaggerHover = React.forwardRef<
   React.HTMLAttributes<HTMLElement> & TextStaggerHoverProps
 >(({ text, index, className, ...props }, ref) => {
   const { activeSlide, changeSlide } = useHoverSliderContext();
-  const { characters } = splitText(text);
   const isActive = activeSlide === index;
   const handleActivate = () => changeSlide(index);
 
   return (
     <span
       className={cn(
-        "relative inline-block max-w-full origin-bottom overflow-hidden break-words",
+        "inline-block max-w-full break-words transition-[opacity,color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        isActive ? "text-foreground opacity-100" : "text-foreground/45 opacity-100",
         className
       )}
       {...props}
@@ -87,50 +76,11 @@ export const TextStaggerHover = React.forwardRef<
       onClick={handleActivate}
       role="presentation"
     >
-      {characters.map((char, charIndex) => (
-        <span
-          key={`${char}-${charIndex}`}
-          className="relative inline-block overflow-hidden"
-        >
-          <MotionConfig
-            transition={{
-              delay: charIndex * 0.025,
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-          >
-            <motion.span
-              className="inline-block opacity-50 sm:opacity-20"
-              initial={{ y: "0%" }}
-              animate={isActive ? { y: "-110%" } : { y: "0%" }}
-            >
-              {char}
-              {char === " " && charIndex < characters.length - 1 && <>&nbsp;</>}
-            </motion.span>
-
-            <motion.span
-              className="absolute left-0 top-0 inline-block opacity-100"
-              initial={{ y: "110%" }}
-              animate={isActive ? { y: "0%" } : { y: "110%" }}
-            >
-              {char}
-            </motion.span>
-          </MotionConfig>
-        </span>
-      ))}
+      {text}
     </span>
   );
 });
 TextStaggerHover.displayName = "TextStaggerHover";
-
-export const clipPathVariants = {
-  visible: {
-    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-  },
-  hidden: {
-    clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0px)",
-  },
-};
 
 export const HoverSliderImageWrap = React.forwardRef<
   HTMLDivElement,
@@ -151,19 +101,20 @@ HoverSliderImageWrap.displayName = "HoverSliderImageWrap";
 
 export const HoverSliderImage = React.forwardRef<
   HTMLImageElement,
-  HTMLMotionProps<"img"> & HoverSliderImageProps
+  React.ImgHTMLAttributes<HTMLImageElement> & HoverSliderImageProps
 >(({ index, imageUrl, className, alt, ...props }, ref) => {
   const { activeSlide } = useHoverSliderContext();
+  const isActive = activeSlide === index;
 
   return (
-    <motion.img
+    <img
       src={imageUrl}
       alt={alt}
-      className={cn("inline-block align-middle", className)}
-      transition={{ ease: [0.33, 1, 0.68, 1], duration: 0.8 }}
-      variants={clipPathVariants}
-      initial="hidden"
-      animate={activeSlide === index ? "visible" : "hidden"}
+      className={cn(
+        "inline-block align-middle transition-opacity duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
+        isActive ? "opacity-100" : "pointer-events-none opacity-0",
+        className
+      )}
       ref={ref}
       {...props}
     />

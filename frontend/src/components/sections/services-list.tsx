@@ -54,7 +54,7 @@ function ServiceTextList({
 
 function ServiceArticle({ service, index }: { service: Service; index: number }) {
   return (
-    <ScrollReveal delay={index * 0.04}>
+    <ScrollReveal delay={index * 0.02}>
       <article id={service.id} className="scroll-mt-24 sm:scroll-mt-28">
         <div className="gallery-card flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-8 lg:gap-12">
           <GalleryGlyph

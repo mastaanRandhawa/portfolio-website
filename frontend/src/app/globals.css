@@ -170,6 +170,12 @@
     @apply bg-background text-foreground text-base leading-relaxed tracking-wide overflow-x-hidden;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   h1,
   h2,
   h3,
@@ -275,11 +281,52 @@
 
   .portfolio-thumbnail-grade {
     filter: grayscale(0.3) contrast(1.1) brightness(0.93) saturate(0.7);
-    transition: filter 0.7s ease, transform 0.7s ease;
+    transition: filter 0.5s ease, transform 0.5s ease;
   }
 
-  .group:hover .portfolio-thumbnail-grade,
-  .group:focus-within .portfolio-thumbnail-grade {
-    filter: grayscale(0.05) contrast(1.05) brightness(1) saturate(0.88);
+  @media (hover: hover) and (pointer: fine) {
+    .group:hover .portfolio-thumbnail-grade,
+    .group:focus-within .portfolio-thumbnail-grade {
+      filter: grayscale(0.05) contrast(1.05) brightness(1) saturate(0.88);
+    }
+  }
+
+  .testimonial-fade-in {
+    animation: testimonial-fade-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes testimonial-fade-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .testimonial-marquee-track {
+    animation: testimonial-marquee 28s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes testimonial-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonial-fade-in {
+      animation: none;
+    }
+
+    .testimonial-marquee-track {
+      animation: none;
+    }
   }
 }
