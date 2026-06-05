@@ -1,128 +1,176 @@
 # Doxa Studios — Portfolio Website
 
-A modern, premium portfolio and lead-generation website built with Next.js, TypeScript, Tailwind CSS, and shadcn/ui.
+A monorepo with a **Next.js static frontend** (GitHub Pages) and a **Node API backend** (Render/Railway) serving content and contact form submissions.
+
+## Repository Structure
+
+```
+portfolio-website/
+├── frontend/          # Next.js 16 static site (GitHub Pages)
+├── backend/           # Hono API server (content + contact)
+├── packages/shared/   # Shared TypeScript types
+└── package.json       # npm workspaces root
+```
 
 ## Tech Stack
 
-- **Framework:** Next.js 16 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS v4 + shadcn/ui
-- **Animation:** framer-motion (hero background)
-- **Content:** Markdown + JSON files
-- **Forms:** react-hook-form + Zod
-- **Email:** Resend (optional)
-- **Deployment:** Vercel
+- **Frontend:** Next.js 16, TypeScript, Tailwind CSS v4, shadcn/ui
+- **Backend:** Hono, Node 20, Zod, Resend (optional)
+- **Content:** JSON + Markdown files in `backend/content/`
+- **Deployment:** GitHub Pages (frontend) + Render/Railway (backend)
 
 ## Getting Started
 
+### Prerequisites
+
+- Node.js 20+
+- npm 9+
+
+### Install
+
 ```bash
 npm install
-npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000).
 
 ### Environment Variables
 
-Copy `.env.example` to `.env.local` and fill in values as needed. All integrations are optional — the site works without them.
+**Backend** — copy `backend/.env.example` to `backend/.env`:
+
+```env
+PORT=4000
+CORS_ORIGINS=http://localhost:3000,https://mastaanrandhawa.github.io
+RESEND_API_KEY=          # optional — logs to console if unset
+RESEND_FROM_EMAIL=
+```
+
+**Frontend** — copy `frontend/.env.example` to `frontend/.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXT_PUBLIC_CALENDLY_URL=
+NEXT_PUBLIC_GA_ID=
+NEXT_PUBLIC_CLARITY_ID=
+```
+
+### Local Development
+
+Start both servers:
+
+```bash
+npm run dev
+```
+
+- Frontend: [http://localhost:3000](http://localhost:3000)
+- Backend API: [http://localhost:4000](http://localhost:4000)
+
+Or run individually:
+
+```bash
+npm run dev -w backend
+npm run dev -w frontend
+```
+
+### Verify Backend
+
+```bash
+curl http://localhost:4000/health
+curl http://localhost:4000/api/site
+```
 
 ## Editing Content
 
-Content lives in the `content/` directory and can be updated without touching code.
+Content lives in `backend/content/` and is served via REST API. Update files without touching frontend code.
 
-### Site-wide settings
+| File / Folder | Purpose |
+|---------------|---------|
+| `backend/content/site.json` | Site name, hero, contact, social |
+| `backend/content/services.json` | Service listings |
+| `backend/content/testimonials.json` | Client reviews |
+| `backend/content/process.json` | Process steps |
+| `backend/content/about.json` | About page |
+| `backend/content/projects/*.md` | Portfolio projects (YAML frontmatter + Markdown) |
 
-Edit `content/site.json` for company name, hero copy, trust stats, contact info, and social links.
+After editing content locally, restart is not required — the backend reads files on each request. Redeploy or rebuild the frontend only if you need updated static pages on GitHub Pages.
 
-### Projects
+## API Endpoints
 
-Add or edit Markdown files in `content/projects/`. Each file uses YAML frontmatter:
-
-```yaml
----
-slug: my-project
-title: My Project
-industry: Healthcare
-projectType: Business Website
-technologies: [React, Next.js, TypeScript, Tailwind]
-featured: true
-liveUrl: https://example.com
-thumbnail: https://images.unsplash.com/photo-...
-shortDescription: Brief description
-gallery:
-  desktop: [...]
-  tablet: [...]
-  mobile: [...]
-results:
-  - label: Lead increase
-    value: 40%
----
-```
-
-The Markdown body should include `## Overview`, `## Challenge`, and `## Solution` sections.
-
-### Services, Testimonials, Process, About
-
-- `content/services.json` — service listings
-- `content/testimonials.json` — client reviews
-- `content/process.json` — process steps
-- `content/about.json` — about page content
-
-## Project Structure
-
-```
-content/           # Markdown + JSON content
-src/
-  app/             # Next.js pages and API routes
-  components/
-    layout/        # Header, Footer, PageHeader
-    sections/      # Page section components
-    ui/            # shadcn/ui + etheral-shadow
-  lib/             # Content parsers, SEO, schema, utilities
-```
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/health` | Liveness check |
+| GET | `/api/site` | Site configuration |
+| GET | `/api/services` | All services |
+| GET | `/api/testimonials` | All testimonials |
+| GET | `/api/about` | About content |
+| GET | `/api/process` | Process steps |
+| GET | `/api/projects` | All projects (`?featured=true` for featured only) |
+| GET | `/api/projects/:slug` | Single project |
+| POST | `/api/contact` | Contact form submission |
 
 ## Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Production build |
-| `npm run start` | Start production server |
-| `npm run lint` | Run ESLint |
+| `npm run dev` | Start backend + frontend concurrently |
+| `npm run build` | Build backend and frontend |
+| `npm run lint` | Lint both workspaces |
 
 ## Deployment
 
-### GitHub Pages
+### Backend (Render)
 
-This repo includes a GitHub Actions workflow (`.github/workflows/deploy-github-pages.yml`) that builds a static export and deploys to GitHub Pages on every push to `master` or `main`.
+1. Create a **Web Service** on [Render](https://render.com)
+2. Connect this repo; set **Root Directory** to repo root
+3. Use **Docker** with `backend/Dockerfile` (or use `backend/render.yaml` Blueprint)
+4. Set environment variables:
+   - `RESEND_API_KEY`, `RESEND_FROM_EMAIL`
+   - `CORS_ORIGINS=https://mastaanrandhawa.github.io,http://localhost:3000`
+5. Health check path: `/health`
+6. Note the service URL (e.g. `https://doxa-api.onrender.com`)
 
-**One-time setup:**
+### Backend (Railway)
 
-1. Open the repo on GitHub → **Settings** → **Pages**
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**
-3. Push to `master`/`main` — the workflow runs automatically
+1. Create a new project from this repo
+2. Set the service root to `backend/` or use the Dockerfile at `backend/Dockerfile` with context `.`
+3. Add the same env vars as above
+4. Expose port `4000`
+
+### Frontend (GitHub Pages)
+
+1. Deploy the backend first and confirm `/health` returns `200`
+2. In GitHub repo **Settings → Secrets → Actions**, add:
+   - `API_URL` = your production backend URL (no trailing slash)
+3. **Settings → Pages → Source:** GitHub Actions
+4. Push to `master`/`main` — workflow builds `frontend/` with `NEXT_PUBLIC_API_URL`
 
 **Live URL:** [https://mastaanrandhawa.github.io/portfolio-website/](https://mastaanrandhawa.github.io/portfolio-website/)
 
-**Note:** GitHub Pages serves a static export. The contact form API (`/api/contact`) is excluded from this build, so form submissions require a server host (e.g. Vercel) or an external form service.
+### Local Static Preview
 
-**Local static preview:**
+```powershell
+# Terminal 1 — backend
+npm run dev -w backend
 
-```bash
-# PowerShell
-$env:GITHUB_PAGES="true"; npm run build
-# Output is in ./out — serve with any static file server
+# Terminal 2 — static export
+$env:GITHUB_PAGES="true"
+$env:NEXT_PUBLIC_API_URL="http://localhost:4000"
+npm run build -w frontend
+# Output: frontend/out
 ```
 
-### Vercel
+## Production Checklist
 
-Deploy to [Vercel](https://vercel.com) for full Next.js features (API routes, contact form email). Set environment variables in the Vercel dashboard.
+- [ ] Backend deployed and `/health` returns OK
+- [ ] `API_URL` GitHub secret set to production backend URL
+- [ ] `CORS_ORIGINS` includes `https://mastaanrandhawa.github.io`
+- [ ] `RESEND_API_KEY` set on backend for contact emails
+- [ ] GitHub Pages workflow succeeds
+- [ ] Contact form submits from live site
 
 ## Integrations
 
-| Service | Env Variable | Required |
-|---------|-------------|----------|
-| Resend (email) | `RESEND_API_KEY`, `RESEND_FROM_EMAIL` | No |
-| Calendly | `NEXT_PUBLIC_CALENDLY_URL` | No |
-| Google Analytics | `NEXT_PUBLIC_GA_ID` | No |
-| Microsoft Clarity | `NEXT_PUBLIC_CLARITY_ID` | No |
+| Service | Where | Env Variable |
+|---------|-------|--------------|
+| Resend (email) | Backend | `RESEND_API_KEY`, `RESEND_FROM_EMAIL` |
+| Calendly | Frontend | `NEXT_PUBLIC_CALENDLY_URL` |
+| Google Analytics | Frontend | `NEXT_PUBLIC_GA_ID` |
+| Microsoft Clarity | Frontend | `NEXT_PUBLIC_CLARITY_ID` |
