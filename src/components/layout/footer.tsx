@@ -6,7 +6,6 @@ const footerLinks = {
   company: [
     { href: "/about", label: "About" },
     { href: "/process", label: "Process" },
-    { href: "/testimonials", label: "Testimonials" },
     { href: "/contact", label: "Contact" },
   ],
   services: [

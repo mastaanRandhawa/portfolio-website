@@ -5,21 +5,24 @@ import { ServicesPreview } from "@/components/sections/services-preview";
 import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { TestimonialsCarousel } from "@/components/sections/testimonials-carousel";
 import { FinalCta } from "@/components/sections/final-cta";
+import { JsonLd } from "@/components/layout/json-ld";
 import {
   getSiteConfig,
   getFeaturedProjects,
   getServices,
-  getFeaturedTestimonials,
+  getTestimonials,
 } from "@/lib/content";
+import { aggregateRatingSchema, reviewSchema } from "@/lib/schema";
 
 export default function HomePage() {
   const site = getSiteConfig();
   const projects = getFeaturedProjects();
   const services = getServices();
-  const testimonials = getFeaturedTestimonials();
+  const testimonials = getTestimonials();
 
   return (
     <>
+      <JsonLd data={[aggregateRatingSchema(), ...testimonials.map(reviewSchema)]} />
       <Hero site={site} />
       <TrustBar stats={site.trustStats} />
       <FeaturedProjects projects={projects} />
