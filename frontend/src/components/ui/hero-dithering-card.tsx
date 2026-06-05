@@ -2,9 +2,8 @@
 
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState, Suspense, lazy } from "react";
+import { useEffect, useRef, useState, Suspense, lazy } from "react";
 import { LinkButton } from "@/components/ui/link-button";
-import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const Dithering = lazy(() =>
   import("@paper-design/shaders-react").then((mod) => ({ default: mod.Dithering }))
@@ -27,42 +26,69 @@ export function HeroDitheringCard({
   primaryCta,
   secondaryCta,
 }: HeroDitheringCardProps) {
-  const reducedMotion = useReducedMotion();
-  const [enableShader, setEnableShader] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)");
-    const update = () => setEnableShader(mediaQuery.matches);
+    const coarse = window.matchMedia("(pointer: coarse)");
+    const updatePointer = () => setIsCoarsePointer(coarse.matches);
+    updatePointer();
+    coarse.addEventListener("change", updatePointer);
 
-    update();
-    mediaQuery.addEventListener("change", update);
-    return () => mediaQuery.removeEventListener("change", update);
+    const section = sectionRef.current;
+    if (!section) {
+      return () => coarse.removeEventListener("change", updatePointer);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    observer.observe(section);
+
+    return () => {
+      coarse.removeEventListener("change", updatePointer);
+      observer.disconnect();
+    };
   }, []);
+
+  const shaderSpeed = !isVisible
+    ? 0
+    : isCoarsePointer
+      ? 0.08
+      : isHovered
+        ? 0.35
+        : 0.12;
 
   return (
     <section
+      ref={sectionRef}
       className="pb-12 sm:pb-24"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="gallery-container">
         <div className="relative grid min-h-[calc(100dvh-4.5rem)] place-items-center py-10 sm:min-h-screen sm:py-12">
-          {enableShader && !reducedMotion && (
-            <Suspense fallback={null}>
-              <div className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-multiply">
+          <Suspense fallback={null}>
+            {isVisible && (
+              <div
+                className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-multiply [contain:strict]"
+                aria-hidden="true"
+              >
                 <Dithering
                   colorBack="#00000000"
                   colorFront="#1a1a1a"
                   shape="warp"
                   type="4x4"
-                  speed={isHovered ? 0.35 : 0.1}
+                  speed={shaderSpeed}
                   className="size-full"
-                  minPixelRatio={1}
+                  minPixelRatio={isCoarsePointer ? 0.75 : 1}
                 />
               </div>
-            </Suspense>
-          )}
+            )}
+          </Suspense>
 
           <div className="relative z-10 flex w-full max-w-4xl flex-col items-center justify-center px-1 text-center">
             <p className="gallery-label mb-6 sm:mb-10">{badge}</p>

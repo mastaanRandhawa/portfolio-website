@@ -35,7 +35,7 @@ export function ScrollReveal({
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -4% 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -2% 0px" }
     );
 
     observer.observe(element);
@@ -46,8 +46,8 @@ export function ScrollReveal({
     <div
       ref={ref}
       className={cn(
-        "transform-gpu transition-[opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none",
-        visible ? "opacity-100 sm:translate-y-0" : "opacity-0 sm:translate-y-4",
+        "transform-gpu transition-[opacity,transform] duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none",
+        visible ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0",
         className
       )}
       style={{ transitionDelay: visible ? `${delay * 1000}ms` : "0ms" }}

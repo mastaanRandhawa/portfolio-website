@@ -35,7 +35,6 @@ export default async function RootLayout({
     <html
       lang="en"
       className={`${openSans.variable} ${urbanist.variable} h-full`}
-      data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         <JsonLd data={[organizationSchema(site), websiteSchema(site)]} />

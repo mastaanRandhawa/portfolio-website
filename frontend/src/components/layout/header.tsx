@@ -78,7 +78,7 @@ export function Header({ siteName }: { siteName: string }) {
       className={cn(
         "fixed top-0 z-50 w-full transition-[background-color,backdrop-filter,border-color,box-shadow] duration-300 ease-out",
         scrolled
-          ? "border-b border-border/50 bg-background/95 shadow-[0_4px_20px_rgba(26,26,26,0.04)] md:bg-background/80 md:shadow-[0_8px_32px_rgba(26,26,26,0.04)] md:backdrop-blur-xl md:backdrop-saturate-150 md:supports-[backdrop-filter]:bg-background/70"
+          ? "border-b border-border/50 bg-background/92 shadow-sm max-md:backdrop-blur-sm md:bg-background/72 md:shadow-[0_8px_32px_rgba(26,26,26,0.04)] md:backdrop-blur-xl md:backdrop-saturate-150 md:supports-[backdrop-filter]:bg-background/65"
           : "border-b border-transparent bg-transparent"
       )}
     >

@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { HTMLMotionProps, motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { useLiteAnimations } from "@/lib/use-reduced-motion";
 
 interface TextStaggerHoverProps {
   text: string;
@@ -65,15 +67,14 @@ export const TextStaggerHover = React.forwardRef<
   return (
     <span
       className={cn(
-        "inline-block max-w-full break-words transition-[opacity,color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-        isActive ? "text-foreground opacity-100" : "text-foreground/45 opacity-100",
+        "inline-block max-w-full break-words transition-colors duration-300 ease-out",
+        isActive ? "text-foreground" : "text-foreground/50",
         className
       )}
       {...props}
       ref={ref as React.Ref<HTMLSpanElement>}
       onMouseEnter={handleActivate}
       onFocus={handleActivate}
-      onClick={handleActivate}
       role="presentation"
     >
       {text}
@@ -81,6 +82,20 @@ export const TextStaggerHover = React.forwardRef<
   );
 });
 TextStaggerHover.displayName = "TextStaggerHover";
+
+const clipPathVariants = {
+  visible: {
+    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+  },
+  hidden: {
+    clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0px)",
+  },
+};
+
+const opacityVariants = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+};
 
 export const HoverSliderImageWrap = React.forwardRef<
   HTMLDivElement,
@@ -101,20 +116,21 @@ HoverSliderImageWrap.displayName = "HoverSliderImageWrap";
 
 export const HoverSliderImage = React.forwardRef<
   HTMLImageElement,
-  React.ImgHTMLAttributes<HTMLImageElement> & HoverSliderImageProps
+  HTMLMotionProps<"img"> & HoverSliderImageProps
 >(({ index, imageUrl, className, alt, ...props }, ref) => {
   const { activeSlide } = useHoverSliderContext();
+  const liteAnimations = useLiteAnimations();
   const isActive = activeSlide === index;
 
   return (
-    <img
+    <motion.img
       src={imageUrl}
       alt={alt}
-      className={cn(
-        "inline-block align-middle transition-opacity duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
-        isActive ? "opacity-100" : "pointer-events-none opacity-0",
-        className
-      )}
+      className={cn("inline-block align-middle will-change-[opacity,clip-path]", className)}
+      transition={{ ease: [0.33, 1, 0.68, 1], duration: liteAnimations ? 0.45 : 0.65 }}
+      variants={liteAnimations ? opacityVariants : clipPathVariants}
+      initial="hidden"
+      animate={isActive ? "visible" : "hidden"}
       ref={ref}
       {...props}
     />

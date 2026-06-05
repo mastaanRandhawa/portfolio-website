@@ -163,17 +163,17 @@
   }
 
   html {
-    @apply scroll-smooth font-sans antialiased overflow-x-hidden;
+    @apply font-sans antialiased overflow-x-hidden;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
     @apply bg-background text-foreground text-base leading-relaxed tracking-wide overflow-x-hidden;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
   }
 
   h1,
@@ -201,6 +201,8 @@
 
   .gallery-section {
     @apply py-16 sm:py-24 lg:py-40;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 480px;
   }
 
   .gallery-grid {
@@ -281,34 +283,11 @@
 
   .portfolio-thumbnail-grade {
     filter: grayscale(0.3) contrast(1.1) brightness(0.93) saturate(0.7);
-    transition: filter 0.5s ease, transform 0.5s ease;
+    transition: filter 0.45s ease, transform 0.45s ease;
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    .group:hover .portfolio-thumbnail-grade,
-    .group:focus-within .portfolio-thumbnail-grade {
-      filter: grayscale(0.05) contrast(1.05) brightness(1) saturate(0.88);
-    }
-  }
-
-  .testimonial-fade-in {
-    animation: testimonial-fade-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  @keyframes testimonial-fade-in {
-    from {
-      opacity: 0;
-      transform: translate3d(0, 10px, 0);
-    }
-    to {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-  .testimonial-marquee-track {
-    animation: testimonial-marquee 28s linear infinite;
-    will-change: transform;
+  .transform-gpu {
+    transform: translateZ(0);
   }
 
   @keyframes testimonial-marquee {
@@ -320,13 +299,12 @@
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .testimonial-fade-in {
-      animation: none;
-    }
+  .animate-testimonial-marquee {
+    animation: testimonial-marquee 40s linear infinite;
+  }
 
-    .testimonial-marquee-track {
-      animation: none;
-    }
+  .group:hover .portfolio-thumbnail-grade,
+  .group:focus-within .portfolio-thumbnail-grade {
+    filter: grayscale(0.05) contrast(1.05) brightness(1) saturate(0.88);
   }
 }

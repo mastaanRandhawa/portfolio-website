@@ -12,7 +12,7 @@ export function ProcessFlow({ steps }: { steps: ProcessStep[] }) {
 
       <div className="space-y-16 sm:space-y-28 lg:space-y-36">
         {steps.map((step, index) => (
-          <ScrollReveal key={step.step} delay={index * 0.03}>
+          <ScrollReveal key={step.step} delay={index * 0.05}>
             <article className="relative grid gap-6 sm:grid-cols-[5rem_1fr] sm:gap-10 lg:grid-cols-[7rem_1fr] lg:gap-24">
               <div className="flex items-start gap-4 sm:flex-col sm:gap-8">
                 <p className="font-serif text-4xl tracking-[0.06em] text-foreground/20 sm:text-5xl lg:text-6xl">
