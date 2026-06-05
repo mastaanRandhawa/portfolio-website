@@ -7,12 +7,13 @@ import type { Service } from "@/lib/types";
 export function ServiceCard({
   service,
   index = 0,
+  animate = true,
 }: {
   service: Service;
   index?: number;
+  animate?: boolean;
 }) {
-  return (
-    <ScrollReveal delay={index * 0.04}>
+  const card = (
       <article className="gallery-card group flex h-full flex-col gap-4 sm:gap-5">
         <GalleryGlyph
           name={service.icon}
@@ -29,6 +30,9 @@ export function ServiceCard({
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </article>
-    </ScrollReveal>
   );
+
+  if (!animate) return card;
+
+  return <ScrollReveal delay={index * 0.04}>{card}</ScrollReveal>;
 }

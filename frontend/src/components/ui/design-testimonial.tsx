@@ -168,11 +168,11 @@ export function DesignTestimonial({
               </AnimatePresence>
             </div>
 
-            <div className="relative mb-10 min-h-[9rem] sm:mb-14 sm:min-h-[12rem] lg:mb-20 lg:min-h-[16rem] xl:min-h-[18rem]">
+            <div className="relative mb-8 sm:mb-14 lg:mb-20 lg:min-h-[16rem] xl:min-h-[18rem]">
               <AnimatePresence mode="wait">
                 <motion.blockquote
                   key={activeIndex}
-                  className="absolute inset-x-0 top-0 w-full font-serif text-2xl font-normal leading-[1.25] tracking-[0.02em] text-foreground min-[375px]:text-[1.625rem] sm:text-3xl md:text-4xl lg:text-5xl"
+                  className="w-full font-serif text-2xl font-normal leading-[1.35] tracking-[0.02em] text-foreground min-[375px]:text-[1.625rem] sm:text-3xl md:text-4xl lg:absolute lg:inset-x-0 lg:top-0 lg:text-5xl lg:leading-[1.25]"
                   initial="hidden"
                   animate="visible"
                   exit="exit"
@@ -209,8 +209,8 @@ export function DesignTestimonial({
               </AnimatePresence>
             </div>
 
-            <div className="relative mt-6 flex shrink-0 flex-col gap-6 sm:mt-auto sm:min-h-[3.5rem] sm:flex-row sm:items-end sm:justify-between sm:gap-8">
-              <div className="relative min-h-14 min-w-0 sm:min-w-[12rem]">
+            <div className="relative flex shrink-0 flex-col gap-6 pt-2 sm:flex-row sm:items-end sm:justify-between sm:gap-8 lg:mt-auto lg:min-h-[3.5rem] lg:pt-0">
+              <div className="relative min-w-0 lg:min-h-14 lg:min-w-[12rem]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeIndex}
@@ -218,7 +218,7 @@ export function DesignTestimonial({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.4, delay: 0.2 }}
-                    className="absolute left-0 top-0 flex items-center gap-4"
+                    className="flex items-center gap-4 lg:absolute lg:left-0 lg:top-0"
                   >
                     <motion.div
                       className="h-px w-8 origin-left bg-foreground"
