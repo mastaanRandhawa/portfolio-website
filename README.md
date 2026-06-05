@@ -92,7 +92,31 @@ src/
 
 ## Deployment
 
-Deploy to [Vercel](https://vercel.com) with zero configuration. Set environment variables in the Vercel dashboard.
+### GitHub Pages
+
+This repo includes a GitHub Actions workflow (`.github/workflows/deploy-github-pages.yml`) that builds a static export and deploys to GitHub Pages on every push to `master` or `main`.
+
+**One-time setup:**
+
+1. Open the repo on GitHub → **Settings** → **Pages**
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**
+3. Push to `master`/`main` — the workflow runs automatically
+
+**Live URL:** [https://mastaanrandhawa.github.io/portfolio-website/](https://mastaanrandhawa.github.io/portfolio-website/)
+
+**Note:** GitHub Pages serves a static export. The contact form API (`/api/contact`) is excluded from this build, so form submissions require a server host (e.g. Vercel) or an external form service.
+
+**Local static preview:**
+
+```bash
+# PowerShell
+$env:GITHUB_PAGES="true"; npm run build
+# Output is in ./out — serve with any static file server
+```
+
+### Vercel
+
+Deploy to [Vercel](https://vercel.com) for full Next.js features (API routes, contact form email). Set environment variables in the Vercel dashboard.
 
 ## Integrations
 
