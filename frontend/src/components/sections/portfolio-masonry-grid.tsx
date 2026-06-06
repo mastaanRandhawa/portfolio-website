@@ -21,17 +21,15 @@ export function PortfolioMasonryGrid({
   }
 
   return (
-    <div className={className}>
-      <div className="portfolio-masonry">
-        {projects.map((project, index) => (
-          <PortfolioMasonryItem
-            key={project.slug}
-            project={project}
-            index={index}
-            showVisitButton={showVisitButton}
-          />
-        ))}
-      </div>
+    <div className={`portfolio-grid ${className}`.trim()}>
+      {projects.map((project, index) => (
+        <PortfolioMasonryItem
+          key={project.slug}
+          project={project}
+          index={index}
+          showVisitButton={showVisitButton}
+        />
+      ))}
     </div>
   );
 }

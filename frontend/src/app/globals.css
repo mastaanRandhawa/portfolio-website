@@ -273,12 +273,12 @@
     @apply min-h-36 resize-none py-4;
   }
 
-  .portfolio-masonry {
-    @apply w-full columns-1 gap-x-16 sm:columns-2 lg:columns-3 lg:gap-x-24 xl:gap-x-28;
+  .portfolio-grid {
+    @apply grid w-full grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-14 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-16;
   }
 
-  .portfolio-masonry-item {
-    @apply mb-16 break-inside-avoid sm:mb-20 lg:mb-28;
+  .portfolio-card {
+    @apply flex min-w-0 flex-col;
   }
 
   .portfolio-thumbnail-grade {

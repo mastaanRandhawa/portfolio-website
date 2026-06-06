@@ -110,53 +110,66 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
       <section className="gallery-section">
         <div className="gallery-container">
-          <div className="grid gap-12 sm:gap-16 lg:grid-cols-2 lg:gap-32">
-            <div>
-              <p className="gallery-label mb-6">Challenge</p>
-              <p className="gallery-prose">{project.challenge}</p>
-            </div>
-            <div>
-              <p className="gallery-label mb-6">Solution</p>
-              <p className="gallery-prose">{project.solution}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="gallery-section pt-0">
-        <div className="gallery-container">
-          <p className="gallery-label mb-6">Stack</p>
-          <p className="gallery-prose">{project.technologies.join(" · ")}</p>
-        </div>
-      </section>
-
-      <section className="gallery-section pt-0">
-        <div className="gallery-container">
-          <p className="gallery-label mb-12">Results</p>
-          <div className="grid grid-cols-2 gap-8 sm:gap-12 lg:grid-cols-4">
-            {project.results.map((result) => (
-              <div key={result.label} className="flex flex-col gap-2 sm:gap-3">
-                <p className="font-serif text-3xl tracking-[0.04em] min-[375px]:text-4xl">{result.value}</p>
-                <p className="gallery-label">{result.label}</p>
+          <div className="border border-foreground/30">
+            <div className="grid lg:grid-cols-2">
+              <div className="border-b border-foreground/30 p-6 sm:p-8 lg:border-r lg:border-b-0">
+                <p className="gallery-label mb-4 sm:mb-6">Challenge</p>
+                <p className="gallery-prose">{project.challenge}</p>
               </div>
-            ))}
+              <div className="p-6 sm:p-8">
+                <p className="gallery-label mb-4 sm:mb-6">Solution</p>
+                <p className="gallery-prose">{project.solution}</p>
+              </div>
+            </div>
+            <div className="border-t border-foreground/30 p-6 sm:p-8">
+              <p className="gallery-label mb-4 sm:mb-6">Stack</p>
+              <p className="gallery-prose">{project.technologies.join(" · ")}</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="gallery-section pt-0 text-center">
+      <section className="gallery-section pt-0">
         <div className="gallery-container">
-          <p className="gallery-label mb-6">Live</p>
-          <h2 className="gallery-subheading">See It In Action</h2>
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="gallery-link mt-10"
-          >
-            Visit Website
-            <ExternalLink className="h-3.5 w-3.5" />
-          </a>
+          <div className="border border-foreground/30 p-6 sm:p-8">
+            <p className="gallery-label mb-8 sm:mb-10">Results</p>
+            <div className="grid grid-cols-2 border-t border-l border-foreground/30 lg:grid-cols-4">
+              {project.results.map((result) => (
+                <div
+                  key={result.label}
+                  className="flex flex-col gap-2 border-r border-b border-foreground/30 p-5 sm:gap-3 sm:p-6 lg:p-8"
+                >
+                  <p className="font-serif text-3xl tracking-[0.04em] min-[375px]:text-4xl">
+                    {result.value}
+                  </p>
+                  <p className="gallery-label">{result.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="pt-16 pb-0 sm:pt-24 lg:pt-32" aria-labelledby="project-live-heading">
+        <div className="w-full bg-charcoal px-4 py-16 text-center sm:px-8 sm:py-24 md:px-16 lg:py-28">
+          <div className="mx-auto max-w-3xl">
+            <p className="gallery-label mb-6 text-red-500 sm:mb-8">Live</p>
+            <h2
+              id="project-live-heading"
+              className="font-serif text-[1.625rem] font-normal tracking-[0.04em] text-off-white text-balance min-[375px]:text-3xl sm:text-4xl md:text-5xl"
+            >
+              See It In Action
+            </h2>
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-10 inline-flex min-h-11 items-center justify-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-off-white underline-offset-[6px] transition-[color,opacity] duration-300 ease-out hover:text-off-white/70 sm:mt-12"
+            >
+              Visit Website
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
         </div>
       </section>
     </>

@@ -72,10 +72,30 @@ function GitHubIcon() {
 }
 
 const socialLinks = [
-  { key: "linkedin", label: "LinkedIn", icon: LinkedInIcon, className: "bg-[#0A66C2]" },
-  { key: "instagram", label: "Instagram", icon: InstagramIcon, className: "bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF]" },
-  { key: "twitter", label: "Twitter", icon: TwitterIcon, className: "bg-[#14171A]" },
-  { key: "github", label: "GitHub", icon: GitHubIcon, className: "bg-off-white/15" },
+  {
+    key: "linkedin",
+    label: "LinkedIn",
+    icon: LinkedInIcon,
+    className: "bg-[#0A66C2]",
+  },
+  {
+    key: "instagram",
+    label: "Instagram",
+    icon: InstagramIcon,
+    className: "bg-gradient-to-br from-[#F58529] via-[#DD2A7B] to-[#8134AF]",
+  },
+  {
+    key: "twitter",
+    label: "Twitter",
+    icon: TwitterIcon,
+    className: "bg-[#14171A]",
+  },
+  {
+    key: "github",
+    label: "GitHub",
+    icon: GitHubIcon,
+    className: "bg-off-white/15",
+  },
 ] as const;
 
 function MobileFooterHeading({ children }: { children: React.ReactNode }) {
@@ -96,7 +116,9 @@ function ContactBlock({
   return (
     <div className="space-y-1">
       <p className="font-sans text-sm font-semibold text-off-white">{label}</p>
-      <div className="font-sans text-sm leading-relaxed text-off-white/75">{children}</div>
+      <div className="font-sans text-sm leading-relaxed text-off-white/75">
+        {children}
+      </div>
     </div>
   );
 }
@@ -120,7 +142,7 @@ function SocialIconLink({
       aria-label={label}
       className={cn(
         "flex size-9 items-center justify-center rounded-full text-off-white transition-opacity duration-300 ease-out hover:opacity-80",
-        className
+        className,
       )}
     >
       <Icon />
@@ -209,7 +231,9 @@ export function Footer({ site }: { site: SiteConfig }) {
 
           <div className="border-t border-off-white/15 pt-6">
             <p className="font-sans text-xs text-off-white/55">
-              &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}
+              &copy;{" "}
+              <span suppressHydrationWarning>{new Date().getFullYear()}</span>{" "}
+              {site.name}
             </p>
             <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
               {footerLinks.legal.map((link) => (
@@ -316,11 +340,17 @@ export function Footer({ site }: { site: SiteConfig }) {
 
           <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
             <p className="gallery-prose text-sm">
-              &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}
+              &copy;{" "}
+              <span suppressHydrationWarning>{new Date().getFullYear()}</span>{" "}
+              {site.name}
             </p>
             <div className="flex flex-wrap gap-x-8 gap-y-2">
               {footerLinks.legal.map((link) => (
-                <Link key={link.href} href={link.href} className="gallery-footer-link">
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="gallery-footer-link"
+                >
                   {link.label}
                 </Link>
               ))}
