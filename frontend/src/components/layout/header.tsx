@@ -41,8 +41,10 @@ function NavLink({
       aria-current={active ? "page" : undefined}
       className={cn(
         "font-sans text-xs uppercase tracking-[0.18em] transition-colors duration-300 ease-out",
-        active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
-        className
+        active
+          ? "text-foreground"
+          : "text-muted-foreground hover:text-foreground",
+        className,
       )}
     >
       {label}
@@ -80,7 +82,7 @@ export function Header({ siteName }: { siteName: string }) {
         "fixed top-0 z-50 w-full transition-[background-color,backdrop-filter,border-color,box-shadow] duration-300 ease-out",
         scrolled
           ? "border-b border-border/50 bg-background/92 shadow-sm max-md:backdrop-blur-sm md:bg-background/72 md:shadow-[0_8px_32px_rgba(26,26,26,0.04)] md:backdrop-blur-xl md:backdrop-saturate-150 md:supports-[backdrop-filter]:bg-background/65"
-          : "border-b border-transparent bg-transparent"
+          : "border-b border-transparent bg-transparent",
       )}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:gap-8 sm:px-8 sm:py-4 lg:px-16 lg:py-5">
@@ -93,7 +95,10 @@ export function Header({ siteName }: { siteName: string }) {
           <DoxaLogo className="h-8 w-auto sm:h-9 md:h-10" priority />
         </Link>
 
-        <nav className="hidden items-center gap-10 md:flex" aria-label="Main navigation">
+        <nav
+          className="hidden items-center gap-10 md:flex"
+          aria-label="Main navigation"
+        >
           {mainNavLinks.map((link) => (
             <NavLink
               key={link.href}
@@ -122,7 +127,10 @@ export function Header({ siteName }: { siteName: string }) {
             >
               <Menu className="h-5 w-5" />
             </SheetTrigger>
-            <SheetContent side="right" className="w-full max-w-sm border-l border-border/60 p-6 sm:p-8">
+            <SheetContent
+              side="right"
+              className="w-full max-w-sm border-l border-border/60 p-6 sm:p-8"
+            >
               <SheetHeader className="p-0">
                 <SheetTitle className="sr-only">{siteName}</SheetTitle>
                 <Link
@@ -134,7 +142,10 @@ export function Header({ siteName }: { siteName: string }) {
                   <DoxaLogo className="h-10 w-auto" />
                 </Link>
               </SheetHeader>
-              <nav className="mt-10 flex flex-col gap-2" aria-label="Mobile navigation">
+              <nav
+                className="mt-10 flex flex-col gap-2"
+                aria-label="Mobile navigation"
+              >
                 {mainNavLinks.map((link) => (
                   <NavLink
                     key={link.href}
