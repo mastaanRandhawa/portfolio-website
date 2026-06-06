@@ -7,8 +7,12 @@ const monorepoRoot = path.join(frontendDir, "..");
 
 const isGithubPages = process.env.GITHUB_PAGES === "true";
 const githubPagesBasePath = "/portfolio-website";
+const publicBasePath = isGithubPages ? githubPagesBasePath : "";
 
 const nextConfig: NextConfig = {
+  env: {
+    NEXT_PUBLIC_BASE_PATH: publicBasePath,
+  },
   ...(isGithubPages
     ? {
         output: "export",
