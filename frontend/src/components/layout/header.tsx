@@ -13,6 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { DoxaLogo } from "@/components/brand/doxa-logo";
 import { mainNavLinks, ctaNavLink, isNavLinkActive } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
@@ -85,10 +86,11 @@ export function Header({ siteName }: { siteName: string }) {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:gap-8 sm:px-8 sm:py-4 lg:px-16 lg:py-5">
         <Link
           href="/"
-          className="shrink-0 font-serif text-lg tracking-[0.06em] text-foreground transition-colors duration-300 ease-out hover:text-foreground/75 sm:text-xl"
+          className="inline-flex h-11 items-center shrink-0 transition-opacity duration-300 ease-out hover:opacity-75"
+          aria-label={siteName}
           aria-current={pathname === "/" ? "page" : undefined}
         >
-          {siteName}
+          <DoxaLogo className="h-8 w-auto sm:h-9 md:h-10" priority />
         </Link>
 
         <nav className="hidden items-center gap-10 md:flex" aria-label="Main navigation">
@@ -122,7 +124,15 @@ export function Header({ siteName }: { siteName: string }) {
             </SheetTrigger>
             <SheetContent side="right" className="w-full max-w-sm border-l border-border/60 p-6 sm:p-8">
               <SheetHeader className="p-0">
-                <SheetTitle className="font-serif text-2xl tracking-wide">{siteName}</SheetTitle>
+                <SheetTitle className="sr-only">{siteName}</SheetTitle>
+                <Link
+                  href="/"
+                  onClick={closeMenu}
+                  className="inline-flex transition-opacity duration-300 ease-out hover:opacity-75"
+                  aria-label={siteName}
+                >
+                  <DoxaLogo className="h-10 w-auto" />
+                </Link>
               </SheetHeader>
               <nav className="mt-10 flex flex-col gap-2" aria-label="Mobile navigation">
                 {mainNavLinks.map((link) => (

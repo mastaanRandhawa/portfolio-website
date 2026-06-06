@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DoxaLogo } from "@/components/brand/doxa-logo";
 import { Separator } from "@/components/ui/separator";
 import { mainNavLinks } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
@@ -126,6 +127,14 @@ export function Footer({ site }: { site: SiteConfig }) {
       {/* Mobile footer */}
       <div className="bg-charcoal text-off-white md:hidden">
         <div className="gallery-container py-8">
+          <Link
+            href="/"
+            className="mb-8 inline-flex transition-opacity duration-300 ease-out hover:opacity-75"
+            aria-label={site.name}
+          >
+            <DoxaLogo variant="inverse" className="h-8 w-auto" />
+          </Link>
+
           <div className="flex items-center justify-between gap-6 border-b border-off-white/15 pb-6">
             <MobileFooterHeading>Follow Us</MobileFooterHeading>
             {activeSocials.length > 0 && (
@@ -212,8 +221,12 @@ export function Footer({ site }: { site: SiteConfig }) {
         <div className="gallery-container py-16 lg:py-24">
           <div className="grid gap-8 lg:grid-cols-4 lg:gap-16">
             <div className="lg:col-span-1">
-              <Link href="/" className="font-serif text-2xl tracking-[0.06em]">
-                {site.name}
+              <Link
+                href="/"
+                className="inline-flex transition-opacity duration-300 ease-out hover:opacity-75"
+                aria-label={site.name}
+              >
+                <DoxaLogo className="h-10 w-auto" />
               </Link>
               <p className="mt-6 gallery-prose max-w-xs">{site.description}</p>
               {activeSocials.length > 0 && (

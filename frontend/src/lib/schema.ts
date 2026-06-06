@@ -1,3 +1,4 @@
+import { getLogoUrl } from "./brand";
 import type { Project, SiteConfig, Testimonial } from "./types";
 
 export function organizationSchema(site: SiteConfig) {
@@ -6,6 +7,7 @@ export function organizationSchema(site: SiteConfig) {
     "@type": "Organization",
     name: site.name,
     url: site.url,
+    logo: getLogoUrl(site.url),
     description: site.description,
     email: site.contact.email,
     telephone: site.contact.phone,

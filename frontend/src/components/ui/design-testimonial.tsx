@@ -113,26 +113,24 @@ export function DesignTestimonial({
       aria-live="polite"
       aria-atomic="true"
     >
-      {!liteAnimations && (
-        <motion.div
-          className="pointer-events-none absolute -left-4 top-1/2 hidden -translate-y-1/2 select-none font-serif text-[12rem] font-normal leading-none tracking-tighter text-foreground/[0.04] sm:-left-8 sm:block lg:text-[20rem] xl:text-[28rem]"
-          style={{ x: numberX, y: numberY }}
-          aria-hidden="true"
-        >
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={activeIndex}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.02 }}
-              transition={fadeTransition}
-              className="block"
-            >
-              {String(activeIndex + 1).padStart(2, "0")}
-            </motion.span>
-          </AnimatePresence>
-        </motion.div>
-      )}
+      <motion.div
+        className="pointer-events-none absolute -left-4 top-1/2 hidden -translate-y-1/2 select-none font-serif text-[12rem] font-normal leading-none tracking-tighter text-foreground/[0.04] lg:-left-8 lg:block lg:text-[20rem] xl:text-[28rem]"
+        style={liteAnimations ? undefined : { x: numberX, y: numberY }}
+        aria-hidden="true"
+      >
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={activeIndex}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={fadeTransition}
+            className="block"
+          >
+            {String(activeIndex + 1).padStart(2, "0")}
+          </motion.span>
+        </AnimatePresence>
+      </motion.div>
 
       <div className="relative flex flex-col lg:flex-row">
         <div className="mb-8 flex items-center gap-6 border-b border-border pb-6 sm:mb-10 sm:gap-8 sm:pb-8 lg:mb-0 lg:flex-col lg:items-center lg:justify-center lg:border-b-0 lg:border-r lg:pb-0 lg:pr-12 xl:pr-16">

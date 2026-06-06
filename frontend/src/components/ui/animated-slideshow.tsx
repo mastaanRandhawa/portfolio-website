@@ -3,7 +3,6 @@
 import * as React from "react";
 import { HTMLMotionProps, motion } from "motion/react";
 import { cn } from "@/lib/utils";
-import { useLiteAnimations } from "@/lib/use-reduced-motion";
 
 interface TextStaggerHoverProps {
   text: string;
@@ -83,15 +82,6 @@ export const TextStaggerHover = React.forwardRef<
 });
 TextStaggerHover.displayName = "TextStaggerHover";
 
-const clipPathVariants = {
-  visible: {
-    clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-  },
-  hidden: {
-    clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0px)",
-  },
-};
-
 const opacityVariants = {
   visible: { opacity: 1 },
   hidden: { opacity: 0 },
@@ -119,16 +109,15 @@ export const HoverSliderImage = React.forwardRef<
   HTMLMotionProps<"img"> & HoverSliderImageProps
 >(({ index, imageUrl, className, alt, ...props }, ref) => {
   const { activeSlide } = useHoverSliderContext();
-  const liteAnimations = useLiteAnimations();
   const isActive = activeSlide === index;
 
   return (
     <motion.img
       src={imageUrl}
       alt={alt}
-      className={cn("inline-block align-middle will-change-[opacity,clip-path]", className)}
-      transition={{ ease: [0.33, 1, 0.68, 1], duration: liteAnimations ? 0.45 : 0.65 }}
-      variants={liteAnimations ? opacityVariants : clipPathVariants}
+      className={cn("inline-block align-middle will-change-opacity", className)}
+      transition={{ ease: [0.33, 1, 0.68, 1], duration: 0.45 }}
+      variants={opacityVariants}
       initial="hidden"
       animate={isActive ? "visible" : "hidden"}
       ref={ref}
