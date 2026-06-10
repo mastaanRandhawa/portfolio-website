@@ -5,7 +5,7 @@ import type {
   Service,
   SiteConfig,
   Testimonial,
-} from "@portfolio/shared";
+} from "@/lib/types";
 import {
   getAboutContent,
   getAllProjects,

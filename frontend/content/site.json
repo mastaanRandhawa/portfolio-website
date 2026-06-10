@@ -1,0 +1,89 @@
+{
+  "name": "Doxa Studios",
+  "tagline": "Professional Web Design & Development Studio",
+  "description": "Vancouver web design and development studio building fast, conversion-focused websites for businesses across Canada.",
+  "url": "https://doxastudios.ca",
+  "hero": {
+    "badge": "Web Design & Development Studio",
+    "headline": "Websites That Help",
+    "headlineAccent": "Businesses Grow",
+    "subheadline": "Modern websites designed for speed, conversions, and exceptional user experiences.",
+    "primaryCta": { "label": "Get a Free Quote", "href": "/contact" },
+    "secondaryCta": { "label": "View Portfolio", "href": "/portfolio" }
+  },
+  "trustStats": [
+    { "value": "50+", "label": "Projects Delivered" },
+    { "value": "5+", "label": "Years Experience" },
+    { "value": "20+", "label": "Industries Served" },
+    { "value": "100%", "label": "Client Satisfaction" }
+  ],
+  "whyChooseUs": [
+    {
+      "title": "Fast Performance",
+      "description": "Lightning-fast load times optimized for Core Web Vitals.",
+      "icon": "Zap"
+    },
+    {
+      "title": "Mobile Optimized",
+      "description": "Flawless experiences across every device and screen size.",
+      "icon": "Smartphone"
+    },
+    {
+      "title": "SEO Ready",
+      "description": "Built-in technical SEO to help you rank and get discovered.",
+      "icon": "Search"
+    },
+    {
+      "title": "Conversion Focused",
+      "description": "Every design decision drives measurable business results.",
+      "icon": "TrendingUp"
+    },
+    {
+      "title": "Secure",
+      "description": "Enterprise-grade security practices from day one.",
+      "icon": "Shield"
+    },
+    {
+      "title": "Easy To Manage",
+      "description": "Intuitive content management you can update yourself.",
+      "icon": "Settings"
+    },
+    {
+      "title": "Modern Design",
+      "description": "Premium aesthetics that position your brand as a leader.",
+      "icon": "Palette"
+    },
+    {
+      "title": "Scalable Architecture",
+      "description": "Built to grow with your business without costly rebuilds.",
+      "icon": "Layers"
+    }
+  ],
+  "finalCta": {
+    "headline": "Ready to Build Your Next Website?",
+    "primaryCta": {
+      "label": "Book Consultation",
+      "href": "/book-consultation"
+    },
+    "secondaryCta": { "label": "Request Quote", "href": "/contact" }
+  },
+  "contact": {
+    "email": "info@doxastudios.ca",
+    "phone": "+1 (604) 367-8091",
+    "location": "Vancouver, BC",
+    "streetAddress": "",
+    "addressLocality": "Vancouver",
+    "addressRegion": "BC",
+    "postalCode": "",
+    "addressCountry": "CA",
+    "businessHours": "Mon–Fri, 9:00 AM – 6:00 PM PST"
+  },
+  "social": {
+    "linkedin": "",
+    "twitter": "",
+    "instagram": "",
+    "github": ""
+  },
+  "serviceArea": ["Vancouver", "British Columbia", "Canada"],
+  "twitterHandle": "@doxastudios"
+}

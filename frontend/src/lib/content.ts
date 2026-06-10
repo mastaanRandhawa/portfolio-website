@@ -1,6 +1,5 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import type {
   AboutContent,
@@ -9,10 +8,9 @@ import type {
   Service,
   SiteConfig,
   Testimonial,
-} from "@portfolio/shared";
+} from "@/lib/types";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const contentDir = path.join(__dirname, "../../../backend/content");
+const contentDir = path.join(process.cwd(), "content");
 const projectsDir = path.join(contentDir, "projects");
 
 function readJson<T>(filename: string): T {
@@ -44,6 +42,12 @@ function parseProjectContent(content: string, data: Record<string, unknown>): Pr
     challenge: getSection("Challenge"),
     solution: getSection("Solution"),
   };
+}
+
+export function getProjectLastModified(slug: string): Date {
+  const filePath = path.join(projectsDir, `${slug}.md`);
+  if (!fs.existsSync(filePath)) return new Date("2026-01-01");
+  return fs.statSync(filePath).mtime;
 }
 
 export function getSiteConfig(): SiteConfig {

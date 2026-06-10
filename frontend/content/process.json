@@ -1,0 +1,44 @@
+[
+  {
+    "step": 1,
+    "title": "Discovery",
+    "description": "We gather requirements, understand your business goals, analyze your audience, and define project scope and success metrics.",
+    "icon": "Search"
+  },
+  {
+    "step": 2,
+    "title": "Strategy",
+    "description": "We plan site structure, content architecture, user journeys, and technical approach aligned with your conversion goals.",
+    "icon": "Map"
+  },
+  {
+    "step": 3,
+    "title": "Design",
+    "description": "We create wireframes and high-fidelity UI designs, iterating based on your feedback until every detail is perfect.",
+    "icon": "Palette"
+  },
+  {
+    "step": 4,
+    "title": "Development",
+    "description": "We build your website with clean, performant code using modern frameworks, following best practices throughout.",
+    "icon": "Code"
+  },
+  {
+    "step": 5,
+    "title": "Testing",
+    "description": "We conduct thorough QA across devices and browsers, optimize performance, and ensure accessibility compliance.",
+    "icon": "CheckCircle"
+  },
+  {
+    "step": 6,
+    "title": "Launch",
+    "description": "We deploy your website to production, configure DNS, SSL, analytics, and ensure everything runs flawlessly.",
+    "icon": "Rocket"
+  },
+  {
+    "step": 7,
+    "title": "Support",
+    "description": "We provide ongoing maintenance, updates, and optimization to keep your website performing at its best.",
+    "icon": "Headphones"
+  }
+]

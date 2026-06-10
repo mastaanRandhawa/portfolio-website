@@ -5,7 +5,6 @@ on:
     branches: ["master", "main"]
     paths:
       - "backend/**"
-      - "packages/shared/**"
       - "backend/package-lock.json"
   workflow_dispatch:
 

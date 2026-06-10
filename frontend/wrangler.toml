@@ -1,7 +1,5 @@
-# Cloudflare Workers — static assets from frontend/out
-# Update `name` to match your Worker in the Cloudflare dashboard.
 name = "portfolio-website"
-compatibility_date = "2026-06-09"
+compatibility_date = "2025-06-09"
 
 [assets]
-directory = "out"
+directory = "./out"

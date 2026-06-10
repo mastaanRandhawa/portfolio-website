@@ -1,0 +1,22 @@
+{
+  "introduction": "Doxa Studios was founded with a simple belief: every business deserves a website that works as hard as they do. What started as a freelance practice has grown into a full-service web design and development studio trusted by businesses across 20+ industries.",
+  "mission": {
+    "title": "Our Mission",
+    "statement": "We partner with ambitious businesses to create digital experiences that drive growth, build trust, and deliver measurable results.",
+    "values": [
+      { "title": "Quality First", "description": "We never compromise on craftsmanship. Every project receives the same attention to detail, whether it's a landing page or a full e-commerce platform." },
+      { "title": "Partnership Mindset", "description": "We work alongside you, not just for you. Transparent communication and collaborative decision-making are at the heart of every engagement." },
+      { "title": "Results Driven", "description": "Beautiful design means nothing without business impact. We measure success by the outcomes we deliver — leads, conversions, and growth." }
+    ]
+  },
+  "experience": {
+    "years": "5+",
+    "projects": "50+",
+    "industries": "20+"
+  },
+  "skills": {
+    "frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+    "backend": ["Node.js", "Express", "REST APIs", "Serverless"],
+    "design": ["Figma", "UI Design", "UX Design", "Prototyping"]
+  }
+}

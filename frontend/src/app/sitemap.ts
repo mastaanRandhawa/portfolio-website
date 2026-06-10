@@ -1,22 +1,9 @@
 import type { MetadataRoute } from "next";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 import { fetchSiteConfig, fetchProjectSlugs } from "@/lib/api";
+import { getProjectLastModified } from "@/lib/content";
 import { getCanonicalUrl } from "@/lib/site-url";
 
 export const dynamic = "force-static";
-
-const contentDir = path.join(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../../../backend/content",
-);
-
-function getProjectLastModified(slug: string): Date {
-  const filePath = path.join(contentDir, "projects", `${slug}.md`);
-  if (!fs.existsSync(filePath)) return new Date("2026-01-01");
-  return fs.statSync(filePath).mtime;
-}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [site, slugs] = await Promise.all([fetchSiteConfig(), fetchProjectSlugs()]);

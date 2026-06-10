@@ -57,17 +57,6 @@ export interface ProcessStep {
   icon: string;
 }
 
-export interface TrustStat {
-  value: string;
-  label: string;
-}
-
-export interface WhyChooseUsItem {
-  title: string;
-  description: string;
-  icon: string;
-}
-
 export interface SiteConfig {
   name: string;
   tagline: string;
@@ -81,8 +70,8 @@ export interface SiteConfig {
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
   };
-  trustStats: TrustStat[];
-  whyChooseUs: WhyChooseUsItem[];
+  trustStats: { value: string; label: string }[];
+  whyChooseUs: { title: string; description: string; icon: string }[];
   finalCta: {
     headline: string;
     primaryCta: { label: string; href: string };
@@ -126,10 +115,4 @@ export interface AboutContent {
     backend: string[];
     design: string[];
   };
-}
-
-export interface ProjectFilters {
-  industry?: string;
-  projectType?: string;
-  technology?: string;
 }

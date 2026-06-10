@@ -24,11 +24,9 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.14.4",
-    "@portfolio/shared": "file:../packages/shared",
     "@prisma/client": "^6.9.0",
     "gray-matter": "^4.0.3",
     "hono": "^4.7.11",
-    "portfolio-website": "file:..",
     "resend": "^6.12.4",
     "zod": "^4.4.3"
   },

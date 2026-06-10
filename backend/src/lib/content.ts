@@ -9,7 +9,7 @@ import type {
   Service,
   SiteConfig,
   Testimonial,
-} from "@portfolio/shared";
+} from "./types.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const contentDir = path.join(__dirname, "../../content");

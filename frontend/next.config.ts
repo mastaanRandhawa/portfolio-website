@@ -4,46 +4,14 @@ import { fileURLToPath } from "url";
 
 const frontendDir = path.dirname(fileURLToPath(import.meta.url));
 
-const isStaticExport = process.env.STATIC_EXPORT === "1";
-
-const securityHeaders = [
-  { key: "X-Frame-Options", value: "SAMEORIGIN" },
-  {
-    key: "Strict-Transport-Security",
-    value: "max-age=63072000; includeSubDomains; preload",
-  },
-  { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  {
-    key: "Content-Security-Policy",
-    value: [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.clarity.ms",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: https://images.unsplash.com https://framerusercontent.com",
-      "font-src 'self'",
-      "connect-src 'self' https://www.google-analytics.com https://www.clarity.ms",
-      "frame-src 'self' https://calendly.com https://www.youtube.com",
-    ].join("; "),
-  },
-];
-
 const nextConfig: NextConfig = {
-  ...(isStaticExport
-    ? {
-        output: "export",
-        trailingSlash: false,
-      }
-    : {}),
+  output: "export",
+  trailingSlash: false,
   turbopack: {
     root: frontendDir,
   },
   images: {
-    // Static export has no image optimizer server.
-    unoptimized: isStaticExport,
-    ...(!isStaticExport
-      ? { formats: ["image/avif", "image/webp"] as ("image/avif" | "image/webp")[] }
-      : {}),
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -55,18 +23,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  ...(isStaticExport
-    ? {}
-    : {
-        async headers() {
-          return [
-            {
-              source: "/(.*)",
-              headers: securityHeaders,
-            },
-          ];
-        },
-      }),
 };
 
 export default nextConfig;
