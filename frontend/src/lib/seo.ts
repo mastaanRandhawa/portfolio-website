@@ -26,8 +26,7 @@ export async function buildMetadata({
   const url = getCanonicalUrl(site.url, path);
   const ogImage = image ? getOgImageUrl(site.url, image) : getOgImageUrl(site.url);
   const logoUrl = getLogoUrl(site.url);
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-  const manifestPath = `${basePath}/manifest.webmanifest`;
+  const manifestPath = "/manifest.webmanifest";
   const twitterHandle = site.twitterHandle?.startsWith("@")
     ? site.twitterHandle
     : site.twitterHandle

@@ -4,7 +4,7 @@ A monorepo with a **Next.js static frontend** (Cloudflare Pages) and a **Node AP
 
 **Production:** [https://doxastudios.ca](https://doxastudios.ca)
 
-## Deploy frontend — Cloudflare Pages (GitHub)
+## Deploy frontend — Cloudflare Pages
 
 Connect this repo in **Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git**.
 
@@ -16,9 +16,12 @@ Connect this repo in **Cloudflare Dashboard → Workers & Pages → Create → P
 | Root directory | `/` |
 | Build command | `npm run build` |
 | Build output directory | `frontend/out` |
-| **Deploy command** | **Leave empty** |
+| Deploy command | `npx wrangler deploy` |
+| Version command | `npx wrangler versions upload` |
 
-> **Important:** Do not set `npx wrangler deploy` as the deploy command. This is a static site — Cloudflare publishes `frontend/out` automatically after the build. `wrangler deploy` is for Workers and will fail in this monorepo.
+Root [`wrangler.toml`](wrangler.toml) sets `pages_build_output_dir = "frontend/out"` and the Pages project name. Wrangler reads it automatically when run from the repository root.
+
+> **Monorepo note:** This repo has multiple `package.json` files (`frontend`, `backend`, `packages/shared`). Cloudflare sets `CF_PAGES=1` during builds, so [`scripts/build.mjs`](scripts/build.mjs) builds only the frontend static export — not the backend.
 
 ### Environment variables (Production)
 
@@ -28,8 +31,6 @@ Connect this repo in **Cloudflare Dashboard → Workers & Pages → Create → P
 | `NEXT_PUBLIC_SITE_URL` | `https://doxastudios.ca` |
 
 Optional: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_CALENDLY_URL`
-
-Cloudflare sets `CF_PAGES=1` during builds automatically, which enables static export via [`scripts/build.mjs`](scripts/build.mjs).
 
 ### Custom domain
 
@@ -45,6 +46,14 @@ Update [`backend/content/site.json`](backend/content/site.json) — email, phone
 $env:CF_PAGES = "1"
 npm run build
 # Output: frontend/out
+```
+
+## Local deploy (matches Cloudflare)
+
+```powershell
+$env:CF_PAGES = "1"
+npm run build
+npm run deploy:cloudflare
 ```
 
 ## Backend

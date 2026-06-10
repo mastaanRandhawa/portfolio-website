@@ -1,5 +1,2 @@
-# Redirect legacy GitHub Pages subdirectory URLs to the custom domain
-/portfolio-website/*  https://doxastudios.ca/:splat  301
-
 # Redirect www to apex (also configure in Cloudflare DNS/dashboard)
 https://www.doxastudios.ca/*  https://doxastudios.ca/:splat  301

@@ -1,5 +1,3 @@
-const trailingSlashEnabled = process.env.NEXT_PUBLIC_TRAILING_SLASH === "true";
-
 export function getSiteUrl(configuredUrl: string): string {
   const override = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   const base = override && override.length > 0 ? override : configuredUrl;
@@ -13,11 +11,7 @@ export function normalizePath(path: string): string {
 }
 
 export function getCanonicalPath(path: string): string {
-  const normalized = normalizePath(path);
-  if (!trailingSlashEnabled || normalized === "") {
-    return normalized;
-  }
-  return `${normalized}/`;
+  return normalizePath(path);
 }
 
 export function getCanonicalUrl(siteUrl: string, path: string): string {

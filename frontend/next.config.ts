@@ -5,23 +5,13 @@ import { fileURLToPath } from "url";
 const frontendDir = path.dirname(fileURLToPath(import.meta.url));
 const monorepoRoot = path.join(frontendDir, "..");
 
-type DeployTarget = "development" | "github-pages" | "cloudflare";
-
-function getDeployTarget(): DeployTarget {
-  if (process.env.GITHUB_PAGES === "true") return "github-pages";
-  if (process.env.CLOUDFLARE_PAGES === "true" || process.env.CF_PAGES === "1") {
-    return "cloudflare";
-  }
-  return "development";
+function isCloudflareBuild(): boolean {
+  return (
+    process.env.CLOUDFLARE_PAGES === "true" || process.env.CF_PAGES === "1"
+  );
 }
 
-const deployTarget = getDeployTarget();
-const isGithubPages = deployTarget === "github-pages";
-const isCloudflare = deployTarget === "cloudflare";
-const isStaticExport = isGithubPages || isCloudflare;
-
-const githubPagesBasePath = "/portfolio-website";
-const publicBasePath = isGithubPages ? githubPagesBasePath : "";
+const isStaticExport = isCloudflareBuild();
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
@@ -46,27 +36,17 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  env: {
-    NEXT_PUBLIC_BASE_PATH: publicBasePath,
-    NEXT_PUBLIC_TRAILING_SLASH: isGithubPages ? "true" : "false",
-  },
   ...(isStaticExport
     ? {
         output: "export",
-        trailingSlash: isGithubPages,
-        ...(isGithubPages
-          ? {
-              basePath: githubPagesBasePath,
-              assetPrefix: `${githubPagesBasePath}/`,
-            }
-          : {}),
+        trailingSlash: false,
       }
     : {}),
   turbopack: {
     root: monorepoRoot,
   },
   images: {
-    // Static export (GitHub Pages + Cloudflare Pages) has no image optimizer server.
+    // Static export (Cloudflare Pages) has no image optimizer server.
     unoptimized: isStaticExport,
     ...(!isStaticExport
       ? { formats: ["image/avif", "image/webp"] as ("image/avif" | "image/webp")[] }
