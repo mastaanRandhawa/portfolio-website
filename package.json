@@ -9,7 +9,9 @@
   ],
   "scripts": {
     "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
-    "build": "npm run build -w backend && npm run build -w frontend",
+    "build": "node scripts/build.mjs",
+    "build:all": "npm run build -w backend && npm run build -w frontend",
+    "build:cloudflare": "npm run build -w frontend",
     "lint": "npm run lint -w frontend && npm run lint -w backend",
     "db:generate": "npm run db:generate -w backend",
     "db:migrate": "npm run db:migrate -w backend",

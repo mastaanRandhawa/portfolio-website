@@ -1,0 +1,16 @@
+{
+  "name": "Doxa Studios",
+  "short_name": "Doxa Studios",
+  "description": "Vancouver web design and development studio building fast, conversion-focused websites for businesses across Canada.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#faf9f7",
+  "theme_color": "#1a1a1a",
+  "icons": [
+    {
+      "src": "doxa-logo.svg",
+      "sizes": "260x68",
+      "type": "image/svg+xml"
+    }
+  ]
+}

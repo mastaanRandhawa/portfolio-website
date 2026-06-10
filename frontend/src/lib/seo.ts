@@ -26,6 +26,8 @@ export async function buildMetadata({
   const url = getCanonicalUrl(site.url, path);
   const ogImage = image ? getOgImageUrl(site.url, image) : getOgImageUrl(site.url);
   const logoUrl = getLogoUrl(site.url);
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+  const manifestPath = `${basePath}/manifest.webmanifest`;
   const twitterHandle = site.twitterHandle?.startsWith("@")
     ? site.twitterHandle
     : site.twitterHandle
@@ -41,6 +43,7 @@ export async function buildMetadata({
       icon: DOXA_LOGO_PATH,
       apple: DOXA_LOGO_PATH,
     },
+    manifest: manifestPath,
     openGraph: {
       title: pageTitle,
       description: pageDescription,

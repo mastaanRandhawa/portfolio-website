@@ -1,0 +1,11 @@
+name = "doxa-studios"
+pages_build_output_dir = "frontend/out"
+compatibility_date = "2024-12-01"
+
+# Cloudflare Dashboard build settings (if not using Git auto-detection):
+#   Build command:          npm run build
+#   Build output directory: frontend/out
+#   NODE_VERSION:           20
+
+[vars]
+NEXT_PUBLIC_SITE_URL = "https://doxastudios.ca"
