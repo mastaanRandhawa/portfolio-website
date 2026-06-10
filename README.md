@@ -1,27 +1,24 @@
 # Doxa Studios
 
-A monorepo with a **Next.js static frontend** (Cloudflare Pages) and a **Node API backend** (Render/Railway) serving content and contact form submissions.
+A monorepo with a **Next.js static frontend** (Cloudflare Workers) and a **Node API backend** (Render/Railway) serving content and contact form submissions.
 
 Each package (`frontend/`, `backend/`, `packages/shared/`) has its own `node_modules` — dependencies are not hoisted to the repository root.
 
 **Production:** [https://doxastudios.ca](https://doxastudios.ca)
 
-## Deploy frontend — Cloudflare Pages
+## Deploy frontend — Cloudflare Workers
 
-Connect this repo in **Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git**.
+Connect this repo in **Cloudflare Dashboard → Workers & Pages → Create → Worker → Connect to Git**.
 
 ### Build settings
 
 | Setting | Value |
 |---------|-------|
-| Framework preset | **None** |
 | Root directory | `frontend` |
-| Build command | `npm ci && npm run build` |
-| Build output directory | `out` |
+| Build command | `npm ci && STATIC_EXPORT=1 npm run build` |
 | Deploy command | `npx wrangler deploy` |
-| Version command | `npx wrangler versions upload` |
 
-Cloudflare sets `CF_PAGES=1` during builds, so Next.js produces a static export in `frontend/out`. Wrangler runs from `frontend/` using [`frontend/wrangler.toml`](frontend/wrangler.toml).
+`STATIC_EXPORT=1` tells Next.js to produce a static export in `frontend/out`. Wrangler uploads that directory via [`frontend/wrangler.toml`](frontend/wrangler.toml).
 
 Content is read from `backend/content/` at build time (the full repository is cloned; only the working directory is `frontend/`).
 
@@ -30,9 +27,12 @@ Content is read from `backend/content/` at build time (the full repository is cl
 | Variable | Value |
 |----------|-------|
 | `NODE_VERSION` | `22` |
+| `STATIC_EXPORT` | `1` |
 | `NEXT_PUBLIC_SITE_URL` | `https://doxastudios.ca` |
 
 Optional: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_CALENDLY_URL`
+
+**Do not set `CLOUDFLARE_API_TOKEN` in build variables.** Workers Builds authenticates via the Git connection. A custom API token overrides that and causes auth errors.
 
 ### Custom domain
 
@@ -53,7 +53,7 @@ npm run setup
 
 ```powershell
 cd frontend
-$env:CF_PAGES = "1"
+$env:STATIC_EXPORT = "1"
 npm run build
 # Output: frontend/out
 ```
@@ -62,7 +62,7 @@ npm run build
 
 ```powershell
 cd frontend
-$env:CF_PAGES = "1"
+$env:STATIC_EXPORT = "1"
 npm run build
 npm run deploy
 ```

@@ -4,13 +4,7 @@ import { fileURLToPath } from "url";
 
 const frontendDir = path.dirname(fileURLToPath(import.meta.url));
 
-function isCloudflareBuild(): boolean {
-  return (
-    process.env.CLOUDFLARE_PAGES === "true" || process.env.CF_PAGES === "1"
-  );
-}
-
-const isStaticExport = isCloudflareBuild();
+const isStaticExport = process.env.STATIC_EXPORT === "1";
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "SAMEORIGIN" },
@@ -45,7 +39,7 @@ const nextConfig: NextConfig = {
     root: frontendDir,
   },
   images: {
-    // Static export (Cloudflare Pages) has no image optimizer server.
+    // Static export has no image optimizer server.
     unoptimized: isStaticExport,
     ...(!isStaticExport
       ? { formats: ["image/avif", "image/webp"] as ("image/avif" | "image/webp")[] }

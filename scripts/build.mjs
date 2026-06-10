@@ -4,14 +4,13 @@ import { fileURLToPath } from "node:url";
 
 const rootDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-const isCloudflare =
-  process.env.CF_PAGES === "1" || process.env.CLOUDFLARE_PAGES === "true";
+const isStaticExport = process.env.STATIC_EXPORT === "1";
 
 const npm = (args) =>
   execSync(`npm ${args}`, { stdio: "inherit", cwd: rootDir, shell: true });
 
-if (isCloudflare) {
-  console.log("Cloudflare Pages detected — building frontend static export only");
+if (isStaticExport) {
+  console.log("STATIC_EXPORT=1 — building frontend static export only");
   npm("run build --prefix frontend");
 } else {
   npm("run build --prefix backend && npm run build --prefix frontend");
