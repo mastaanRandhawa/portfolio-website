@@ -27,10 +27,12 @@ Root [`wrangler.toml`](wrangler.toml) sets `pages_build_output_dir = "frontend/o
 
 | Variable | Value |
 |----------|-------|
-| `NODE_VERSION` | `20` |
+| `NODE_VERSION` | `22` |
 | `NEXT_PUBLIC_SITE_URL` | `https://doxastudios.ca` |
 
 Optional: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_CALENDLY_URL`
+
+> **Important:** If you previously set `NODE_VERSION=20` in the Cloudflare dashboard, change it to **`22`**. Wrangler 4.x (used by `npx wrangler deploy`) requires Node 22+. The repo `.nvmrc` / `.node-version` files also pin Node 22.
 
 ### Custom domain
 
