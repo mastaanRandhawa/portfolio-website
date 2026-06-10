@@ -1,21 +1,37 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/layout/page-header";
 import { SkillsSection } from "@/components/sections/skills-section";
-import { fetchAboutContent } from "@/lib/api";
+import { JsonLd } from "@/components/layout/json-ld";
+import { fetchAboutContent, fetchSiteConfig } from "@/lib/api";
+import { buildPageSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata() {
   return buildMetadata({
     title: "About",
-    description: "Learn about our mission, experience, and the team behind Doxa Studios.",
+    description:
+      "Learn about Doxa Studios — a Vancouver web design and development studio with 5+ years of experience delivering high-performance websites.",
     path: "/about",
   });
 }
 
 export default async function AboutPage() {
-  const about = await fetchAboutContent();
+  const [about, site] = await Promise.all([fetchAboutContent(), fetchSiteConfig()]);
 
   return (
     <>
+      <JsonLd
+        data={buildPageSchemaGraph(site, {
+          name: "About Us",
+          description: about.introduction,
+          path: "/about",
+          breadcrumbs: [
+            { name: "Home", path: "" },
+            { name: "About", path: "/about" },
+          ],
+        })}
+      />
       <PageHeader title="About Us" description={about.introduction} />
       <section className="gallery-section pt-0">
         <div className="gallery-container">
@@ -44,6 +60,28 @@ export default async function AboutPage() {
                 <p className="gallery-prose text-sm">{value.description}</p>
               </div>
             ))}
+          </div>
+
+          <div className="mt-16 border border-foreground/20 p-6 sm:mt-24 sm:p-8">
+            <h2 className="gallery-subheading">Why Clients Trust Us</h2>
+            <p className="gallery-prose mt-4 max-w-3xl">
+              Based in Vancouver, BC, we serve businesses across Canada with transparent communication,
+              measurable results, and websites engineered for Core Web Vitals and search visibility.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-6">
+              <Link href="/portfolio" className="gallery-link">
+                View Our Work
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+              <Link href="/services" className="gallery-link">
+                Explore Services
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+              <Link href="/process" className="gallery-link">
+                Our Process
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
 
           <SkillsSection skills={about.skills} />

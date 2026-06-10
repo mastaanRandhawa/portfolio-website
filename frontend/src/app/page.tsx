@@ -1,9 +1,8 @@
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/hero";
 import { TrustBar } from "@/components/sections/trust-bar";
-import { FeaturedProjects } from "@/components/sections/featured-projects";
 import { ServicesPreview } from "@/components/sections/services-preview";
 import { WhyChooseUs } from "@/components/sections/why-choose-us";
-import { TestimonialsCarousel } from "@/components/sections/testimonials-carousel";
 import { FinalCta } from "@/components/sections/final-cta";
 import { JsonLd } from "@/components/layout/json-ld";
 import {
@@ -12,7 +11,32 @@ import {
   fetchServices,
   fetchTestimonials,
 } from "@/lib/api";
-import { aggregateRatingSchema, reviewSchema } from "@/lib/schema";
+import { buildHomeSchemaGraph } from "@/lib/schema";
+import { buildMetadata } from "@/lib/seo";
+
+const FeaturedProjects = dynamic(
+  () =>
+    import("@/components/sections/featured-projects").then((mod) => ({
+      default: mod.FeaturedProjects,
+    })),
+  { ssr: true },
+);
+
+const TestimonialsCarousel = dynamic(
+  () =>
+    import("@/components/sections/testimonials-carousel").then((mod) => ({
+      default: mod.TestimonialsCarousel,
+    })),
+  { ssr: true },
+);
+
+export async function generateMetadata() {
+  const site = await fetchSiteConfig();
+  return buildMetadata({
+    description: `${site.description} Based in Vancouver, BC. Request a free quote today.`,
+    path: "",
+  });
+}
 
 export default async function HomePage() {
   const [site, projects, services, testimonials] = await Promise.all([
@@ -24,7 +48,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <JsonLd data={[aggregateRatingSchema(site, testimonials), ...testimonials.map(reviewSchema)]} />
+      <JsonLd data={buildHomeSchemaGraph(site, testimonials)} />
       <Hero site={site} />
       <TrustBar stats={site.trustStats} />
       <ServicesPreview services={services} />

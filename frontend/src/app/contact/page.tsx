@@ -1,21 +1,44 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { ContactForm } from "@/components/sections/contact-form";
+import { JsonLd } from "@/components/layout/json-ld";
 import { fetchSiteConfig } from "@/lib/api";
+import {
+  getContactVisibility,
+  getFormattedAddressLines,
+  getFormattedLocation,
+  getPhoneHref,
+} from "@/lib/contact";
+import { buildPageSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata() {
   return buildMetadata({
     title: "Contact",
-    description: "Get in touch to discuss your next web project. We'd love to hear from you.",
+    description:
+      "Contact Doxa Studios in Vancouver, BC for web design and development. Call +1 (604) 367-8091 or email info@doxastudios.ca.",
     path: "/contact",
   });
 }
 
 export default async function ContactPage() {
   const site = await fetchSiteConfig();
+  const visibility = getContactVisibility(site.contact);
+  const location = getFormattedLocation(site.contact);
+  const addressLines = getFormattedAddressLines(site.contact);
 
   return (
     <>
+      <JsonLd
+        data={buildPageSchemaGraph(site, {
+          name: "Contact Us",
+          description: "Get in touch with Doxa Studios to discuss your web project.",
+          path: "/contact",
+          breadcrumbs: [
+            { name: "Home", path: "" },
+            { name: "Contact", path: "/contact" },
+          ],
+        })}
+      />
       <PageHeader
         title="Contact Us"
         description="Tell us about your project and we'll get back to you within 24 hours."
@@ -36,32 +59,45 @@ export default async function ContactPage() {
             <aside className="lg:col-span-5 lg:pt-1">
               <p className="gallery-label mb-6 sm:mb-8">Details</p>
               <ul className="space-y-6 sm:space-y-8">
-                <li>
-                  <p className="gallery-label mb-2">Email</p>
-                  <a
-                    href={`mailto:${site.contact.email}`}
-                    className="font-serif text-lg tracking-[0.02em] text-foreground/85 transition-opacity hover:opacity-60 sm:text-xl"
-                  >
-                    {site.contact.email}
-                  </a>
-                </li>
-                <li>
-                  <p className="gallery-label mb-2">Phone</p>
-                  <a
-                    href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
-                    className="font-serif text-lg tracking-[0.02em] text-foreground/85 transition-opacity hover:opacity-60 sm:text-xl"
-                  >
-                    {site.contact.phone}
-                  </a>
-                </li>
-                <li>
-                  <p className="gallery-label mb-2">Location</p>
-                  <p className="gallery-prose">{site.contact.location}</p>
-                </li>
-                <li>
-                  <p className="gallery-label mb-2">Hours</p>
-                  <p className="gallery-prose">{site.contact.businessHours}</p>
-                </li>
+                {visibility.email && (
+                  <li>
+                    <p className="gallery-label mb-2">Email</p>
+                    <a
+                      href={`mailto:${site.contact.email}`}
+                      className="font-serif text-lg tracking-[0.02em] text-foreground/85 transition-opacity hover:opacity-60 sm:text-xl"
+                    >
+                      {site.contact.email}
+                    </a>
+                  </li>
+                )}
+                {visibility.phone && (
+                  <li>
+                    <p className="gallery-label mb-2">Phone</p>
+                    <a
+                      href={getPhoneHref(site.contact.phone)}
+                      className="font-serif text-lg tracking-[0.02em] text-foreground/85 transition-opacity hover:opacity-60 sm:text-xl"
+                    >
+                      {site.contact.phone}
+                    </a>
+                  </li>
+                )}
+                {(visibility.address || visibility.location) && (
+                  <li>
+                    <p className="gallery-label mb-2">Location</p>
+                    <div className="gallery-prose space-y-1">
+                      {addressLines.map((line) => (
+                        <p key={line}>{line}</p>
+                      ))}
+                      {!visibility.address && location && <p>{location}</p>}
+                    </div>
+                  </li>
+                )}
+                {visibility.hours && (
+                  <li>
+                    <p className="gallery-label mb-2">Hours</p>
+                    <p className="gallery-prose">{site.contact.businessHours}</p>
+                  </li>
+                )}
               </ul>
             </aside>
           </div>

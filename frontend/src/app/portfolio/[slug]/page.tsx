@@ -1,11 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ExternalLink, ArrowLeft } from "lucide-react";
+import { ExternalLink, ArrowLeft, ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/layout/json-ld";
-import { fetchProjectBySlug, fetchProjectSlugs, fetchSiteConfig } from "@/lib/api";
+import {
+  fetchAllProjects,
+  fetchProjectBySlug,
+  fetchProjectSlugs,
+  fetchSiteConfig,
+} from "@/lib/api";
 import { buildMetadata } from "@/lib/seo";
-import { projectSchema } from "@/lib/schema";
+import { buildPageSchemaGraph, projectSchema } from "@/lib/schema";
 
 interface ProjectPageProps {
   params: Promise<{ slug: string }>;
@@ -19,27 +24,47 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = await fetchProjectBySlug(slug);
-  if (!project) return {};
+  if (!project) {
+    return buildMetadata({ title: "Project Not Found", path: `/portfolio/${slug}`, noIndex: true });
+  }
 
   return buildMetadata({
     title: project.title,
     description: project.shortDescription,
     path: `/portfolio/${slug}`,
     image: project.thumbnail,
+    openGraphType: "article",
   });
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const [project, site] = await Promise.all([
+  const [project, site, allProjects] = await Promise.all([
     fetchProjectBySlug(slug),
     fetchSiteConfig(),
+    fetchAllProjects(),
   ]);
   if (!project) notFound();
 
+  const relatedProjects = allProjects
+    .filter((p) => p.slug !== project.slug && p.industry === project.industry)
+    .slice(0, 3);
+
   return (
     <>
-      <JsonLd data={projectSchema(project, site)} />
+      <JsonLd
+        data={buildPageSchemaGraph(site, {
+          name: project.title,
+          description: project.shortDescription,
+          path: `/portfolio/${slug}`,
+          breadcrumbs: [
+            { name: "Home", path: "" },
+            { name: "Portfolio", path: "/portfolio" },
+            { name: project.title, path: `/portfolio/${slug}` },
+          ],
+          extra: [projectSchema(project, site)],
+        })}
+      />
 
       <section className="gallery-section pb-12 pt-24 sm:pb-16 sm:pt-28 md:pt-32">
         <div className="gallery-container">
@@ -80,6 +105,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
+      {project.overview && (
+        <section className="gallery-section pt-0">
+          <div className="gallery-container max-w-3xl">
+            <h2 className="gallery-label mb-6">Overview</h2>
+            <div className="gallery-prose space-y-4">
+              {project.overview.split("\n\n").map((paragraph) => (
+                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="gallery-section pt-0">
         <div className="gallery-container">
           <p className="gallery-label mb-8">Gallery</p>
@@ -97,6 +135,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           fill
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, 50vw"
+                          loading="lazy"
                         />
                       </div>
                     ))}
@@ -149,6 +188,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </div>
       </section>
+
+      {relatedProjects.length > 0 && (
+        <section className="gallery-section pt-0">
+          <div className="gallery-container">
+            <h2 className="gallery-label mb-6">Related Projects</h2>
+            <ul className="space-y-4">
+              {relatedProjects.map((related) => (
+                <li key={related.slug}>
+                  <Link href={`/portfolio/${related.slug}`} className="gallery-link">
+                    {related.title}
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
 
       <section className="pt-16 pb-0 sm:pt-24 lg:pt-32" aria-labelledby="project-live-heading">
         <div className="w-full bg-charcoal px-4 py-16 text-center sm:px-8 sm:py-24 md:px-16 lg:py-28">

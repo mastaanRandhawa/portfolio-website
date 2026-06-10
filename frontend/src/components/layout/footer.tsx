@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { DoxaLogo } from "@/components/brand/doxa-logo";
+import { ContactDetails } from "@/components/layout/contact-details";
 import { Separator } from "@/components/ui/separator";
 import { mainNavLinks } from "@/lib/navigation";
+import {
+  getActiveSocialLinks,
+  getContactVisibility,
+  getFormattedAddressLines,
+  getFormattedLocation,
+  getPhoneHref,
+} from "@/lib/contact";
 import { cn } from "@/lib/utils";
 import type { SiteConfig } from "@/lib/types";
 
@@ -10,6 +18,7 @@ const footerLinks = {
     { href: "/about", label: "About" },
     { href: "/process", label: "Process" },
     { href: "/contact", label: "Contact" },
+    { href: "/book-consultation", label: "Book Consultation" },
   ],
   services: [
     { href: "/services", label: "All Services" },
@@ -151,7 +160,12 @@ function SocialIconLink({
 }
 
 export function Footer({ site }: { site: SiteConfig }) {
-  const activeSocials = socialLinks.filter((social) => site.social[social.key]);
+  const activeSocials = socialLinks.filter((social) =>
+    getActiveSocialLinks(site.social).some(([key]) => key === social.key),
+  );
+  const visibility = getContactVisibility(site.contact);
+  const location = getFormattedLocation(site.contact);
+  const addressLines = getFormattedAddressLines(site.contact);
 
   return (
     <footer className="pb-8 sm:pb-0">
@@ -175,7 +189,7 @@ export function Footer({ site }: { site: SiteConfig }) {
                 {activeSocials.map((social) => (
                   <SocialIconLink
                     key={social.key}
-                    href={site.social[social.key]}
+                    href={site.social[social.key]!}
                     label={social.label}
                     icon={social.icon}
                     className={social.className}
@@ -189,26 +203,35 @@ export function Footer({ site }: { site: SiteConfig }) {
             <div>
               <MobileFooterHeading>Contact Us</MobileFooterHeading>
               <div className="mt-5 space-y-5">
-                <ContactBlock label="Address:">
-                  <p>{site.contact.location}</p>
-                  <p>{site.contact.businessHours}</p>
-                </ContactBlock>
-                <ContactBlock label="Contact:">
-                  <a
-                    href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
-                    className="transition-opacity hover:opacity-70"
-                  >
-                    {site.contact.phone}
-                  </a>
-                </ContactBlock>
-                <ContactBlock label="E-mail:">
-                  <a
-                    href={`mailto:${site.contact.email}`}
-                    className="break-all transition-opacity hover:opacity-70"
-                  >
-                    {site.contact.email}
-                  </a>
-                </ContactBlock>
+                {(visibility.address || visibility.location || visibility.hours) && (
+                  <ContactBlock label="Address:">
+                    {addressLines.map((line) => (
+                      <p key={line}>{line}</p>
+                    ))}
+                    {!visibility.address && location && <p>{location}</p>}
+                    {visibility.hours && <p>{site.contact.businessHours}</p>}
+                  </ContactBlock>
+                )}
+                {visibility.phone && (
+                  <ContactBlock label="Contact:">
+                    <a
+                      href={getPhoneHref(site.contact.phone)}
+                      className="transition-opacity hover:opacity-70"
+                    >
+                      {site.contact.phone}
+                    </a>
+                  </ContactBlock>
+                )}
+                {visibility.email && (
+                  <ContactBlock label="E-mail:">
+                    <a
+                      href={`mailto:${site.contact.email}`}
+                      className="break-all transition-opacity hover:opacity-70"
+                    >
+                      {site.contact.email}
+                    </a>
+                  </ContactBlock>
+                )}
               </div>
             </div>
 
@@ -268,10 +291,12 @@ export function Footer({ site }: { site: SiteConfig }) {
                 <div className="mt-8 flex items-center gap-3">
                   {activeSocials.map((social) => {
                     const Icon = social.icon;
+                    const href = site.social[social.key];
+                    if (!href) return null;
                     return (
                       <a
                         key={social.key}
-                        href={site.social[social.key]}
+                        href={href}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.label}
@@ -313,26 +338,13 @@ export function Footer({ site }: { site: SiteConfig }) {
 
             <div>
               <h3 className="gallery-footer-heading">Contact</h3>
-              <ul className="space-y-2 gallery-prose text-sm">
-                <li>
-                  <a
-                    href={`mailto:${site.contact.email}`}
-                    className="text-foreground/85 transition-opacity hover:opacity-60"
-                  >
-                    {site.contact.email}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`tel:${site.contact.phone.replace(/\s/g, "")}`}
-                    className="text-foreground/85 transition-opacity hover:opacity-60"
-                  >
-                    {site.contact.phone}
-                  </a>
-                </li>
-                <li>{site.contact.location}</li>
-                <li>{site.contact.businessHours}</li>
-              </ul>
+              <ContactDetails
+                site={site}
+                className="space-y-2 gallery-prose text-sm"
+                emailClassName="text-foreground/85 transition-opacity hover:opacity-60"
+                phoneClassName="text-foreground/85 transition-opacity hover:opacity-60"
+                textClassName="text-foreground/85"
+              />
             </div>
           </div>
 

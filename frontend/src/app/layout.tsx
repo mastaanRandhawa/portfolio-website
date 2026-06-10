@@ -5,24 +5,28 @@ import { Footer } from "@/components/layout/footer";
 import { Analytics } from "@/components/layout/analytics";
 import { JsonLd } from "@/components/layout/json-ld";
 import { fetchSiteConfig } from "@/lib/api";
-import { buildMetadata } from "@/lib/seo";
-import { organizationSchema, websiteSchema } from "@/lib/schema";
+import { buildMetadata, defaultViewport } from "@/lib/seo";
+import { buildGlobalSchemaGraph } from "@/lib/schema";
 import "./globals.css";
 
 const openSans = Open_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
 });
 
 const urbanist = Urbanist({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   variable: "--font-serif",
+  display: "swap",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata();
 }
+
+export const viewport = defaultViewport;
 
 export default async function RootLayout({
   children,
@@ -36,8 +40,12 @@ export default async function RootLayout({
       lang="en"
       className={`${openSans.variable} ${urbanist.variable} h-full`}
     >
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+      </head>
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
-        <JsonLd data={[organizationSchema(site), websiteSchema(site)]} />
+        <JsonLd data={buildGlobalSchemaGraph(site)} />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-background focus:text-foreground"

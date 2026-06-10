@@ -10,7 +10,7 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
       <figcaption className="flex items-center gap-5">
         <Image
           src={testimonial.image}
-          alt={testimonial.name}
+          alt={`${testimonial.name}, ${testimonial.role} at ${testimonial.company}`}
           width={56}
           height={56}
           className="object-cover grayscale"

@@ -1,10 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
 import { ArrowRight, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import {
   HoverSlider,
-  HoverSliderImage,
   HoverSliderImageWrap,
   TextStaggerHover,
   useHoverSliderContext,
@@ -17,19 +18,34 @@ interface ProjectsHoverSliderProps {
   showVisitButton?: boolean;
 }
 
+const opacityVariants = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+};
+
 function ProjectImagePanel({ projects }: { projects: Project[] }) {
+  const { activeSlide } = useHoverSliderContext();
+
   return (
     <HoverSliderImageWrap className="relative aspect-[4/5] w-full max-w-full overflow-hidden sm:max-w-md lg:max-w-xl lg:shrink-0">
       {projects.map((project, index) => (
-        <HoverSliderImage
+        <motion.div
           key={project.slug}
-          index={index}
-          imageUrl={project.thumbnail}
-          alt={`${project.title} — ${project.industry}`}
-          className="portfolio-thumbnail-grade size-full object-cover"
-          loading={index === 0 ? "eager" : "lazy"}
-          decoding="async"
-        />
+          className="relative size-full"
+          transition={{ ease: [0.33, 1, 0.68, 1], duration: 0.45 }}
+          variants={opacityVariants}
+          initial="hidden"
+          animate={activeSlide === index ? "visible" : "hidden"}
+        >
+          <Image
+            src={project.thumbnail}
+            alt={`${project.title} — ${project.industry}`}
+            fill
+            className="portfolio-thumbnail-grade object-cover"
+            sizes="(max-width: 1024px) 100vw, 480px"
+            priority={index === 0}
+          />
+        </motion.div>
       ))}
     </HoverSliderImageWrap>
   );

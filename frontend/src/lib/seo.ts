@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { fetchSiteConfig } from "./api";
 import { DOXA_LOGO_PATH, getLogoUrl } from "./brand";
+import { getCanonicalUrl, getOgImageUrl } from "./site-url";
 
 interface BuildMetadataOptions {
   title?: string;
@@ -8,6 +9,7 @@ interface BuildMetadataOptions {
   path?: string;
   image?: string;
   noIndex?: boolean;
+  openGraphType?: "website" | "article";
 }
 
 export async function buildMetadata({
@@ -16,19 +18,24 @@ export async function buildMetadata({
   path = "",
   image,
   noIndex = false,
+  openGraphType = "website",
 }: BuildMetadataOptions = {}): Promise<Metadata> {
   const site = await fetchSiteConfig();
   const pageTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline}`;
   const pageDescription = description ?? site.description;
-  const url = `${site.url}${path}`;
-  const ogImage = image ?? "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&h=630&fit=crop";
-
+  const url = getCanonicalUrl(site.url, path);
+  const ogImage = image ? getOgImageUrl(site.url, image) : getOgImageUrl(site.url);
   const logoUrl = getLogoUrl(site.url);
+  const twitterHandle = site.twitterHandle?.startsWith("@")
+    ? site.twitterHandle
+    : site.twitterHandle
+      ? `@${site.twitterHandle}`
+      : undefined;
 
   return {
     title: pageTitle,
     description: pageDescription,
-    metadataBase: new URL(site.url),
+    metadataBase: new URL(getCanonicalUrl(site.url, "")),
     alternates: { canonical: url },
     icons: {
       icon: DOXA_LOGO_PATH,
@@ -39,10 +46,11 @@ export async function buildMetadata({
       description: pageDescription,
       url,
       siteName: site.name,
-      type: "website",
+      type: openGraphType,
+      locale: "en_CA",
       images: [
         { url: ogImage, width: 1200, height: 630, alt: pageTitle },
-        { url: logoUrl, width: 260, height: 160, alt: `${site.name} logo` },
+        { url: logoUrl, width: 260, height: 68, alt: `${site.name} logo` },
       ],
     },
     twitter: {
@@ -50,7 +58,14 @@ export async function buildMetadata({
       title: pageTitle,
       description: pageDescription,
       images: [ogImage],
+      ...(twitterHandle ? { site: twitterHandle, creator: twitterHandle } : {}),
     },
     robots: noIndex ? { index: false, follow: false } : { index: true, follow: true },
   };
 }
+
+export const defaultViewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#1a1a1a",
+};

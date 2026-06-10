@@ -92,14 +92,21 @@ export interface SiteConfig {
     email: string;
     phone: string;
     location: string;
-    businessHours: string;
+    streetAddress?: string;
+    addressLocality?: string;
+    addressRegion?: string;
+    postalCode?: string;
+    addressCountry?: string;
+    businessHours?: string;
   };
   social: {
-    linkedin: string;
-    twitter: string;
-    instagram: string;
-    github: string;
+    linkedin?: string;
+    twitter?: string;
+    instagram?: string;
+    github?: string;
   };
+  serviceArea?: string[];
+  twitterHandle?: string;
 }
 
 export interface AboutContent {

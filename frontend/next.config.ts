@@ -12,6 +12,7 @@ const publicBasePath = isGithubPages ? githubPagesBasePath : "";
 const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_BASE_PATH: publicBasePath,
+    NEXT_PUBLIC_TRAILING_SLASH: isGithubPages ? "true" : "false",
   },
   ...(isGithubPages
     ? {
@@ -26,6 +27,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     unoptimized: isGithubPages,
+    ...(isGithubPages ? {} : { formats: ["image/avif", "image/webp"] as ("image/avif" | "image/webp")[] }),
     remotePatterns: [
       {
         protocol: "https",

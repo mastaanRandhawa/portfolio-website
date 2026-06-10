@@ -1,8 +1,8 @@
 {
   "name": "Doxa Studios",
   "tagline": "Professional Web Design & Development Studio",
-  "description": "Modern websites designed for speed, conversions, and exceptional user experiences.",
-  "url": "https://mastaanrandhawa.github.io/portfolio-website",
+  "description": "Vancouver web design and development studio building fast, conversion-focused websites for businesses across Canada.",
+  "url": "https://doxastudios.ca",
   "hero": {
     "badge": "Web Design & Development Studio",
     "headline": "Websites That Help",
@@ -68,15 +68,22 @@
     "secondaryCta": { "label": "Request Quote", "href": "/contact" }
   },
   "contact": {
-    "email": "hello@studionorth.dev",
-    "phone": "+1 (555) 234-5678",
-    "location": "San Francisco, CA",
+    "email": "info@doxastudios.ca",
+    "phone": "+1 (604) 367-8091",
+    "location": "Vancouver, BC",
+    "streetAddress": "",
+    "addressLocality": "Vancouver",
+    "addressRegion": "BC",
+    "postalCode": "",
+    "addressCountry": "CA",
     "businessHours": "Mon–Fri, 9:00 AM – 6:00 PM PST"
   },
   "social": {
-    "linkedin": "https://linkedin.com/company/studionorth",
-    "twitter": "https://twitter.com/studionorth",
-    "instagram": "https://instagram.com/studionorth",
-    "github": "https://github.com/studionorth"
-  }
+    "linkedin": "",
+    "twitter": "",
+    "instagram": "",
+    "github": ""
+  },
+  "serviceArea": ["Vancouver", "British Columbia", "Canada"],
+  "twitterHandle": "@doxastudios"
 }

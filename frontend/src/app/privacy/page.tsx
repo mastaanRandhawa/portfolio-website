@@ -1,11 +1,14 @@
+import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
 import { fetchSiteConfig } from "@/lib/api";
+import { buildPageSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/layout/json-ld";
 
 export async function generateMetadata() {
   return buildMetadata({
     title: "Privacy Policy",
-    description: "How we collect, use, and protect your personal information.",
+    description: "How Doxa Studios collects, uses, and protects your personal information.",
     path: "/privacy",
   });
 }
@@ -15,6 +18,17 @@ export default async function PrivacyPage() {
 
   return (
     <>
+      <JsonLd
+        data={buildPageSchemaGraph(site, {
+          name: "Privacy Policy",
+          description: "Privacy policy for Doxa Studios website and services.",
+          path: "/privacy",
+          breadcrumbs: [
+            { name: "Home", path: "" },
+            { name: "Privacy Policy", path: "/privacy" },
+          ],
+        })}
+      />
       <PageHeader title="Privacy Policy" />
       <section className="py-12 sm:py-16 lg:py-24">
         <div className="gallery-container max-w-3xl prose prose-neutral prose-sm sm:prose-base">
@@ -45,7 +59,12 @@ export default async function PrivacyPage() {
               If you have questions about this Privacy Policy, please contact us at{" "}
               <a href={`mailto:${site.contact.email}`} className="text-primary underline">
                 {site.contact.email}
-              </a>.
+              </a>
+              {" "}or read our{" "}
+              <Link href="/terms" className="text-primary underline">
+                Terms of Service
+              </Link>
+              .
             </p>
           </div>
         </div>

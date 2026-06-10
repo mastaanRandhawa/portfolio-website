@@ -1,11 +1,14 @@
+import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
+import { JsonLd } from "@/components/layout/json-ld";
 import { fetchSiteConfig } from "@/lib/api";
+import { buildPageSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata() {
   return buildMetadata({
     title: "Terms of Service",
-    description: "Terms and conditions for using our website and services.",
+    description: "Terms and conditions for using the Doxa Studios website and services.",
     path: "/terms",
   });
 }
@@ -15,6 +18,17 @@ export default async function TermsPage() {
 
   return (
     <>
+      <JsonLd
+        data={buildPageSchemaGraph(site, {
+          name: "Terms of Service",
+          description: "Terms and conditions for Doxa Studios website and services.",
+          path: "/terms",
+          breadcrumbs: [
+            { name: "Home", path: "" },
+            { name: "Terms of Service", path: "/terms" },
+          ],
+        })}
+      />
       <PageHeader title="Terms of Service" />
       <section className="py-12 sm:py-16 lg:py-24">
         <div className="gallery-container max-w-3xl">
@@ -44,7 +58,12 @@ export default async function TermsPage() {
               For questions about these Terms, contact us at{" "}
               <a href={`mailto:${site.contact.email}`} className="text-primary underline">
                 {site.contact.email}
-              </a>.
+              </a>
+              {" "}or review our{" "}
+              <Link href="/privacy" className="text-primary underline">
+                Privacy Policy
+              </Link>
+              .
             </p>
           </div>
         </div>
