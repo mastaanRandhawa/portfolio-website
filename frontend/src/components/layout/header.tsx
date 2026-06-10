@@ -88,7 +88,7 @@ export function Header({ siteName }: { siteName: string }) {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:gap-8 sm:px-8 sm:py-4 lg:px-16 lg:py-5">
         <Link
           href="/"
-          className="inline-flex h-14 items-center shrink-0 pl-3 transition-opacity duration-300 ease-out hover:opacity-75 sm:h-16 sm:pl-4 md:pl-6"
+          className="inline-flex h-14 items-center shrink-0 pl-1 transition-opacity duration-300 ease-out hover:opacity-75 sm:h-16 sm:pl-1.5"
           aria-label={siteName}
           aria-current={pathname === "/" ? "page" : undefined}
         >
