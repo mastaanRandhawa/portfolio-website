@@ -6,7 +6,7 @@ on:
     paths:
       - "backend/**"
       - "packages/shared/**"
-      - "package-lock.json"
+      - "backend/package-lock.json"
   workflow_dispatch:
 
 jobs:
@@ -19,14 +19,15 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
+          cache-dependency-path: backend/package-lock.json
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --prefix backend
 
       - name: Build backend
-        run: npm run build -w backend
+        run: npm run build --prefix backend
 
       - name: Verify health route compiles
         run: node -e "import('./backend/dist/index.js').catch(() => process.exit(0))"

@@ -2,18 +2,22 @@
   "name": "portfolio-frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:cloudflare": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy": "wrangler deploy",
+    "version:upload": "wrangler versions upload"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
     "@hookform/resolvers": "^5.4.0",
     "@paper-design/shaders-react": "^0.0.76",
-    "@portfolio/shared": "*",
+    "@portfolio/shared": "file:../packages/shared",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
@@ -22,6 +26,7 @@
     "lucide-react": "^1.17.0",
     "motion": "^12.40.0",
     "next": "16.2.7",
+    "portfolio-website": "file:..",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.77.0",
@@ -38,6 +43,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.86.0"
   }
 }

@@ -2,9 +2,9 @@ services:
   - type: web
     name: doxa-studios-api
     runtime: node
-    rootDir: .
-    buildCommand: npm ci && npm run build -w backend
-    startCommand: npm run start -w backend
+    rootDir: backend
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV

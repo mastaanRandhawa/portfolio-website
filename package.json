@@ -5,27 +5,20 @@
   "engines": {
     "node": ">=22.0.0"
   },
-  "workspaces": [
-    "frontend",
-    "backend",
-    "packages/shared"
-  ],
   "scripts": {
-    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "setup": "npm install --prefix packages/shared && npm install --prefix frontend && npm install --prefix backend",
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
     "build": "node scripts/build.mjs",
-    "build:all": "npm run build -w backend && npm run build -w frontend",
-    "build:cloudflare": "npm run build -w frontend",
-    "deploy:cloudflare": "node scripts/deploy.mjs",
-    "version:cloudflare": "node scripts/version.mjs",
-    "lint": "npm run lint -w frontend && npm run lint -w backend",
-    "db:generate": "npm run db:generate -w backend",
-    "db:migrate": "npm run db:migrate -w backend",
-    "db:migrate:deploy": "npm run db:migrate:deploy -w backend",
-    "db:seed": "npm run db:seed -w backend",
-    "db:studio": "npm run db:studio -w backend"
+    "build:all": "npm run build --prefix backend && npm run build --prefix frontend",
+    "build:cloudflare": "npm run build --prefix frontend",
+    "lint": "npm run lint --prefix frontend && npm run lint --prefix backend",
+    "db:generate": "npm run db:generate --prefix backend",
+    "db:migrate": "npm run db:migrate --prefix backend",
+    "db:migrate:deploy": "npm run db:migrate:deploy --prefix backend",
+    "db:seed": "npm run db:seed --prefix backend",
+    "db:studio": "npm run db:studio --prefix backend"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2",
-    "wrangler": "^4.86.0"
+    "concurrently": "^9.1.2"
   }
 }
