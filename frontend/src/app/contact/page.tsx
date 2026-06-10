@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { ContactForm } from "@/components/sections/contact-form";
 import { JsonLd } from "@/components/layout/json-ld";
-import { fetchSiteConfig } from "@/lib/api";
+import { getSiteConfig } from "@/lib/content";
 import {
   getContactVisibility,
   getFormattedAddressLines,
@@ -20,8 +20,8 @@ export async function generateMetadata() {
   });
 }
 
-export default async function ContactPage() {
-  const site = await fetchSiteConfig();
+export default function ContactPage() {
+  const site = getSiteConfig();
   const visibility = getContactVisibility(site.contact);
   const location = getFormattedLocation(site.contact);
   const addressLines = getFormattedAddressLines(site.contact);

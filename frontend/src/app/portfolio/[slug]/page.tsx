@@ -4,11 +4,11 @@ import { notFound } from "next/navigation";
 import { ExternalLink, ArrowLeft, ArrowRight } from "lucide-react";
 import { JsonLd } from "@/components/layout/json-ld";
 import {
-  fetchAllProjects,
-  fetchProjectBySlug,
-  fetchProjectSlugs,
-  fetchSiteConfig,
-} from "@/lib/api";
+  getAllProjects,
+  getProjectBySlug,
+  getProjectSlugs,
+  getSiteConfig,
+} from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { buildPageSchemaGraph, projectSchema } from "@/lib/schema";
 
@@ -17,13 +17,13 @@ interface ProjectPageProps {
 }
 
 export async function generateStaticParams() {
-  const slugs = await fetchProjectSlugs();
+  const slugs = getProjectSlugs();
   return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const project = await fetchProjectBySlug(slug);
+  const project = getProjectBySlug(slug);
   if (!project) {
     return buildMetadata({ title: "Project Not Found", path: `/portfolio/${slug}`, noIndex: true });
   }
@@ -39,11 +39,9 @@ export async function generateMetadata({ params }: ProjectPageProps) {
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const [project, site, allProjects] = await Promise.all([
-    fetchProjectBySlug(slug),
-    fetchSiteConfig(),
-    fetchAllProjects(),
-  ]);
+  const project = getProjectBySlug(slug);
+  const site = getSiteConfig();
+  const allProjects = getAllProjects();
   if (!project) notFound();
 
   const relatedProjects = allProjects

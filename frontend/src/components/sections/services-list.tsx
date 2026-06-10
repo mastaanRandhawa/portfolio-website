@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { GalleryGlyph } from "@/components/ui/gallery-glyphs";
 import { LinkButton } from "@/components/ui/link-button";
-import { MOBILE_LIST_LIMIT } from "@/components/ui/mobile-truncated-list";
+import { MOBILE_LIST_LIMIT } from "@/lib/constants";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { cn } from "@/lib/utils";
 import type { Service } from "@/lib/types";

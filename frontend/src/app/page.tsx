@@ -6,11 +6,11 @@ import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { FinalCta } from "@/components/sections/final-cta";
 import { JsonLd } from "@/components/layout/json-ld";
 import {
-  fetchSiteConfig,
-  fetchFeaturedProjects,
-  fetchServices,
-  fetchTestimonials,
-} from "@/lib/api";
+  getFeaturedProjects,
+  getServices,
+  getSiteConfig,
+  getTestimonials,
+} from "@/lib/content";
 import { buildHomeSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
@@ -31,20 +31,18 @@ const TestimonialsCarousel = dynamic(
 );
 
 export async function generateMetadata() {
-  const site = await fetchSiteConfig();
+  const site = getSiteConfig();
   return buildMetadata({
     description: `${site.description} Based in Vancouver, BC. Request a free quote today.`,
     path: "",
   });
 }
 
-export default async function HomePage() {
-  const [site, projects, services, testimonials] = await Promise.all([
-    fetchSiteConfig(),
-    fetchFeaturedProjects(),
-    fetchServices(),
-    fetchTestimonials(),
-  ]);
+export default function HomePage() {
+  const site = getSiteConfig();
+  const projects = getFeaturedProjects();
+  const services = getServices();
+  const testimonials = getTestimonials();
 
   return (
     <>

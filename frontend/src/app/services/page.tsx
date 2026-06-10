@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { ServicesList } from "@/components/sections/services-list";
 import { JsonLd } from "@/components/layout/json-ld";
-import { fetchServices, fetchSiteConfig } from "@/lib/api";
+import { getServices, getSiteConfig } from "@/lib/content";
 import { buildPageSchemaGraph, serviceSchema } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
@@ -14,8 +14,9 @@ export async function generateMetadata() {
   });
 }
 
-export default async function ServicesPage() {
-  const [services, site] = await Promise.all([fetchServices(), fetchSiteConfig()]);
+export default function ServicesPage() {
+  const services = getServices();
+  const site = getSiteConfig();
 
   return (
     <>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { MOBILE_LIST_LIMIT } from "@/components/ui/mobile-truncated-list";
+import { MOBILE_LIST_LIMIT } from "@/lib/constants";
 import type { AboutContent } from "@/lib/types";
 
 const categories = ["frontend", "backend", "design"] as const;

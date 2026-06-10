@@ -46,10 +46,6 @@ const iconMap: Record<string, LucideIcon> = {
   Headphones,
 };
 
-export function getIcon(name: string): LucideIcon {
-  return iconMap[name] ?? Sparkles;
-}
-
 export function DynamicIcon({
   name,
   className,

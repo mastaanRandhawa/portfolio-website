@@ -25,7 +25,6 @@
   "dependencies": {
     "@hono/node-server": "^1.14.4",
     "@prisma/client": "^6.9.0",
-    "gray-matter": "^4.0.3",
     "hono": "^4.7.11",
     "resend": "^6.12.4",
     "zod": "^4.4.3"

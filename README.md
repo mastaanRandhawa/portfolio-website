@@ -4,7 +4,7 @@ Independent **frontend** (Next.js static export on Cloudflare Workers) and **bac
 
 **Production:** [https://doxastudios.ca](https://doxastudios.ca)
 
-Each project (`frontend/`, `backend/`) is fully self-contained with its own dependencies, content, and build pipeline. Neither project requires the other to build or deploy.
+Each project (`frontend/`, `backend/`) is fully self-contained with its own dependencies, content, and build pipeline.
 
 ## Frontend — Cloudflare Workers
 
@@ -18,9 +18,7 @@ Connect the repository in **Cloudflare Dashboard → Workers & Pages → Create 
 | Build command | `npm run build` |
 | Deploy command | `npx wrangler deploy` |
 
-The build produces a static export in `frontend/out`. Wrangler uploads that directory via [`frontend/wrangler.toml`](frontend/wrangler.toml).
-
-Content lives in [`frontend/content/`](frontend/content/) and is read at build time. No backend files are required.
+Content lives in [`frontend/content/`](frontend/content/) and is read at build time.
 
 ### Environment variables (Production)
 
@@ -31,13 +29,13 @@ Content lives in [`frontend/content/`](frontend/content/) and is read at build t
 
 Optional: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_CALENDLY_URL`
 
-**Do not set `CLOUDFLARE_API_TOKEN` in build variables.** Workers Builds authenticates via the Git connection.
+**Do not set `CLOUDFLARE_API_TOKEN` in build variables.**
 
 ### Custom domain
 
 Add **doxastudios.ca** under **Custom domains** and enable HTTPS.
 
-For **www → apex** redirect, use **Cloudflare Dashboard → Rules → Redirect Rules** (Workers `_redirects` only supports relative paths, not full URLs):
+For **www → apex**, use **Cloudflare Dashboard → Rules → Redirect Rules**:
 
 | Field | Value |
 |-------|-------|
@@ -46,7 +44,7 @@ For **www → apex** redirect, use **Cloudflare Dashboard → Rules → Redirect
 
 ### Edit site content
 
-Update files in [`frontend/content/`](frontend/content/) — e.g. [`frontend/content/site.json`](frontend/content/site.json) for contact info. Push to Git to redeploy.
+Update files in [`frontend/content/`](frontend/content/). Push to Git to redeploy.
 
 ### Local frontend
 
@@ -56,18 +54,11 @@ npm install
 npm run dev
 ```
 
-### Local build and deploy
-
-```powershell
-cd frontend
-npm install
-npm run build
-npm run deploy
-```
-
 ## Backend — Render / Railway
 
-See [`backend/.env.example`](backend/.env.example). Content for API routes lives in [`backend/content/`](backend/content/).
+Minimal API for health checks and contact form submissions (`POST /api/contact`). The live site contact form currently uses `mailto:`.
+
+See [`backend/.env.example`](backend/.env.example). Contact email routing reads [`backend/content/site.json`](backend/content/site.json).
 
 ```powershell
 cd backend
@@ -75,4 +66,4 @@ npm install
 npm run dev
 ```
 
-Deploy via Render using [`backend/render.yaml`](backend/render.yaml), or connect the `backend/` directory to Railway.
+Deploy via [`backend/render.yaml`](backend/render.yaml) or Railway.

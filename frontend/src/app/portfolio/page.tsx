@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { PortfolioFilters } from "@/components/sections/portfolio-filters";
 import { JsonLd } from "@/components/layout/json-ld";
-import { fetchAllProjects, fetchSiteConfig } from "@/lib/api";
+import { getAllProjects, getSiteConfig } from "@/lib/content";
 import { buildPageSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
@@ -14,8 +14,9 @@ export async function generateMetadata() {
   });
 }
 
-export default async function PortfolioPage() {
-  const [projects, site] = await Promise.all([fetchAllProjects(), fetchSiteConfig()]);
+export default function PortfolioPage() {
+  const projects = getAllProjects();
+  const site = getSiteConfig();
 
   return (
     <>

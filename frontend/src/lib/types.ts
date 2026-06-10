@@ -127,9 +127,3 @@ export interface AboutContent {
     design: string[];
   };
 }
-
-export interface ProjectFilters {
-  industry?: string;
-  projectType?: string;
-  technology?: string;
-}

@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { fetchSiteConfig } from "@/lib/api";
+import { getSiteConfig } from "@/lib/content";
 import { getSiteUrl } from "@/lib/site-url";
 
 export const dynamic = "force-static";
 
-export default async function robots(): Promise<MetadataRoute.Robots> {
-  const site = await fetchSiteConfig();
+export default function robots(): MetadataRoute.Robots {
+  const site = getSiteConfig();
   return {
     rules: {
       userAgent: "*",

@@ -19,20 +19,3 @@ export function LinkButton({
     />
   );
 }
-
-type ExternalLinkButtonProps = React.ComponentProps<"a"> &
-  VariantProps<typeof buttonVariants>;
-
-export function ExternalLinkButton({
-  className,
-  variant,
-  size,
-  ...props
-}: ExternalLinkButtonProps) {
-  return (
-    <a
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  );
-}

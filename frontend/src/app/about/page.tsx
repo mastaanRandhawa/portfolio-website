@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/layout/page-header";
 import { SkillsSection } from "@/components/sections/skills-section";
 import { JsonLd } from "@/components/layout/json-ld";
-import { fetchAboutContent, fetchSiteConfig } from "@/lib/api";
+import { getAboutContent, getSiteConfig } from "@/lib/content";
 import { buildPageSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
@@ -16,8 +16,9 @@ export async function generateMetadata() {
   });
 }
 
-export default async function AboutPage() {
-  const [about, site] = await Promise.all([fetchAboutContent(), fetchSiteConfig()]);
+export default function AboutPage() {
+  const about = getAboutContent();
+  const site = getSiteConfig();
 
   return (
     <>

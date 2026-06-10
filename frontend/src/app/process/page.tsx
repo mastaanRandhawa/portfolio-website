@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { PageHeader } from "@/components/layout/page-header";
 import { ProcessFlow } from "@/components/sections/process-flow";
 import { JsonLd } from "@/components/layout/json-ld";
-import { fetchProcessSteps, fetchSiteConfig } from "@/lib/api";
+import { getProcessSteps, getSiteConfig } from "@/lib/content";
 import { buildPageSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
@@ -16,8 +16,9 @@ export async function generateMetadata() {
   });
 }
 
-export default async function ProcessPage() {
-  const [steps, site] = await Promise.all([fetchProcessSteps(), fetchSiteConfig()]);
+export default function ProcessPage() {
+  const steps = getProcessSteps();
+  const site = getSiteConfig();
 
   return (
     <>

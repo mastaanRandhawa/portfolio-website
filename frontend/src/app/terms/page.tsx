@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
 import { JsonLd } from "@/components/layout/json-ld";
-import { fetchSiteConfig } from "@/lib/api";
+import { getSiteConfig } from "@/lib/content";
 import { buildPageSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
@@ -13,8 +13,8 @@ export async function generateMetadata() {
   });
 }
 
-export default async function TermsPage() {
-  const site = await fetchSiteConfig();
+export default function TermsPage() {
+  const site = getSiteConfig();
 
   return (
     <>

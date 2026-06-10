@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { CalendlyEmbed } from "@/components/sections/calendly-embed";
 import { JsonLd } from "@/components/layout/json-ld";
-import { fetchSiteConfig } from "@/lib/api";
+import { getSiteConfig } from "@/lib/content";
 import { buildPageSchemaGraph } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo";
 
@@ -14,8 +14,8 @@ export async function generateMetadata() {
   });
 }
 
-export default async function BookConsultationPage() {
-  const site = await fetchSiteConfig();
+export default function BookConsultationPage() {
+  const site = getSiteConfig();
 
   return (
     <>

@@ -10,7 +10,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: CORS_ORIGINS
-        value: https://mastaanrandhawa.github.io,http://localhost:3000
+        value: https://doxastudios.ca,http://localhost:3000
       - key: RESEND_API_KEY
         sync: false
       - key: RESEND_FROM_EMAIL

@@ -6,7 +6,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
   CORS_ORIGINS: z
     .string()
-    .default("http://localhost:3000,https://mastaanrandhawa.github.io"),
+    .default("http://localhost:3000,https://doxastudios.ca"),
   RESEND_API_KEY: z.string().optional(),
   RESEND_FROM_EMAIL: z.string().optional(),
 });

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { fetchSiteConfig } from "./api";
+import { getSiteConfig } from "./content";
 import { DOXA_LOGO_PATH, getLogoUrl } from "./brand";
 import { getCanonicalUrl, getOgImageUrl } from "./site-url";
 
@@ -20,7 +20,7 @@ export async function buildMetadata({
   noIndex = false,
   openGraphType = "website",
 }: BuildMetadataOptions = {}): Promise<Metadata> {
-  const site = await fetchSiteConfig();
+  const site = getSiteConfig();
   const pageTitle = title ? `${title} | ${site.name}` : `${site.name} — ${site.tagline}`;
   const pageDescription = description ?? site.description;
   const url = getCanonicalUrl(site.url, path);

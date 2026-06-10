@@ -122,5 +122,3 @@ export function HeroDitheringCard({
     </section>
   );
 }
-
-export { HeroDitheringCard as CTASection };

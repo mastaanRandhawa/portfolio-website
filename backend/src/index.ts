@@ -4,7 +4,6 @@ import { loadEnv } from "./config/env.js";
 import { corsHeaders } from "./middleware/cors.js";
 import { prisma } from "./lib/prisma.js";
 import { healthRoutes } from "./routes/health.js";
-import { contentRoutes } from "./routes/content.js";
 import { createContactRoutes } from "./routes/contact.js";
 
 const env = loadEnv();
@@ -30,7 +29,6 @@ app.use("*", async (c, next) => {
 });
 
 app.route("/", healthRoutes);
-app.route("/", contentRoutes);
 app.route("/", createContactRoutes(env));
 
 app.notFound((c) => c.json({ error: "Not found" }, 404));

@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
-import { fetchSiteConfig, fetchProjectSlugs } from "@/lib/api";
-import { getProjectLastModified } from "@/lib/content";
+import { getProjectLastModified, getProjectSlugs, getSiteConfig } from "@/lib/content";
 import { getCanonicalUrl } from "@/lib/site-url";
 
 export const dynamic = "force-static";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [site, slugs] = await Promise.all([fetchSiteConfig(), fetchProjectSlugs()]);
+export default function sitemap(): MetadataRoute.Sitemap {
+  const site = getSiteConfig();
+  const slugs = getProjectSlugs();
 
   const staticRoutes: { path: string; priority: number; lastModified: Date }[] = [
     { path: "", priority: 1, lastModified: new Date("2026-06-01") },

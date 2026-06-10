@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { MOBILE_LIST_LIMIT } from "@/components/ui/mobile-truncated-list";
+import { MOBILE_LIST_LIMIT } from "@/lib/constants";
 import { ServiceCard } from "./service-card";
 import type { Service } from "@/lib/types";
 

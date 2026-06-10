@@ -4,7 +4,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Analytics } from "@/components/layout/analytics";
 import { JsonLd } from "@/components/layout/json-ld";
-import { fetchSiteConfig } from "@/lib/api";
+import { getSiteConfig } from "@/lib/content";
 import { buildMetadata, defaultViewport } from "@/lib/seo";
 import { buildGlobalSchemaGraph } from "@/lib/schema";
 import "./globals.css";
@@ -28,12 +28,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export const viewport = defaultViewport;
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const site = await fetchSiteConfig();
+  const site = getSiteConfig();
 
   return (
     <html
