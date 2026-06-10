@@ -17,11 +17,11 @@ Connect this repo in **Cloudflare Dashboard → Workers & Pages → Create → P
 | Build command | `npm run build` |
 | Build output directory | `frontend/out` |
 | Deploy command | `npm run deploy:cloudflare` |
-| Version command | *(leave empty)* |
+| Version command | `npm run version:cloudflare` |
 
-The deploy command uses `wrangler pages deploy` with an explicit output path and project name. Do **not** use bare `npx wrangler deploy` from the monorepo root — Wrangler 4 cannot auto-detect a single app in npm workspaces and will fail.
+Wrangler must run from **`frontend/`**, not the monorepo root. Running `npx wrangler deploy` at the repo root fails because npm workspaces contain multiple packages. [`scripts/deploy.mjs`](scripts/deploy.mjs) runs `wrangler deploy` inside `frontend/` using [`frontend/wrangler.toml`](frontend/wrangler.toml).
 
-> **Monorepo note:** This repo has multiple `package.json` files (`frontend`, `backend`, `packages/shared`). Cloudflare sets `CF_PAGES=1` during builds, so [`scripts/build.mjs`](scripts/build.mjs) builds only the frontend static export — not the backend.
+> **Monorepo note:** Cloudflare sets `CF_PAGES=1` during builds, so [`scripts/build.mjs`](scripts/build.mjs) builds only the frontend static export — not the backend.
 
 ### Environment variables (Production)
 
@@ -31,8 +31,6 @@ The deploy command uses `wrangler pages deploy` with an explicit output path and
 | `NEXT_PUBLIC_SITE_URL` | `https://doxastudios.ca` |
 
 Optional: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_CALENDLY_URL`
-
-> **Important:** Wrangler 4.x requires Node 22+. Set `NODE_VERSION=22` in the Cloudflare dashboard (Production and Preview).
 
 ### Custom domain
 
@@ -50,7 +48,7 @@ npm run build
 # Output: frontend/out
 ```
 
-## Local deploy (matches Cloudflare)
+## Local deploy
 
 ```powershell
 $env:CF_PAGES = "1"

@@ -1,8 +1,0 @@
-# Cloudflare Pages — monorepo static site (Next.js export)
-# Requires Node.js 22+ (Wrangler 4.x). Set NODE_VERSION=22 in Cloudflare dashboard.
-# Deploy via: npm run deploy:cloudflare
-# (wrangler pages deploy frontend/out --project-name=portfolio-website)
-# Update `name` to match your Pages project in the Cloudflare dashboard.
-name = "portfolio-website"
-pages_build_output_dir = "frontend/out"
-compatibility_date = "2026-06-09"

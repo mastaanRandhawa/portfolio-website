@@ -1,0 +1,6 @@
+# Cloudflare Pages — deploy from this directory (not the monorepo root).
+# Wrangler fails at the workspace root; CI runs deploy with cwd = frontend/.
+# Update `name` to match your Pages project in the Cloudflare dashboard.
+name = "portfolio-website"
+pages_build_output_dir = "out"
+compatibility_date = "2026-06-09"
