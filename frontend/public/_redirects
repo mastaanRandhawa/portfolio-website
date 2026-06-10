@@ -1,2 +1,3 @@
-# Redirect www to apex (also configure in Cloudflare DNS/dashboard)
-https://www.doxastudios.ca/*  https://doxastudios.ca/:splat  301
+# www → apex redirects are not supported here (Workers _redirects requires relative paths).
+# Configure in Cloudflare Dashboard → Rules → Redirect Rules:
+#   If hostname equals www.doxastudios.ca → redirect to https://doxastudios.ca/$1 (301)

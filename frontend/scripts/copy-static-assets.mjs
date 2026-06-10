@@ -8,18 +8,15 @@ const publicDir = path.join(frontendDir, "public");
 
 const requiredOutputs = ["_headers", "_redirects", "robots.txt", "sitemap.xml"];
 
-function copyIfMissing(filename) {
+function copyFromPublic(filename) {
   const source = path.join(publicDir, filename);
   const target = path.join(outDir, filename);
-
-  if (fs.existsSync(target)) return;
 
   if (!fs.existsSync(source)) {
     throw new Error(`Missing source file: public/${filename}`);
   }
 
   fs.copyFileSync(source, target);
-  console.log(`Copied public/${filename} -> out/${filename}`);
 }
 
 if (!fs.existsSync(outDir)) {
@@ -27,7 +24,7 @@ if (!fs.existsSync(outDir)) {
 }
 
 for (const filename of ["_headers", "_redirects"]) {
-  copyIfMissing(filename);
+  copyFromPublic(filename);
 }
 
 const missing = requiredOutputs.filter((filename) => !fs.existsSync(path.join(outDir, filename)));

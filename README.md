@@ -15,7 +15,7 @@ Connect the repository in **Cloudflare Dashboard → Workers & Pages → Create 
 | Setting | Value |
 |---------|-------|
 | Root directory | `frontend` |
-| Build command | `npm ci --include=optional && npm run build` |
+| Build command | `npm run build` |
 | Deploy command | `npx wrangler deploy` |
 
 The build produces a static export in `frontend/out`. Wrangler uploads that directory via [`frontend/wrangler.toml`](frontend/wrangler.toml).
@@ -36,6 +36,13 @@ Optional: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_CALENDLY_U
 ### Custom domain
 
 Add **doxastudios.ca** under **Custom domains** and enable HTTPS.
+
+For **www → apex** redirect, use **Cloudflare Dashboard → Rules → Redirect Rules** (Workers `_redirects` only supports relative paths, not full URLs):
+
+| Field | Value |
+|-------|-------|
+| When | Hostname equals `www.doxastudios.ca` |
+| Then | Static redirect to `https://doxastudios.ca/${uri.path}` (301) |
 
 ### Edit site content
 
