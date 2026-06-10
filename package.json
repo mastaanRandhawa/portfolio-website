@@ -12,6 +12,7 @@
     "build": "node scripts/build.mjs",
     "build:all": "npm run build -w backend && npm run build -w frontend",
     "build:cloudflare": "npm run build -w frontend",
+    "deploy:cloudflare": "wrangler deploy --config wrangler.toml",
     "lint": "npm run lint -w frontend && npm run lint -w backend",
     "db:generate": "npm run db:generate -w backend",
     "db:migrate": "npm run db:migrate -w backend",

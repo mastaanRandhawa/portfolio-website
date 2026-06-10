@@ -1,0 +1,6 @@
+# Cloudflare Pages — monorepo static site (Next.js export)
+# Tells Wrangler which project to deploy when run from the repository root.
+# Update `name` to match your Pages project in the Cloudflare dashboard.
+name = "portfolio-website"
+pages_build_output_dir = "frontend/out"
+compatibility_date = "2026-06-09"
