@@ -19,6 +19,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate Cloudflare secrets
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ]; then
+            echo "::error::Missing CLOUDFLARE_API_TOKEN repository secret."
+            echo "Create an API token at https://dash.cloudflare.com/profile/api-tokens"
+            echo "Use the 'Edit Cloudflare Workers' template (includes Pages permissions)."
+            exit 1
+          fi
+          if [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "::error::Missing CLOUDFLARE_ACCOUNT_ID repository secret."
+            echo "Find your Account ID in the Cloudflare dashboard URL or Overview page."
+            exit 1
+          fi
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -33,11 +47,18 @@ jobs:
         env:
           CF_PAGES: "1"
           NEXT_PUBLIC_SITE_URL: https://doxastudios.ca
-          NODE_VERSION: "20"
+
+      - name: Verify build output
+        run: |
+          test -d frontend/out || (echo "::error::frontend/out not found — check build output directory" && exit 1)
+          test -f frontend/out/index.html || (echo "::error::frontend/out/index.html missing" && exit 1)
+          ls -la frontend/out | head -20
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy frontend/out --project-name=doxa-studios --branch=${{ github.ref_name }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          wranglerVersion: "3"
+          command: pages deploy frontend/out --project-name=doxa-studios --commit-dirty=true
