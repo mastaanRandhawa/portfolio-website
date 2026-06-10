@@ -19,7 +19,7 @@ export function DoxaLogo({
     <img
       src={DOXA_LOGO_PATH}
       alt=""
-      width={112}
+      width={170}
       height={68}
       decoding="async"
       fetchPriority={priority ? "high" : "auto"}

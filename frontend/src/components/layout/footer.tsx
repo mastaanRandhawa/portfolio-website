@@ -179,7 +179,7 @@ export function Footer({ site }: { site: SiteConfig }) {
             className="mb-8 inline-flex transition-opacity duration-300 ease-out hover:opacity-75"
             aria-label={site.name}
           >
-            <DoxaLogo variant="inverse" className="h-8 w-auto" />
+            <DoxaLogo variant="inverse" className="h-12 w-auto" />
           </Link>
 
           <div className="flex items-center justify-between gap-6 border-b border-off-white/15 pb-6">
@@ -284,7 +284,7 @@ export function Footer({ site }: { site: SiteConfig }) {
                 className="inline-flex transition-opacity duration-300 ease-out hover:opacity-75"
                 aria-label={site.name}
               >
-                <DoxaLogo className="h-10 w-auto" />
+                <DoxaLogo className="h-14 w-auto" />
               </Link>
               <p className="mt-6 gallery-prose max-w-xs">{site.description}</p>
               {activeSocials.length > 0 && (

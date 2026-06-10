@@ -8,8 +8,8 @@
   "theme_color": "#1a1a1a",
   "icons": [
     {
-      "src": "doxa-logo.svg",
-      "sizes": "260x68",
+      "src": "icon.svg",
+      "sizes": "170x68",
       "type": "image/svg+xml"
     }
   ]

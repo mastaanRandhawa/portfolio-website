@@ -52,7 +52,7 @@ export async function buildMetadata({
       locale: "en_CA",
       images: [
         { url: ogImage, width: 1200, height: 630, alt: pageTitle },
-        { url: logoUrl, width: 260, height: 68, alt: `${site.name} logo` },
+        { url: logoUrl, width: 170, height: 68, alt: `${site.name} logo` },
       ],
     },
     twitter: {

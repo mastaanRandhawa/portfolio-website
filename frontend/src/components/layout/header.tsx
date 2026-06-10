@@ -88,11 +88,11 @@ export function Header({ siteName }: { siteName: string }) {
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:gap-8 sm:px-8 sm:py-4 lg:px-16 lg:py-5">
         <Link
           href="/"
-          className="inline-flex h-11 items-center shrink-0 transition-opacity duration-300 ease-out hover:opacity-75"
+          className="inline-flex h-14 items-center shrink-0 pl-3 transition-opacity duration-300 ease-out hover:opacity-75 sm:h-16 sm:pl-4 md:pl-6"
           aria-label={siteName}
           aria-current={pathname === "/" ? "page" : undefined}
         >
-          <DoxaLogo className="h-8 w-auto sm:h-9 md:h-10" priority />
+          <DoxaLogo className="h-11 w-auto sm:h-12 md:h-14" priority />
         </Link>
 
         <nav
@@ -139,7 +139,7 @@ export function Header({ siteName }: { siteName: string }) {
                   className="inline-flex transition-opacity duration-300 ease-out hover:opacity-75"
                   aria-label={siteName}
                 >
-                  <DoxaLogo className="h-10 w-auto" />
+                  <DoxaLogo className="h-14 w-auto" />
                 </Link>
               </SheetHeader>
               <nav
