@@ -16,10 +16,10 @@ Connect this repo in **Cloudflare Dashboard → Workers & Pages → Create → P
 | Root directory | `/` |
 | Build command | `npm run build` |
 | Build output directory | `frontend/out` |
-| Deploy command | `npx wrangler deploy` |
-| Version command | `npx wrangler versions upload` |
+| Deploy command | `npm run deploy:cloudflare` |
+| Version command | *(leave empty)* |
 
-Root [`wrangler.toml`](wrangler.toml) sets `pages_build_output_dir = "frontend/out"` and the Pages project name. Wrangler reads it automatically when run from the repository root.
+The deploy command uses `wrangler pages deploy` with an explicit output path and project name. Do **not** use bare `npx wrangler deploy` from the monorepo root — Wrangler 4 cannot auto-detect a single app in npm workspaces and will fail.
 
 > **Monorepo note:** This repo has multiple `package.json` files (`frontend`, `backend`, `packages/shared`). Cloudflare sets `CF_PAGES=1` during builds, so [`scripts/build.mjs`](scripts/build.mjs) builds only the frontend static export — not the backend.
 
@@ -32,7 +32,7 @@ Root [`wrangler.toml`](wrangler.toml) sets `pages_build_output_dir = "frontend/o
 
 Optional: `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_CLARITY_ID`, `NEXT_PUBLIC_CALENDLY_URL`
 
-> **Important:** If you previously set `NODE_VERSION=20` in the Cloudflare dashboard, change it to **`22`**. Wrangler 4.x (used by `npx wrangler deploy`) requires Node 22+. The repo `.nvmrc` / `.node-version` files also pin Node 22.
+> **Important:** Wrangler 4.x requires Node 22+. Set `NODE_VERSION=22` in the Cloudflare dashboard (Production and Preview).
 
 ### Custom domain
 
