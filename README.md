@@ -15,7 +15,7 @@ Connect the repository in **Cloudflare Dashboard → Workers & Pages → Create 
 | Setting | Value |
 |---------|-------|
 | Root directory | `frontend` |
-| Build command | `npm ci && npm run build` |
+| Build command | `npm ci --include=optional && npm run build` |
 | Deploy command | `npx wrangler deploy` |
 
 The build produces a static export in `frontend/out`. Wrangler uploads that directory via [`frontend/wrangler.toml`](frontend/wrangler.toml).
