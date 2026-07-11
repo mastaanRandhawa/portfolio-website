@@ -27,7 +27,7 @@ function ProjectImagePanel({ projects }: { projects: Project[] }) {
   const { activeSlide } = useHoverSliderContext();
 
   return (
-    <HoverSliderImageWrap className="relative aspect-[4/5] w-full max-w-full overflow-hidden sm:max-w-md lg:max-w-xl lg:shrink-0">
+    <HoverSliderImageWrap className="relative aspect-[16/10] w-full max-w-full overflow-hidden border border-border/50">
       {projects.map((project, index) => (
         <motion.div
           key={project.slug}
@@ -217,7 +217,7 @@ export function ProjectsHoverSlider({
           />
         </div>
 
-        <div className="hidden lg:block">
+        <div className="hidden lg:block lg:w-[34rem] lg:shrink-0 xl:w-[38rem]">
           <ProjectImagePanel projects={projects} />
         </div>
       </div>

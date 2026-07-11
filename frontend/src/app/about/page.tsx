@@ -11,7 +11,7 @@ export async function generateMetadata() {
   return buildMetadata({
     title: "About",
     description:
-      "Learn about Doxa Studios — a Vancouver web design and development studio with 5+ years of experience delivering high-performance websites.",
+      "Learn about Doxa Studios — a Vancouver web design and development studio delivering fast, high-performance websites.",
     path: "/about",
   });
 }
@@ -36,19 +36,6 @@ export default function AboutPage() {
       <PageHeader title="About Us" description={about.introduction} />
       <section className="gallery-section pt-0">
         <div className="gallery-container">
-          <div className="gallery-card-muted mb-16 grid grid-cols-2 gap-6 sm:mb-24 sm:grid-cols-3 sm:gap-12 lg:mb-32">
-            {[
-              { value: about.experience.years, label: "Years in Business" },
-              { value: about.experience.projects, label: "Projects Completed" },
-              { value: about.experience.industries, label: "Industries Served" },
-            ].map((stat) => (
-              <div key={stat.label} className="flex flex-col gap-2 sm:gap-3 last:col-span-2 last:sm:col-span-1">
-                <p className="font-serif text-3xl tracking-[0.04em] min-[375px]:text-4xl sm:text-5xl">{stat.value}</p>
-                <p className="gallery-label">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-
           <div className="gallery-section-intro max-w-3xl">
             <p className="gallery-label mb-4 sm:mb-6">{about.mission.title}</p>
             <h2 className="gallery-subheading">{about.mission.statement}</h2>

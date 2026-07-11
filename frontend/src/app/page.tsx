@@ -1,6 +1,5 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/hero";
-import { TrustBar } from "@/components/sections/trust-bar";
 import { ServicesPreview } from "@/components/sections/services-preview";
 import { WhyChooseUs } from "@/components/sections/why-choose-us";
 import { FinalCta } from "@/components/sections/final-cta";
@@ -48,11 +47,10 @@ export default function HomePage() {
     <>
       <JsonLd data={buildHomeSchemaGraph(site, testimonials)} />
       <Hero site={site} />
-      <TrustBar stats={site.trustStats} />
       <ServicesPreview services={services} />
       <FeaturedProjects projects={projects} />
       <WhyChooseUs items={site.whyChooseUs} />
-      <TestimonialsCarousel testimonials={testimonials} />
+      {testimonials.length > 0 && <TestimonialsCarousel testimonials={testimonials} />}
       <FinalCta site={site} />
     </>
   );

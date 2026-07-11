@@ -57,11 +57,6 @@ export interface ProcessStep {
   icon: string;
 }
 
-export interface TrustStat {
-  value: string;
-  label: string;
-}
-
 export interface WhyChooseUsItem {
   title: string;
   description: string;
@@ -81,7 +76,6 @@ export interface SiteConfig {
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
   };
-  trustStats: TrustStat[];
   whyChooseUs: WhyChooseUsItem[];
   finalCta: {
     headline: string;
@@ -115,11 +109,6 @@ export interface AboutContent {
     title: string;
     statement: string;
     values: { title: string; description: string }[];
-  };
-  experience: {
-    years: string;
-    projects: string;
-    industries: string;
   };
   skills: {
     frontend: string[];
