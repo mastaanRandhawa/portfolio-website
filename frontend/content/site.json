@@ -11,12 +11,6 @@
     "primaryCta": { "label": "Get a Free Quote", "href": "/contact" },
     "secondaryCta": { "label": "View Portfolio", "href": "/portfolio" }
   },
-  "trustStats": [
-    { "value": "50+", "label": "Projects Delivered" },
-    { "value": "5+", "label": "Years Experience" },
-    { "value": "20+", "label": "Industries Served" },
-    { "value": "100%", "label": "Client Satisfaction" }
-  ],
   "whyChooseUs": [
     {
       "title": "Fast Performance",

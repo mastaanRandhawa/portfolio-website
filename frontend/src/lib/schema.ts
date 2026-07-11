@@ -212,11 +212,6 @@ export function buildPageSchemaGraph(
   };
 }
 
-/** @deprecated Use buildHomeSchemaGraph instead */
-export function aggregateRatingSchema(site: SiteConfig, testimonials: Testimonial[]) {
-  return localBusinessSchema(site, testimonials);
-}
-
 export function jsonLdScript(data: Record<string, unknown> | Record<string, unknown>[]) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
 }
